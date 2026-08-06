@@ -1,0 +1,17 @@
+[ 2026-08-06 12:47:51,579 ] 13 root - INFO - Application Started
+[ 2026-08-06 12:47:51,579 ] 25 root - INFO - ==================================================
+[ 2026-08-06 12:47:51,579 ] 26 root - INFO - Training Pipeline Started
+[ 2026-08-06 12:47:51,579 ] 27 root - INFO - ==================================================
+[ 2026-08-06 12:47:51,579 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-06 12:47:51,579 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-06 12:47:51,579 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-06 12:47:51,579 ] 22 root - ERROR - 'DataIngestion' object has no attribute 'initiate_data_ingestion'
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 29, in run_pipeline
+    self.start_data_ingestion()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 21, in start_data_ingestion
+    data_ingestion.initiate_data_ingestion()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataIngestion' object has no attribute 'initiate_data_ingestion'

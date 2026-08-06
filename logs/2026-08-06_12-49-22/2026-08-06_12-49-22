@@ -1,0 +1,37 @@
+[ 2026-08-06 12:49:23,113 ] 13 root - INFO - Application Started
+[ 2026-08-06 12:49:23,113 ] 25 root - INFO - ==================================================
+[ 2026-08-06 12:49:23,113 ] 26 root - INFO - Training Pipeline Started
+[ 2026-08-06 12:49:23,113 ] 27 root - INFO - ==================================================
+[ 2026-08-06 12:49:23,121 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-06 12:49:23,123 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-06 12:49:23,123 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-06 12:49:23,123 ] 78 root - INFO - ============================================================
+[ 2026-08-06 12:49:23,123 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-06 12:49:23,123 ] 80 root - INFO - ============================================================
+[ 2026-08-06 12:49:23,125 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py] line number[82] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py] line number[24] error_message [Dataset not found: data\raw\ai4i2020.zip]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py", line 24, in extract_data
+    raise FileNotFoundError(f"Dataset not found: {zip_path}")
+FileNotFoundError: Dataset not found: data\raw\ai4i2020.zip
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py", line 82, in initiate_data_ingestion
+    self.extract_data()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py", line 36, in extract_data
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py] line number[24] error_message [Dataset not found: data\raw\ai4i2020.zip]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 29, in run_pipeline
+    self.start_data_ingestion()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 21, in start_data_ingestion
+    data_ingestion.initiate_data_ingestion()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py", line 93, in initiate_data_ingestion
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py] line number[82] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_01_data_ingestion.py] line number[24] error_message [Dataset not found: data\raw\ai4i2020.zip]]

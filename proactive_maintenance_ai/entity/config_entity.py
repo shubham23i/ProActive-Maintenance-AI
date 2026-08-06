@@ -1,0 +1,45 @@
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass(frozen=True)
+class DataIngestionConfig:
+    root_dir: Path
+    local_data_file: Path
+    unzip_dir: Path
+    ingested_data_file: Path
+
+
+@dataclass(frozen=True)
+class DataValidationConfig:
+    root_dir: Path
+    status_file: Path
+    data_file: Path
+    schema_file: Path
+
+
+@dataclass(frozen=True)
+class DataPreprocessingConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    preprocessor_path: Path
+
+
+@dataclass(frozen=True)
+class FeatureEngineeringConfig:
+    root_dir: Path
+    train_features_path: Path
+    test_features_path: Path
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    trained_model_path: Path
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    metrics_file_path: Path

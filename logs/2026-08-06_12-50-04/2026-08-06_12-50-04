@@ -1,0 +1,20 @@
+[ 2026-08-06 12:50:05,094 ] 13 root - INFO - Application Started
+[ 2026-08-06 12:50:05,094 ] 25 root - INFO - ==================================================
+[ 2026-08-06 12:50:05,094 ] 26 root - INFO - Training Pipeline Started
+[ 2026-08-06 12:50:05,094 ] 27 root - INFO - ==================================================
+[ 2026-08-06 12:50:05,094 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-06 12:50:05,094 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-06 12:50:05,094 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-06 12:50:05,094 ] 78 root - INFO - ============================================================
+[ 2026-08-06 12:50:05,110 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-06 12:50:05,110 ] 80 root - INFO - ============================================================
+[ 2026-08-06 12:50:05,110 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-06 12:50:05,110 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-06 12:50:05,110 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-06 12:50:05,110 ] 86 root - INFO - ============================================================
+[ 2026-08-06 12:50:05,110 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-06 12:50:05,110 ] 88 root - INFO - ============================================================
+[ 2026-08-06 12:50:05,110 ] 31 root - INFO - ==================================================
+[ 2026-08-06 12:50:05,110 ] 32 root - INFO - Training Pipeline Completed
+[ 2026-08-06 12:50:05,110 ] 33 root - INFO - ==================================================
+[ 2026-08-06 12:50:05,110 ] 19 root - INFO - Application Finished Successfully
