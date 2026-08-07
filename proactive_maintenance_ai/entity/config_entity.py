@@ -14,8 +14,8 @@ class DataIngestionConfig:
 class DataValidationConfig:
     root_dir: Path
     status_file: Path
-    data_file: Path
     schema_file: Path
+    data_file: Path
 
 
 @dataclass(frozen=True)

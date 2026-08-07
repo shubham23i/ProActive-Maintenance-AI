@@ -1,0 +1,38 @@
+[ 2026-08-07 12:23:49,069 ] 13 root - INFO - Application Started
+[ 2026-08-07 12:23:49,069 ] 35 root - INFO - ==================================================
+[ 2026-08-07 12:23:49,069 ] 36 root - INFO - Training Pipeline Started
+[ 2026-08-07 12:23:49,069 ] 37 root - INFO - ==================================================
+[ 2026-08-07 12:23:49,072 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:23:49,080 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:23:49,080 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-07 12:23:49,081 ] 78 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,081 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-07 12:23:49,081 ] 80 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,081 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-07 12:23:49,088 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-07 12:23:49,090 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-07 12:23:49,090 ] 86 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,090 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-07 12:23:49,090 ] 88 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,093 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:23:49,093 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:23:49,094 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-07 12:23:49,094 ] 79 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,094 ] 80 root - INFO - Data Validation Started
+[ 2026-08-07 12:23:49,094 ] 81 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,094 ] 25 root - INFO - reading df
+[ 2026-08-07 12:23:49,132 ] 70 root - INFO - Data Validation Completed.
+[ 2026-08-07 12:23:49,132 ] 84 root - INFO - Validation Status: False
+[ 2026-08-07 12:23:49,133 ] 85 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,133 ] 86 root - INFO - Data Validation Completed
+[ 2026-08-07 12:23:49,133 ] 87 root - INFO - ============================================================
+[ 2026-08-07 12:23:49,133 ] 22 root - ERROR - CustomException.__init__() missing 1 required positional argument: 'error_details'
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 40, in run_pipeline
+    self.start_data_validation()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 30, in start_data_validation
+    raise CustomException("Data Validation Failed")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CustomException.__init__() missing 1 required positional argument: 'error_details'

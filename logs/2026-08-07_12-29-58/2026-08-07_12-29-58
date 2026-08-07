@@ -1,0 +1,34 @@
+[ 2026-08-07 12:29:58,875 ] 13 root - INFO - Application Started
+[ 2026-08-07 12:29:58,881 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:29:58,881 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:29:58,881 ] 47 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,881 ] 48 root - INFO - Training Pipeline Started
+[ 2026-08-07 12:29:58,881 ] 49 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,881 ] 18 root - INFO - Starting Data Ingestion...
+[ 2026-08-07 12:29:58,881 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-07 12:29:58,889 ] 78 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,889 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-07 12:29:58,889 ] 80 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,889 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-07 12:29:58,891 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-07 12:29:58,894 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-07 12:29:58,895 ] 86 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,895 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-07 12:29:58,895 ] 88 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,895 ] 26 root - INFO - Data Ingestion Completed.
+[ 2026-08-07 12:29:58,895 ] 30 root - INFO - Starting Data Validation...
+[ 2026-08-07 12:29:58,895 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-07 12:29:58,896 ] 103 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,896 ] 104 root - INFO - Data Validation Started
+[ 2026-08-07 12:29:58,896 ] 105 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,896 ] 31 root - INFO - reading df
+[ 2026-08-07 12:29:58,930 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-07 12:29:58,930 ] 108 root - INFO - Validation Status: True
+[ 2026-08-07 12:29:58,930 ] 109 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,930 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-07 12:29:58,930 ] 111 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,930 ] 41 root - INFO - Data Validation Completed.
+[ 2026-08-07 12:29:58,930 ] 55 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,931 ] 56 root - INFO - Training Pipeline Completed Successfully
+[ 2026-08-07 12:29:58,931 ] 57 root - INFO - ============================================================
+[ 2026-08-07 12:29:58,931 ] 19 root - INFO - Application Finished Successfully

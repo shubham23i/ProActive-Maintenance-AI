@@ -1,0 +1,52 @@
+[ 2026-08-07 12:26:51,766 ] 13 root - INFO - Application Started
+[ 2026-08-07 12:26:51,767 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:26:51,768 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:26:51,768 ] 47 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,768 ] 48 root - INFO - Training Pipeline Started
+[ 2026-08-07 12:26:51,768 ] 49 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,768 ] 18 root - INFO - Starting Data Ingestion...
+[ 2026-08-07 12:26:51,768 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-07 12:26:51,775 ] 78 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-07 12:26:51,775 ] 80 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-07 12:26:51,775 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-07 12:26:51,775 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-07 12:26:51,775 ] 86 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-07 12:26:51,775 ] 88 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 26 root - INFO - Data Ingestion Completed.
+[ 2026-08-07 12:26:51,775 ] 30 root - INFO - Starting Data Validation...
+[ 2026-08-07 12:26:51,775 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-07 12:26:51,775 ] 79 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 80 root - INFO - Data Validation Started
+[ 2026-08-07 12:26:51,775 ] 81 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,775 ] 25 root - INFO - reading df
+[ 2026-08-07 12:26:51,803 ] 70 root - INFO - Data Validation Completed.
+[ 2026-08-07 12:26:51,803 ] 84 root - INFO - Validation Status: False
+[ 2026-08-07 12:26:51,803 ] 85 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,803 ] 86 root - INFO - Data Validation Completed
+[ 2026-08-07 12:26:51,803 ] 87 root - INFO - ============================================================
+[ 2026-08-07 12:26:51,803 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[53] error_message ['NoneType' object has no attribute 'tb_frame']
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 53, in run_pipeline
+    self.start_data_validation()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 39, in start_data_validation
+    raise CustomException("Data Validation Failed", sys)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\exception\exception_handler.py", line 15, in __init__
+    self.error_message=error_message_details(error_message,error_details)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\exception\exception_handler.py", line 8, in error_message_details
+    filename=exc_tb.tb_frame.f_code.co_filename
+             ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'tb_frame'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 60, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[53] error_message ['NoneType' object has no attribute 'tb_frame']

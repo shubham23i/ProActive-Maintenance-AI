@@ -1,0 +1,37 @@
+[ 2026-08-07 12:24:49,526 ] 13 root - INFO - Application Started
+[ 2026-08-07 12:24:49,526 ] 35 root - INFO - ==================================================
+[ 2026-08-07 12:24:49,526 ] 36 root - INFO - Training Pipeline Started
+[ 2026-08-07 12:24:49,526 ] 37 root - INFO - ==================================================
+[ 2026-08-07 12:24:49,526 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:24:49,526 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:24:49,526 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-07 12:24:49,526 ] 78 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,541 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-07 12:24:49,541 ] 80 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,542 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-07 12:24:49,544 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-07 12:24:49,544 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-07 12:24:49,544 ] 86 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,544 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-07 12:24:49,544 ] 88 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,544 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-07 12:24:49,544 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-07 12:24:49,544 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-07 12:24:49,544 ] 79 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,544 ] 80 root - INFO - Data Validation Started
+[ 2026-08-07 12:24:49,544 ] 81 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,544 ] 25 root - INFO - reading df
+[ 2026-08-07 12:24:49,617 ] 70 root - INFO - Data Validation Completed.
+[ 2026-08-07 12:24:49,619 ] 84 root - INFO - Validation Status: False
+[ 2026-08-07 12:24:49,619 ] 85 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,619 ] 86 root - INFO - Data Validation Completed
+[ 2026-08-07 12:24:49,619 ] 87 root - INFO - ============================================================
+[ 2026-08-07 12:24:49,619 ] 22 root - ERROR - Data Validation Failed
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 40, in run_pipeline
+    self.start_data_validation()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 30, in start_data_validation
+    raise Exception("Data Validation Failed")
+Exception: Data Validation Failed

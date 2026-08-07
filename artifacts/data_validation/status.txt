@@ -1,0 +1,9 @@
+Validation Status: True
+
+Missing Columns:
+None
+
+Datatype Mismatches:
+None
+
+Target Column: Machine failure
