@@ -1,0 +1,98 @@
+[ 2026-08-10 12:14:58,395 ] 13 root - INFO - Application Started
+[ 2026-08-10 12:14:58,397 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-10 12:14:58,397 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-10 12:14:58,397 ] 68 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,397 ] 69 root - INFO - Training Pipeline Started
+[ 2026-08-10 12:14:58,397 ] 70 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,397 ] 19 root - INFO - Starting Data Ingestion...
+[ 2026-08-10 12:14:58,398 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-10 12:14:58,399 ] 78 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,399 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-10 12:14:58,399 ] 80 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,399 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-10 12:14:58,401 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-10 12:14:58,405 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-10 12:14:58,405 ] 86 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,405 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-10 12:14:58,405 ] 88 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,405 ] 27 root - INFO - Data Ingestion Completed.
+[ 2026-08-10 12:14:58,405 ] 31 root - INFO - Starting Data Validation...
+[ 2026-08-10 12:14:58,406 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-10 12:14:58,406 ] 103 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,406 ] 104 root - INFO - Data Validation Started
+[ 2026-08-10 12:14:58,406 ] 105 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,406 ] 31 root - INFO - reading df
+[ 2026-08-10 12:14:58,442 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-10 12:14:58,442 ] 108 root - INFO - Validation Status: True
+[ 2026-08-10 12:14:58,442 ] 109 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,442 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-10 12:14:58,442 ] 111 root - INFO - ============================================================
+[ 2026-08-10 12:14:58,442 ] 42 root - INFO - Data Validation Completed.
+[ 2026-08-10 12:14:58,442 ] 47 root - INFO - Starting Data Preprocessing...
+[ 2026-08-10 12:14:58,443 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-10 12:14:58,443 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[75] error_message ["'ConfigBox' object has no attribute 'input_data_file'"]
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'input_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'input_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'input_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/config_box.py", line 29, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'input_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'input_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'input_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'input_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 75, in run_pipeline
+    self.start_data_preprocessing()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 49, in start_data_preprocessing
+    self.config.get_data_preprocessing_config()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\config\configuration.py", line 53, in get_data_preprocessing_config
+    input_data_file=Path(config.input_data_file),
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "box/config_box.py", line 31, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'input_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 82, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[75] error_message ["'ConfigBox' object has no attribute 'input_data_file'"]

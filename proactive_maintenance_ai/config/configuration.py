@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from proactive_maintenance_ai.constant.constants import CONFIG_FILE_PATH
-from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig
 from proactive_maintenance_ai.utils.common import read_yaml, create_directory
 
 
@@ -30,6 +30,7 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
 
     def get_data_validation_config(self) -> DataValidationConfig:
         config = self.config.data_validation
@@ -39,4 +40,18 @@ class ConfigurationManager:
             status_file=Path(config.status_file),
             schema_file=Path(config.schema_file),
             data_file=Path(config.data_file)
+        )
+
+    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
+
+        config = self.config.data_preprocessing
+
+        create_directory([config.root_dir])
+
+        return DataPreprocessingConfig(
+            root_dir=Path(config.root_dir),
+            input_data_file=Path(config.input_data_file),
+            train_data_file=Path(config.train_data_file),
+            test_data_file=Path(config.test_data_file),
+            preprocessor_file=Path(config.preprocessor_file)
         )

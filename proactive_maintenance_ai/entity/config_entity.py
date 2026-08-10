@@ -21,9 +21,10 @@ class DataValidationConfig:
 @dataclass(frozen=True)
 class DataPreprocessingConfig:
     root_dir: Path
-    train_data_path: Path
-    test_data_path: Path
-    preprocessor_path: Path
+    input_data_file: Path
+    train_data_file: Path
+    test_data_file: Path
+    preprocessor_file: Path
 
 
 @dataclass(frozen=True)

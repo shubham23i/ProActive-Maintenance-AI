@@ -14,9 +14,10 @@ data_validation:
 
 data_preprocessing:
   root_dir: artifacts/data_preprocessing
-  train_data_path: artifacts/data_preprocessing/train.csv
-  test_data_path: artifacts/data_preprocessing/test.csv
-  preprocessor_path: artifacts/data_preprocessing/preprocessor.pkl
+  input_data_file: artifacts/data_ingestion/raw_data.csv
+  train_data_file: artifacts/data_preprocessing/train.csv
+  test_data_file: artifacts/data_preprocessing/test.csv
+  preprocessor_file: artifacts/data_preprocessing/preprocessor.pkl
 
 feature_engineering:
   root_dir: artifacts/feature_engineering
