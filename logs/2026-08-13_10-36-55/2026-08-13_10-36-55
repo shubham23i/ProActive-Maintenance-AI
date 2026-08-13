@@ -1,0 +1,92 @@
+[ 2026-08-13 10:36:57,214 ] 13 root - INFO - Application Started
+[ 2026-08-13 10:36:57,219 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-13 10:36:57,219 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-13 10:36:57,219 ] 81 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,219 ] 82 root - INFO - Training Pipeline Started
+[ 2026-08-13 10:36:57,219 ] 83 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,219 ] 20 root - INFO - Starting Data Ingestion...
+[ 2026-08-13 10:36:57,221 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-13 10:36:57,221 ] 78 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,221 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-13 10:36:57,221 ] 80 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,221 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-13 10:36:57,223 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-13 10:36:57,223 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:36:57,223 ] 86 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,223 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-13 10:36:57,223 ] 88 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,223 ] 28 root - INFO - Data Ingestion Completed.
+[ 2026-08-13 10:36:57,223 ] 32 root - INFO - Starting Data Validation...
+[ 2026-08-13 10:36:57,223 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-13 10:36:57,223 ] 103 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,223 ] 104 root - INFO - Data Validation Started
+[ 2026-08-13 10:36:57,223 ] 105 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,223 ] 31 root - INFO - reading df
+[ 2026-08-13 10:36:57,273 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:36:57,273 ] 108 root - INFO - Validation Status: True
+[ 2026-08-13 10:36:57,273 ] 109 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,273 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-13 10:36:57,273 ] 111 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,273 ] 43 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:36:57,273 ] 48 root - INFO - Starting Data Preprocessing...
+[ 2026-08-13 10:36:57,273 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-13 10:36:57,273 ] 241 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,273 ] 242 root - INFO - Data Preprocessing Started
+[ 2026-08-13 10:36:57,273 ] 243 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,273 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:36:57,290 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-13 10:36:57,290 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-13 10:36:57,290 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-13 10:36:57,290 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-13 10:36:57,306 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-13 10:36:57,306 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-13 10:36:57,306 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-13 10:36:57,306 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-13 10:36:57,323 ] 268 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-13 10:36:57,340 ] 224 root - INFO - Training data saved to artifacts\data_preprocessing\train.csv
+[ 2026-08-13 10:36:57,340 ] 229 root - INFO - Testing data saved to artifacts\data_preprocessing\test.csv
+[ 2026-08-13 10:36:57,340 ] 279 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,340 ] 280 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-13 10:36:57,340 ] 283 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,340 ] 58 root - INFO - Data Preprocessing Completed.
+[ 2026-08-13 10:36:57,340 ] 66 root - INFO - Starting Feature Engineering...
+[ 2026-08-13 10:36:57,340 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-13 10:36:57,340 ] 141 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,340 ] 142 root - INFO - Feature Engineering Started
+[ 2026-08-13 10:36:57,340 ] 143 root - INFO - ============================================================
+[ 2026-08-13 10:36:57,340 ] 18 root - INFO - Loading preprocessed training and testing data...
+[ 2026-08-13 10:36:57,340 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[89] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[145] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[21] error_message ['FeatureEngineeringConfig' object has no attribute 'train_data_file']]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 21, in load_data
+    self.config.train_data_file
+AttributeError: 'FeatureEngineeringConfig' object has no attribute 'train_data_file'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 145, in initiate_feature_engineering
+    train_df, test_df = self.load_data()
+                        ^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 39, in load_data
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[21] error_message ['FeatureEngineeringConfig' object has no attribute 'train_data_file']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 89, in run_pipeline
+    self.start_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 74, in start_feature_engineering
+    feature_engineering.initiate_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 165, in initiate_feature_engineering
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[145] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[21] error_message ['FeatureEngineeringConfig' object has no attribute 'train_data_file']]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 96, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[89] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[145] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[21] error_message ['FeatureEngineeringConfig' object has no attribute 'train_data_file']]]

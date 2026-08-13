@@ -30,8 +30,10 @@ class DataPreprocessingConfig:
 @dataclass(frozen=True)
 class FeatureEngineeringConfig:
     root_dir: Path
-    train_features_path: Path
-    test_features_path: Path
+    input_train_data_file: Path
+    input_test_data_file: Path
+    output_train_data_file: Path    
+    output_test_data_file: Path
 
 
 @dataclass(frozen=True)

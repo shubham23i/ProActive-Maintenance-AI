@@ -21,8 +21,12 @@ data_preprocessing:
 
 feature_engineering:
   root_dir: artifacts/feature_engineering
-  train_features_path: artifacts/feature_engineering/train_features.csv
-  test_features_path: artifacts/feature_engineering/test_features.csv
+
+  input_train_data_file: artifacts/data_preprocessing/train.csv
+  input_test_data_file: artifacts/data_preprocessing/test.csv
+
+  output_train_data_file: artifacts/feature_engineering/train.csv
+  output_test_data_file: artifacts/feature_engineering/test.csv
 
 model_training:
   root_dir: artifacts/model_training

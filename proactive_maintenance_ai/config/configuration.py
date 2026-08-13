@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from proactive_maintenance_ai.constant.constants import CONFIG_FILE_PATH
-from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig
+from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig
 from proactive_maintenance_ai.utils.common import read_yaml, create_directory
 
 
@@ -54,4 +54,30 @@ class ConfigurationManager:
             train_data_file=Path(config.train_data_file),
             test_data_file=Path(config.test_data_file),
             preprocessor_file=Path(config.preprocessor_file)
+        )
+
+    def get_feature_engineering_config(self) -> FeatureEngineeringConfig:
+
+        config = self.config.feature_engineering
+
+        create_directory([config.root_dir])
+
+        return FeatureEngineeringConfig(
+            root_dir=Path(config.root_dir),
+
+            input_train_data_file=Path(
+                config.input_train_data_file
+            ),
+
+            input_test_data_file=Path(
+                config.input_test_data_file
+            ),
+
+            output_train_data_file=Path(
+                config.output_train_data_file
+            ),
+
+            output_test_data_file=Path(
+                config.output_test_data_file
+            )
         )

@@ -4,6 +4,7 @@ from proactive_maintenance_ai.config.configuration import ConfigurationManager
 from proactive_maintenance_ai.components.stage_01_data_ingestion import DataIngestion
 from proactive_maintenance_ai.components.stage_02_data_validation import DataValidation
 from proactive_maintenance_ai.components.stage_03_data_preprocessing import DataPreprocessing
+from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
 
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
@@ -61,6 +62,18 @@ class TrainingPipeline:
             test_data_path,
             preprocessor_path
         )
+    def start_feature_engineering(self):
+        logging.info("Starting Feature Engineering...")
+        feature_engineering_config = (
+            self.config.get_feature_engineering_config()
+        )
+        feature_engineering = FeatureEngineering(
+            feature_engineering_config
+        )
+        output_train_data_file, output_test_data_file = (
+            feature_engineering.initiate_feature_engineering()
+        )
+
     def run_pipeline(self):
 
         try:
@@ -73,6 +86,7 @@ class TrainingPipeline:
 
             self.start_data_validation()
             self.start_data_preprocessing()
+            self.start_feature_engineering()
 
             logging.info("=" * 60)
             logging.info("Training Pipeline Completed Successfully")
@@ -80,3 +94,5 @@ class TrainingPipeline:
 
         except Exception as e:
             raise CustomException(e, sys)
+
+    

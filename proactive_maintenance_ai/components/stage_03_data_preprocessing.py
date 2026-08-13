@@ -200,35 +200,33 @@ class DataPreprocessing:
             raise CustomException(e, sys)
 
     def save_data(self, train_df, test_df):
-        """
-        Save processed train and test datasets.
-        """
 
         try:
 
+            # Create output directory only
             os.makedirs(
                 self.config.root_dir,
                 exist_ok=True
             )
 
+            # Save train data
             train_df.to_csv(
                 self.config.train_data_file,
                 index=False
             )
 
+            # Save test data
             test_df.to_csv(
                 self.config.test_data_file,
                 index=False
             )
 
             logging.info(
-                f"Training data saved to "
-                f"{self.config.train_data_file}"
+                f"Training data saved to: {self.config.train_data_file}"
             )
 
             logging.info(
-                f"Testing data saved to "
-                f"{self.config.test_data_file}"
+                f"Testing data saved to: {self.config.test_data_file}"
             )
 
         except Exception as e:

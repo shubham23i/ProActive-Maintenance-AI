@@ -1,0 +1,71 @@
+[ 2026-08-13 10:43:59,146 ] 13 root - INFO - Application Started
+[ 2026-08-13 10:43:59,162 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-13 10:43:59,162 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-13 10:43:59,162 ] 81 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,162 ] 82 root - INFO - Training Pipeline Started
+[ 2026-08-13 10:43:59,162 ] 83 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,162 ] 20 root - INFO - Starting Data Ingestion...
+[ 2026-08-13 10:43:59,162 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-13 10:43:59,170 ] 78 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,170 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-13 10:43:59,170 ] 80 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,170 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-13 10:43:59,172 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-13 10:43:59,179 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:43:59,179 ] 86 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,179 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-13 10:43:59,179 ] 88 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,179 ] 28 root - INFO - Data Ingestion Completed.
+[ 2026-08-13 10:43:59,179 ] 32 root - INFO - Starting Data Validation...
+[ 2026-08-13 10:43:59,179 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-13 10:43:59,179 ] 103 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,179 ] 104 root - INFO - Data Validation Started
+[ 2026-08-13 10:43:59,179 ] 105 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,179 ] 31 root - INFO - reading df
+[ 2026-08-13 10:43:59,214 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:43:59,214 ] 108 root - INFO - Validation Status: True
+[ 2026-08-13 10:43:59,214 ] 109 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,214 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-13 10:43:59,214 ] 111 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,214 ] 43 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:43:59,214 ] 48 root - INFO - Starting Data Preprocessing...
+[ 2026-08-13 10:43:59,215 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-13 10:43:59,215 ] 239 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,215 ] 240 root - INFO - Data Preprocessing Started
+[ 2026-08-13 10:43:59,215 ] 241 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,215 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:43:59,217 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-13 10:43:59,217 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-13 10:43:59,217 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-13 10:43:59,217 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-13 10:43:59,248 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-13 10:43:59,248 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-13 10:43:59,248 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-13 10:43:59,248 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-13 10:43:59,248 ] 266 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-13 10:43:59,280 ] 224 root - INFO - Training data saved to: artifacts\data_preprocessing\train.csv
+[ 2026-08-13 10:43:59,280 ] 228 root - INFO - Testing data saved to: artifacts\data_preprocessing\test.csv
+[ 2026-08-13 10:43:59,280 ] 277 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,280 ] 278 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-13 10:43:59,280 ] 281 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,280 ] 58 root - INFO - Data Preprocessing Completed.
+[ 2026-08-13 10:43:59,280 ] 66 root - INFO - Starting Feature Engineering...
+[ 2026-08-13 10:43:59,280 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-13 10:43:59,280 ] 141 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,280 ] 142 root - INFO - Feature Engineering Started
+[ 2026-08-13 10:43:59,280 ] 143 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,280 ] 18 root - INFO - Loading preprocessed training and testing data...
+[ 2026-08-13 10:43:59,311 ] 28 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-13 10:43:59,311 ] 32 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-13 10:43:59,311 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-13 10:43:59,313 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-13 10:43:59,313 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-13 10:43:59,315 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-13 10:43:59,374 ] 130 root - INFO - Feature engineered datasets saved successfully.
+[ 2026-08-13 10:43:59,374 ] 156 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,374 ] 157 root - INFO - Feature Engineering Completed Successfully
+[ 2026-08-13 10:43:59,374 ] 160 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,374 ] 91 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,374 ] 92 root - INFO - Training Pipeline Completed Successfully
+[ 2026-08-13 10:43:59,374 ] 93 root - INFO - ============================================================
+[ 2026-08-13 10:43:59,374 ] 19 root - INFO - Application Finished Successfully

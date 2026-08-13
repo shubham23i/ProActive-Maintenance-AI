@@ -1,0 +1,119 @@
+[ 2026-08-13 10:51:15,850 ] 13 root - INFO - Application Started
+[ 2026-08-13 10:51:15,852 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-13 10:51:15,852 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-13 10:51:15,852 ] 81 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 82 root - INFO - Training Pipeline Started
+[ 2026-08-13 10:51:15,852 ] 83 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 20 root - INFO - Starting Data Ingestion...
+[ 2026-08-13 10:51:15,852 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-13 10:51:15,852 ] 78 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-13 10:51:15,852 ] 80 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-13 10:51:15,852 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-13 10:51:15,852 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:51:15,852 ] 86 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-13 10:51:15,852 ] 88 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 28 root - INFO - Data Ingestion Completed.
+[ 2026-08-13 10:51:15,852 ] 32 root - INFO - Starting Data Validation...
+[ 2026-08-13 10:51:15,852 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-13 10:51:15,852 ] 103 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 104 root - INFO - Data Validation Started
+[ 2026-08-13 10:51:15,852 ] 105 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,852 ] 31 root - INFO - reading df
+[ 2026-08-13 10:51:15,910 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:51:15,911 ] 108 root - INFO - Validation Status: True
+[ 2026-08-13 10:51:15,911 ] 109 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,911 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-13 10:51:15,911 ] 111 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,911 ] 43 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:51:15,911 ] 48 root - INFO - Starting Data Preprocessing...
+[ 2026-08-13 10:51:15,912 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-13 10:51:15,912 ] 239 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,912 ] 240 root - INFO - Data Preprocessing Started
+[ 2026-08-13 10:51:15,912 ] 241 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,912 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:51:15,932 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-13 10:51:15,932 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-13 10:51:15,936 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-13 10:51:15,936 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-13 10:51:15,964 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-13 10:51:15,964 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-13 10:51:15,964 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-13 10:51:15,964 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-13 10:51:15,970 ] 266 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-13 10:51:15,995 ] 224 root - INFO - Training data saved to: artifacts\data_preprocessing\train.csv
+[ 2026-08-13 10:51:15,995 ] 228 root - INFO - Testing data saved to: artifacts\data_preprocessing\test.csv
+[ 2026-08-13 10:51:15,995 ] 277 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,995 ] 278 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-13 10:51:15,996 ] 281 root - INFO - ============================================================
+[ 2026-08-13 10:51:15,996 ] 58 root - INFO - Data Preprocessing Completed.
+[ 2026-08-13 10:51:15,996 ] 66 root - INFO - Starting Feature Engineering...
+[ 2026-08-13 10:51:15,996 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-13 10:51:15,997 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[89] error_message ["'ConfigBox' object has no attribute 'train_data_file'"]
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'train_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'train_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'train_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/config_box.py", line 29, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'train_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'train_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'train_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'train_data_file'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 89, in run_pipeline
+    self.start_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 68, in start_feature_engineering
+    self.config.get_feature_engineering_config()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\config\configuration.py", line 64, in get_feature_engineering_config
+    train_data_file=Path(config.train_data_file),
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "box/config_box.py", line 31, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'train_data_file'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 96, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[89] error_message ["'ConfigBox' object has no attribute 'train_data_file'"]

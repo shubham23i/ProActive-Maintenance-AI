@@ -1,0 +1,90 @@
+[ 2026-08-13 10:37:20,293 ] 13 root - INFO - Application Started
+[ 2026-08-13 10:37:20,295 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-13 10:37:20,296 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-13 10:37:20,296 ] 81 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,296 ] 82 root - INFO - Training Pipeline Started
+[ 2026-08-13 10:37:20,296 ] 83 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,296 ] 20 root - INFO - Starting Data Ingestion...
+[ 2026-08-13 10:37:20,296 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-13 10:37:20,297 ] 78 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,297 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-13 10:37:20,297 ] 80 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,297 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-13 10:37:20,299 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-13 10:37:20,306 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:37:20,306 ] 86 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,306 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-13 10:37:20,306 ] 88 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,306 ] 28 root - INFO - Data Ingestion Completed.
+[ 2026-08-13 10:37:20,306 ] 32 root - INFO - Starting Data Validation...
+[ 2026-08-13 10:37:20,306 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-13 10:37:20,307 ] 103 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,307 ] 104 root - INFO - Data Validation Started
+[ 2026-08-13 10:37:20,307 ] 105 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,307 ] 31 root - INFO - reading df
+[ 2026-08-13 10:37:20,352 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:37:20,352 ] 108 root - INFO - Validation Status: True
+[ 2026-08-13 10:37:20,353 ] 109 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,353 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-13 10:37:20,353 ] 111 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,353 ] 43 root - INFO - Data Validation Completed.
+[ 2026-08-13 10:37:20,353 ] 48 root - INFO - Starting Data Preprocessing...
+[ 2026-08-13 10:37:20,353 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-13 10:37:20,353 ] 241 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,353 ] 242 root - INFO - Data Preprocessing Started
+[ 2026-08-13 10:37:20,353 ] 243 root - INFO - ============================================================
+[ 2026-08-13 10:37:20,353 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-13 10:37:20,368 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-13 10:37:20,369 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-13 10:37:20,374 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-13 10:37:20,375 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-13 10:37:20,412 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-13 10:37:20,412 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-13 10:37:20,412 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-13 10:37:20,412 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-13 10:37:20,419 ] 268 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-13 10:37:20,421 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[88] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[274] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[214] error_message [[Errno 22] Invalid argument: 'artifacts\\data_preprocessing\\train.csv']]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py", line 214, in save_data
+    train_df.to_csv(
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\core\generic.py", line 3976, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\io\formats\format.py", line 1025, in to_csv
+    csv_formatter.save()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\io\common.py", line 930, in get_handle
+    handle = open(
+             ^^^^^
+OSError: [Errno 22] Invalid argument: 'artifacts\\data_preprocessing\\train.csv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py", line 274, in initiate_data_preprocessing
+    self.save_data(
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py", line 235, in save_data
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[214] error_message [[Errno 22] Invalid argument: 'artifacts\\data_preprocessing\\train.csv']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 88, in run_pipeline
+    self.start_data_preprocessing()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 56, in start_data_preprocessing
+    data_preprocessing.initiate_data_preprocessing()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py", line 292, in initiate_data_preprocessing
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[274] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[214] error_message [[Errno 22] Invalid argument: 'artifacts\\data_preprocessing\\train.csv']]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 96, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[88] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[274] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_03_data_preprocessing.py] line number[214] error_message [[Errno 22] Invalid argument: 'artifacts\\data_preprocessing\\train.csv']]]
