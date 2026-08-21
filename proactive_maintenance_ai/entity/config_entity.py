@@ -39,10 +39,17 @@ class FeatureEngineeringConfig:
 @dataclass(frozen=True)
 class ModelTrainerConfig:
     root_dir: Path
+    input_train_data_file: Path
+    input_test_data_file: Path
     trained_model_path: Path
+    target_column: str
 
 
 @dataclass(frozen=True)
 class ModelEvaluationConfig:
     root_dir: Path
-    metrics_file_path: Path
+    model_path: Path
+    test_data_path: Path
+    target_column: str
+    metrics_file: Path
+    confusion_matrix_path: Path

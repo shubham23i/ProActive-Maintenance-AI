@@ -1,12 +1,15 @@
 import sys
+import logging
 
 from proactive_maintenance_ai.config.configuration import ConfigurationManager
+
 from proactive_maintenance_ai.components.stage_01_data_ingestion import DataIngestion
 from proactive_maintenance_ai.components.stage_02_data_validation import DataValidation
 from proactive_maintenance_ai.components.stage_03_data_preprocessing import DataPreprocessing
 from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
+from proactive_maintenance_ai.components.stage_05_model_trainer import ModelTrainer
+from proactive_maintenance_ai.components.stage_06_model_evaluation import ModelEvaluation
 
-from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
 
@@ -17,82 +20,162 @@ class TrainingPipeline:
 
     def start_data_ingestion(self):
 
-        logging.info("Starting Data Ingestion...")
+        try:
 
-        data_ingestion_config = self.config.get_data_ingestion_config()
+            logging.info("Starting Data Ingestion...")
 
-        data_ingestion = DataIngestion(data_ingestion_config)
+            config = self.config.get_data_ingestion_config()
 
-        data_ingestion.initiate_data_ingestion()
+            data_ingestion = DataIngestion(config)
 
-        logging.info("Data Ingestion Completed.")
+            data_ingestion.initiate_data_ingestion()
+
+            logging.info("Data Ingestion Completed.")
+
+        except Exception as e:
+            raise CustomException(e, sys)
 
     def start_data_validation(self):
 
-        logging.info("Starting Data Validation...")
+        try:
 
-        data_validation_config = self.config.get_data_validation_config()
+            logging.info("Starting Data Validation...")
 
-        data_validation = DataValidation(data_validation_config)
+            config = self.config.get_data_validation_config()
 
-        validation_status = data_validation.initiate_data_validation()
+            data_validation = DataValidation(config)
 
-        if not validation_status:
-            raise ValueError("Data Validation Failed")
+            validation_status = (
+                data_validation.initiate_data_validation()
+            )
 
-        logging.info("Data Validation Completed.")
+            if not validation_status:
+                raise Exception("Data Validation Failed")
 
+            logging.info("Data Validation Completed.")
+
+        except Exception as e:
+            raise CustomException(e, sys)
 
     def start_data_preprocessing(self):
 
-        logging.info("Starting Data Preprocessing...")
-        data_preprocessing_config = (
-            self.config.get_data_preprocessing_config()
-            )
-        data_preprocessing = DataPreprocessing(
-            data_preprocessing_config
-        )
-        train_data_path, test_data_path, preprocessor_path = (
-            data_preprocessing.initiate_data_preprocessing()
-        )
-        logging.info("Data Preprocessing Completed.")
+        try:
 
-        return (
-            train_data_path,
-            test_data_path,
-            preprocessor_path
-        )
+            logging.info("Starting Data Preprocessing...")
+
+            config = (
+                self.config.get_data_preprocessing_config()
+            )
+
+            data_preprocessing = DataPreprocessing(
+                config
+            )
+
+            data_preprocessing.initiate_data_preprocessing()
+
+            logging.info(
+                "Data Preprocessing Completed."
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
     def start_feature_engineering(self):
-        logging.info("Starting Feature Engineering...")
-        feature_engineering_config = (
-            self.config.get_feature_engineering_config()
-        )
-        feature_engineering = FeatureEngineering(
-            feature_engineering_config
-        )
-        output_train_data_file, output_test_data_file = (
+
+        try:
+
+            logging.info("Starting Feature Engineering...")
+
+            config = (
+                self.config.get_feature_engineering_config()
+            )
+
+            feature_engineering = FeatureEngineering(
+                config
+            )
+
             feature_engineering.initiate_feature_engineering()
-        )
+
+            logging.info(
+                "Feature Engineering Completed."
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
+    def start_model_training(self):
+
+        try:
+
+            logging.info("Starting Model Training...")
+
+            config = (
+                self.config.get_model_trainer_config()
+            )
+
+            model_trainer = ModelTrainer(
+                config
+            )
+
+            model_trainer.initiate_model_training()
+
+            logging.info(
+                "Model Training Completed."
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
+    def start_model_evaluation(self):
+
+        try:
+
+            logging.info("Starting Model Evaluation...")
+
+            config = (
+                self.config.get_model_evaluation_config()
+            )
+
+            model_evaluation = ModelEvaluation(
+                config
+            )
+
+            metrics = (
+                model_evaluation.initiate_model_evaluation()
+            )
+
+            logging.info(
+                "Model Evaluation Completed."
+            )
+
+            return metrics
+
+        except Exception as e:
+            raise CustomException(e, sys)
 
     def run_pipeline(self):
 
         try:
 
             logging.info("=" * 60)
-            logging.info("Training Pipeline Started")
+            logging.info("TRAINING PIPELINE STARTED")
             logging.info("=" * 60)
 
             self.start_data_ingestion()
 
             self.start_data_validation()
+
             self.start_data_preprocessing()
+
             self.start_feature_engineering()
 
+            self.start_model_training()
+
+            self.start_model_evaluation()
+
             logging.info("=" * 60)
-            logging.info("Training Pipeline Completed Successfully")
+            logging.info("TRAINING PIPELINE COMPLETED")
             logging.info("=" * 60)
 
         except Exception as e:
             raise CustomException(e, sys)
-
-    

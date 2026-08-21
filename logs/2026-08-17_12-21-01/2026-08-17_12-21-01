@@ -1,0 +1,136 @@
+[ 2026-08-17 12:21:03,050 ] 13 root - INFO - Application Started
+[ 2026-08-17 12:21:03,052 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-17 12:21:03,052 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-17 12:21:03,052 ] 102 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,052 ] 103 root - INFO - Training Pipeline Started
+[ 2026-08-17 12:21:03,052 ] 104 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,052 ] 21 root - INFO - Starting Data Ingestion...
+[ 2026-08-17 12:21:03,052 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-17 12:21:03,060 ] 78 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,060 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-17 12:21:03,060 ] 80 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,060 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-17 12:21:03,064 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-17 12:21:03,070 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:21:03,070 ] 86 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,070 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-17 12:21:03,070 ] 88 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,070 ] 29 root - INFO - Data Ingestion Completed.
+[ 2026-08-17 12:21:03,070 ] 33 root - INFO - Starting Data Validation...
+[ 2026-08-17 12:21:03,070 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-17 12:21:03,070 ] 103 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,070 ] 104 root - INFO - Data Validation Started
+[ 2026-08-17 12:21:03,070 ] 105 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,070 ] 31 root - INFO - reading df
+[ 2026-08-17 12:21:03,106 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:21:03,106 ] 108 root - INFO - Validation Status: True
+[ 2026-08-17 12:21:03,106 ] 109 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,106 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-17 12:21:03,106 ] 111 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,106 ] 44 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:21:03,106 ] 49 root - INFO - Starting Data Preprocessing...
+[ 2026-08-17 12:21:03,106 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-17 12:21:03,106 ] 239 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,106 ] 240 root - INFO - Data Preprocessing Started
+[ 2026-08-17 12:21:03,106 ] 241 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,106 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:21:03,118 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-17 12:21:03,118 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-17 12:21:03,121 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-17 12:21:03,122 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-17 12:21:03,148 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:21:03,148 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:21:03,148 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-17 12:21:03,148 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-17 12:21:03,154 ] 266 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-17 12:21:03,178 ] 224 root - INFO - Training data saved to: artifacts\data_preprocessing\train.csv
+[ 2026-08-17 12:21:03,178 ] 228 root - INFO - Testing data saved to: artifacts\data_preprocessing\test.csv
+[ 2026-08-17 12:21:03,178 ] 277 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,178 ] 278 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-17 12:21:03,178 ] 281 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,178 ] 59 root - INFO - Data Preprocessing Completed.
+[ 2026-08-17 12:21:03,178 ] 67 root - INFO - Starting Feature Engineering...
+[ 2026-08-17 12:21:03,179 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-17 12:21:03,179 ] 141 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,179 ] 142 root - INFO - Feature Engineering Started
+[ 2026-08-17 12:21:03,179 ] 143 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,179 ] 18 root - INFO - Loading preprocessed training and testing data...
+[ 2026-08-17 12:21:03,207 ] 28 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:21:03,207 ] 32 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:21:03,207 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:21:03,209 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:21:03,209 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:21:03,211 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:21:03,260 ] 189 root - INFO - Feature engineered training data saved to: artifacts\feature_engineering\train.csv
+[ 2026-08-17 12:21:03,260 ] 194 root - INFO - Feature engineered testing data saved to: artifacts\feature_engineering\test.csv
+[ 2026-08-17 12:21:03,260 ] 156 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,260 ] 157 root - INFO - Feature Engineering Completed Successfully
+[ 2026-08-17 12:21:03,260 ] 160 root - INFO - ============================================================
+[ 2026-08-17 12:21:03,260 ] 80 root - INFO - Starting Model Training...
+[ 2026-08-17 12:21:03,260 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-08-17 12:21:03,260 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message ["'ConfigBox' object has no attribute 'target_column'"]
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'target_column'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'target_column'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'target_column'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/config_box.py", line 29, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'target_column'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 605, in box.box.Box.__getitem__
+KeyError: 'target_column'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "box/box.py", line 644, in box.box.Box.__getattr__
+  File "box/box.py", line 632, in box.box.Box.__getitem__
+box.exceptions.BoxKeyError: "'target_column'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "box/box.py", line 646, in box.box.Box.__getattr__
+AttributeError: 'ConfigBox' object has no attribute 'target_column'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 111, in run_pipeline
+    self.start_model_training()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 83, in start_model_training
+    self.config.get_model_trainer_config()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\config\configuration.py", line 93, in get_model_trainer_config
+    target_column=config.target_column
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "box/config_box.py", line 31, in box.config_box.ConfigBox.__getattr__
+  File "box/box.py", line 660, in box.box.Box.__getattr__
+box.exceptions.BoxKeyError: "'ConfigBox' object has no attribute 'target_column'"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 118, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message ["'ConfigBox' object has no attribute 'target_column'"]

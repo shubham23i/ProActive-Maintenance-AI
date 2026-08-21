@@ -1,0 +1,169 @@
+[ 2026-08-17 12:29:18,857 ] 13 root - INFO - Application Started
+[ 2026-08-17 12:29:18,857 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-17 12:29:18,857 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-17 12:29:18,857 ] 102 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,857 ] 103 root - INFO - Training Pipeline Started
+[ 2026-08-17 12:29:18,857 ] 104 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,857 ] 21 root - INFO - Starting Data Ingestion...
+[ 2026-08-17 12:29:18,857 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-17 12:29:18,874 ] 78 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-17 12:29:18,874 ] 80 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-17 12:29:18,874 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-17 12:29:18,874 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:29:18,874 ] 86 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-17 12:29:18,874 ] 88 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 29 root - INFO - Data Ingestion Completed.
+[ 2026-08-17 12:29:18,874 ] 33 root - INFO - Starting Data Validation...
+[ 2026-08-17 12:29:18,874 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-17 12:29:18,874 ] 103 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 104 root - INFO - Data Validation Started
+[ 2026-08-17 12:29:18,874 ] 105 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,874 ] 31 root - INFO - reading df
+[ 2026-08-17 12:29:18,919 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:29:18,919 ] 108 root - INFO - Validation Status: True
+[ 2026-08-17 12:29:18,919 ] 109 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,919 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-17 12:29:18,919 ] 111 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,919 ] 44 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:29:18,919 ] 49 root - INFO - Starting Data Preprocessing...
+[ 2026-08-17 12:29:18,921 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-17 12:29:18,921 ] 239 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,921 ] 240 root - INFO - Data Preprocessing Started
+[ 2026-08-17 12:29:18,921 ] 241 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,921 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:29:18,921 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-17 12:29:18,921 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-17 12:29:18,939 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-17 12:29:18,939 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-17 12:29:18,964 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:29:18,964 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:29:18,964 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-17 12:29:18,964 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-17 12:29:18,970 ] 266 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-17 12:29:18,981 ] 224 root - INFO - Training data saved to: artifacts\data_preprocessing\train.csv
+[ 2026-08-17 12:29:18,981 ] 228 root - INFO - Testing data saved to: artifacts\data_preprocessing\test.csv
+[ 2026-08-17 12:29:18,981 ] 277 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,981 ] 278 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-17 12:29:18,981 ] 281 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,981 ] 59 root - INFO - Data Preprocessing Completed.
+[ 2026-08-17 12:29:18,981 ] 67 root - INFO - Starting Feature Engineering...
+[ 2026-08-17 12:29:18,981 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-17 12:29:18,981 ] 141 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,981 ] 142 root - INFO - Feature Engineering Started
+[ 2026-08-17 12:29:18,981 ] 143 root - INFO - ============================================================
+[ 2026-08-17 12:29:18,981 ] 18 root - INFO - Loading preprocessed training and testing data...
+[ 2026-08-17 12:29:19,023 ] 28 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:29:19,023 ] 32 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:29:19,023 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:29:19,025 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:29:19,025 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:29:19,026 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:29:19,079 ] 189 root - INFO - Feature engineered training data saved to: artifacts\feature_engineering\train.csv
+[ 2026-08-17 12:29:19,079 ] 194 root - INFO - Feature engineered testing data saved to: artifacts\feature_engineering\test.csv
+[ 2026-08-17 12:29:19,079 ] 156 root - INFO - ============================================================
+[ 2026-08-17 12:29:19,079 ] 157 root - INFO - Feature Engineering Completed Successfully
+[ 2026-08-17 12:29:19,079 ] 160 root - INFO - ============================================================
+[ 2026-08-17 12:29:19,079 ] 80 root - INFO - Starting Model Training...
+[ 2026-08-17 12:29:19,079 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-08-17 12:29:19,079 ] 117 root - INFO - ============================================================
+[ 2026-08-17 12:29:19,079 ] 118 root - INFO - Model Training Started
+[ 2026-08-17 12:29:19,079 ] 119 root - INFO - ============================================================
+[ 2026-08-17 12:29:19,079 ] 21 root - INFO - Loading feature engineered data...
+[ 2026-08-17 12:29:19,144 ] 31 root - INFO - Training data shape: (8000, 12)
+[ 2026-08-17 12:29:19,144 ] 35 root - INFO - Testing data shape: (2000, 12)
+[ 2026-08-17 12:29:19,144 ] 138 root - INFO - Training features: (8000, 11)
+[ 2026-08-17 12:29:19,144 ] 142 root - INFO - Testing features: (2000, 11)
+[ 2026-08-17 12:29:19,144 ] 48 root - INFO - Starting XGBoost model training...
+[ 2026-08-17 12:29:19,147 ] 60 root - INFO - Scale positive weight: 28.52029520295203
+[ 2026-08-17 12:29:19,149 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[147] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[77] error_message [DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:Type: str]]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 408, in pandas_feature_info
+    new_feature_types.append(_pandas_dtype_mapper[dtype.name])
+                             ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'str'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py", line 77, in train_model
+    model.fit(
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 751, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\sklearn.py", line 1787, in fit
+    train_dmatrix, evals = _wrap_evaluation_matrices(
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\sklearn.py", line 700, in _wrap_evaluation_matrices
+    train_dmatrix = create_dmatrix(
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\sklearn.py", line 1257, in _create_dmatrix
+    return QuantileDMatrix(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 751, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 1719, in __init__
+    self._init(
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 1783, in _init
+    it.reraise()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 594, in reraise
+    raise exc  # pylint: disable=raising-bad-type
+    ^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 575, in _handle_exception
+    return fn()
+           ^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 662, in <lambda>
+    return self._handle_exception(lambda: int(self.next(input_data)), 0)
+                                              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 1642, in next
+    input_data(**self.kwargs)
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 751, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\core.py", line 642, in input_data
+    new, feature_names, feature_types = _proxy_transform(
+                                        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 1695, in _proxy_transform
+    df, feature_names, feature_types = _transform_pandas_df(
+                                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 668, in _transform_pandas_df
+    feature_names, feature_types = pandas_feature_info(
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 410, in pandas_feature_info
+    _invalid_dataframe_dtype(data)
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\xgboost\data.py", line 373, in _invalid_dataframe_dtype
+    raise ValueError(msg)
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:Type: str
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py", line 147, in initiate_model_training
+    model = self.train_model(
+            ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py", line 89, in train_model
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[77] error_message [DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:Type: str]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 111, in run_pipeline
+    self.start_model_training()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 91, in start_model_training
+    model_trainer.initiate_model_training()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py", line 162, in initiate_model_training
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[147] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[77] error_message [DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:Type: str]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 118, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[147] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_05_model_trainer.py] line number[77] error_message [DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:Type: str]]]

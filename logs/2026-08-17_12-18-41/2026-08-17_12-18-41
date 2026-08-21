@@ -1,0 +1,86 @@
+[ 2026-08-17 12:18:52,996 ] 13 root - INFO - Application Started
+[ 2026-08-17 12:18:53,001 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-17 12:18:53,003 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-17 12:18:53,003 ] 102 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,003 ] 103 root - INFO - Training Pipeline Started
+[ 2026-08-17 12:18:53,004 ] 104 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,004 ] 21 root - INFO - Starting Data Ingestion...
+[ 2026-08-17 12:18:53,004 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-08-17 12:18:53,005 ] 78 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,005 ] 79 root - INFO - Data Ingestion Started
+[ 2026-08-17 12:18:53,005 ] 80 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,005 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-08-17 12:18:53,011 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-08-17 12:18:53,019 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:18:53,019 ] 86 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,019 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-08-17 12:18:53,019 ] 88 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,019 ] 29 root - INFO - Data Ingestion Completed.
+[ 2026-08-17 12:18:53,019 ] 33 root - INFO - Starting Data Validation...
+[ 2026-08-17 12:18:53,020 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-08-17 12:18:53,020 ] 103 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,020 ] 104 root - INFO - Data Validation Started
+[ 2026-08-17 12:18:53,020 ] 105 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,020 ] 31 root - INFO - reading df
+[ 2026-08-17 12:18:53,092 ] 94 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:18:53,094 ] 108 root - INFO - Validation Status: True
+[ 2026-08-17 12:18:53,094 ] 109 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,094 ] 110 root - INFO - Data Validation Completed
+[ 2026-08-17 12:18:53,094 ] 111 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,094 ] 44 root - INFO - Data Validation Completed.
+[ 2026-08-17 12:18:53,094 ] 49 root - INFO - Starting Data Preprocessing...
+[ 2026-08-17 12:18:53,094 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-08-17 12:18:53,095 ] 239 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,095 ] 240 root - INFO - Data Preprocessing Started
+[ 2026-08-17 12:18:53,095 ] 241 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,095 ] 49 root - INFO - Loading data from artifacts\data_ingestion\raw_data.csv
+[ 2026-08-17 12:18:53,128 ] 55 root - INFO - Dataset loaded successfully. Shape: (10000, 14)
+[ 2026-08-17 12:18:53,128 ] 72 root - INFO - Starting data cleaning...
+[ 2026-08-17 12:18:53,144 ] 121 root - INFO - Data cleaning completed. Shape: (10000, 7)
+[ 2026-08-17 12:18:53,144 ] 137 root - INFO - Splitting data into train and test sets...
+[ 2026-08-17 12:18:53,253 ] 156 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:18:53,253 ] 160 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:18:53,254 ] 177 root - INFO - Creating preprocessing pipeline...
+[ 2026-08-17 12:18:53,254 ] 193 root - INFO - Preprocessing pipeline created successfully.
+[ 2026-08-17 12:18:53,270 ] 266 root - INFO - Preprocessor saved to artifacts\data_preprocessing\preprocessor.pkl
+[ 2026-08-17 12:18:53,319 ] 224 root - INFO - Training data saved to: artifacts\data_preprocessing\train.csv
+[ 2026-08-17 12:18:53,319 ] 228 root - INFO - Testing data saved to: artifacts\data_preprocessing\test.csv
+[ 2026-08-17 12:18:53,319 ] 277 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,320 ] 278 root - INFO - Data Preprocessing Completed Successfully
+[ 2026-08-17 12:18:53,320 ] 281 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,320 ] 59 root - INFO - Data Preprocessing Completed.
+[ 2026-08-17 12:18:53,320 ] 67 root - INFO - Starting Feature Engineering...
+[ 2026-08-17 12:18:53,320 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-08-17 12:18:53,320 ] 141 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,320 ] 142 root - INFO - Feature Engineering Started
+[ 2026-08-17 12:18:53,320 ] 143 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,320 ] 18 root - INFO - Loading preprocessed training and testing data...
+[ 2026-08-17 12:18:53,369 ] 28 root - INFO - Training data shape: (8000, 7)
+[ 2026-08-17 12:18:53,369 ] 32 root - INFO - Testing data shape: (2000, 7)
+[ 2026-08-17 12:18:53,369 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:18:53,372 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:18:53,372 ] 45 root - INFO - Creating engineered features...
+[ 2026-08-17 12:18:53,375 ] 102 root - INFO - Feature engineering completed.
+[ 2026-08-17 12:18:53,462 ] 189 root - INFO - Feature engineered training data saved to: artifacts\feature_engineering\train.csv
+[ 2026-08-17 12:18:53,463 ] 194 root - INFO - Feature engineered testing data saved to: artifacts\feature_engineering\test.csv
+[ 2026-08-17 12:18:53,463 ] 156 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,463 ] 157 root - INFO - Feature Engineering Completed Successfully
+[ 2026-08-17 12:18:53,463 ] 160 root - INFO - ============================================================
+[ 2026-08-17 12:18:53,463 ] 80 root - INFO - Starting Model Training...
+[ 2026-08-17 12:18:53,463 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message ['ConfigurationManager' object has no attribute 'get_model_trainer_config']
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 111, in run_pipeline
+    self.start_model_training()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 83, in start_model_training
+    self.config.get_model_trainer_config()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigurationManager' object has no attribute 'get_model_trainer_config'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 118, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[111] error_message ['ConfigurationManager' object has no attribute 'get_model_trainer_config']

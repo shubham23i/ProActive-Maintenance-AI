@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from proactive_maintenance_ai.constant.constants import CONFIG_FILE_PATH
-from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig
+from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig,ModelTrainerConfig,ModelEvaluationConfig
 from proactive_maintenance_ai.utils.common import read_yaml, create_directory
 
 
@@ -79,5 +79,42 @@ class ConfigurationManager:
 
             output_test_data_file=Path(
                 config.output_test_data_file
+            )
+        )
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+
+        config = self.config.model_training
+        create_directory([config.root_dir])
+        return ModelTrainerConfig(
+            root_dir=Path(config.root_dir),
+            input_train_data_file=Path(config.input_train_data_file),
+            input_test_data_file=Path(config.input_test_data_file),
+            trained_model_path=Path(config.trained_model_path),
+            target_column=config.target_column
+        )
+
+    def get_model_evaluation_config(
+        self
+    ) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        create_directory([
+            config.root_dir
+        ])
+        return ModelEvaluationConfig(
+            root_dir=Path(
+                config.root_dir
+            ),
+            model_path=Path(
+                config.model_path
+            ),
+            test_data_path=Path(
+                config.test_data_path
+            ),
+            target_column=config.target_column,
+            metrics_file=Path(
+                config.metrics_file
+            ),
+            confusion_matrix_path=Path(
+                config.confusion_matrix_path
             )
         )
