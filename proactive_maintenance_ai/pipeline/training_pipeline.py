@@ -9,6 +9,9 @@ from proactive_maintenance_ai.components.stage_03_data_preprocessing import Data
 from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
 from proactive_maintenance_ai.components.stage_05_model_trainer import ModelTrainer
 from proactive_maintenance_ai.components.stage_06_model_evaluation import ModelEvaluation
+from proactive_maintenance_ai.components.stage_07_model_registry import (
+    ModelRegistry
+)
 
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
@@ -153,6 +156,36 @@ class TrainingPipeline:
         except Exception as e:
             raise CustomException(e, sys)
 
+    def start_model_registry(self):
+
+        try:
+
+            logging.info(
+                "Starting Model Registry..."
+            )
+
+            config = (
+                self.config.get_model_registry_config()
+            )
+
+            model_registry = ModelRegistry(
+                config
+            )
+
+            version = (
+                model_registry.initiate_model_registry()
+            )
+
+            logging.info(
+                f"Model Registry Completed. "
+                f"Version: v{version}"
+            )
+
+            return version
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
     def run_pipeline(self):
 
         try:
@@ -172,6 +205,8 @@ class TrainingPipeline:
             self.start_model_training()
 
             self.start_model_evaluation()
+
+            self.start_model_registry()
 
             logging.info("=" * 60)
             logging.info("TRAINING PIPELINE COMPLETED")
