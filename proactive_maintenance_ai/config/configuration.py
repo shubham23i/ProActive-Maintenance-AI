@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from proactive_maintenance_ai.constant.constants import CONFIG_FILE_PATH
-from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelRegistryConfig
+from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelRegistryConfig,PredictionConfig
 from proactive_maintenance_ai.utils.common import read_yaml, create_directory
 
 
@@ -146,5 +146,24 @@ class ConfigurationManager:
 
             metrics_path=Path(
                 config.metrics_path
+            )
+        )
+
+    def get_prediction_config(self) -> PredictionConfig:
+
+        config = self.config.prediction
+
+        create_directory([
+            config.root_dir
+        ])
+
+        return PredictionConfig(
+
+            root_dir=Path(
+                config.root_dir
+            ),
+
+            model_path=Path(
+                config.model_path
             )
         )

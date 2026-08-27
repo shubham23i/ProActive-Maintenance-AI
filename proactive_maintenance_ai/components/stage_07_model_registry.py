@@ -118,7 +118,7 @@ class ModelRegistry:
 
             # Update latest model
             latest_model_path = os.path.join(
-                self.config.registry_dir,
+                self.config.root_dir,
                 "latest_model.pkl"
             )
 

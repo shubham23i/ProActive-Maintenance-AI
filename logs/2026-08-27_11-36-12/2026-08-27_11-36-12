@@ -1,0 +1,7 @@
+[ 2026-08-27 11:36:13,422 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-27 11:36:13,422 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-27 11:36:13,422 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-08-27 11:36:13,422 ] 130 root - INFO - ============================================================
+[ 2026-08-27 11:36:13,422 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-08-27 11:36:13,422 ] 132 root - INFO - ============================================================
+[ 2026-08-27 11:36:13,425 ] 17 root - INFO - Loading registered model...

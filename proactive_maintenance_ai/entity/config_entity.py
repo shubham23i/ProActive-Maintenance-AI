@@ -57,11 +57,12 @@ class ModelEvaluationConfig:
 
 @dataclass(frozen=True)
 class ModelRegistryConfig:
-
     root_dir: Path
-
     registry_dir: Path
-
     model_path: Path
-
     metrics_path: Path
+
+@dataclass(frozen=True)
+class PredictionConfig:
+    root_dir: Path
+    model_path: Path

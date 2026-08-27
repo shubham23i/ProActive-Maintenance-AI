@@ -12,7 +12,7 @@ from proactive_maintenance_ai.components.stage_06_model_evaluation import ModelE
 from proactive_maintenance_ai.components.stage_07_model_registry import (
     ModelRegistry
 )
-
+from proactive_maintenance_ai.components.stage_08_prediction import Prediction
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
 
@@ -186,6 +186,7 @@ class TrainingPipeline:
         except Exception as e:
             raise CustomException(e, sys)
 
+    
     def run_pipeline(self):
 
         try:

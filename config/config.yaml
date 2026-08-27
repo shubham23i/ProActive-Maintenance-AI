@@ -46,7 +46,9 @@ model_evaluation:
 model_registry:
   root_dir: artifacts/model_registry
   registry_dir: artifacts/model_registry/versions
-
   model_path: artifacts/model_training/model.pkl
-
   metrics_path: artifacts/model_evaluation/metrics.json
+
+prediction:
+  root_dir: artifacts/prediction
+  model_path: artifacts/model_registry/latest_model.pkl
