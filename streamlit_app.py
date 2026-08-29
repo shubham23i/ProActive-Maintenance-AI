@@ -1,31 +1,22 @@
 import streamlit as st
 
-from proactive_maintenance_ai.pipeline.prediction_pipeline import PredictionPipeline
-
-
-# Page Configuration
 st.set_page_config(
     page_title="ProActive Maintenance AI",
     page_icon="🔧",
     layout="wide"
 )
 
-
-# Title
 st.title("🔧 ProActive Maintenance AI")
 st.subheader("Machine Failure Prediction System")
 
 st.write(
-    "Enter the machine sensor values below to predict the "
-    "probability of machine failure."
+    "Enter the machine sensor values below to predict the probability "
+    "of machine failure."
 )
 
 st.divider()
 
-
-# Create two columns
 col1, col2 = st.columns(2)
-
 
 with col1:
 
@@ -36,52 +27,33 @@ with col1:
 
     air_temperature = st.number_input(
         "Air Temperature [K]",
-        min_value=250.0,
-        max_value=400.0,
-        value=300.0,
-        step=0.1
+        value=300.0
     )
 
     process_temperature = st.number_input(
         "Process Temperature [K]",
-        min_value=250.0,
-        max_value=450.0,
-        value=310.0,
-        step=0.1
+        value=310.0
     )
-
 
 with col2:
 
     rotational_speed = st.number_input(
         "Rotational Speed [rpm]",
-        min_value=0,
-        max_value=10000,
-        value=1500,
-        step=1
+        value=1500
     )
 
     torque = st.number_input(
         "Torque [Nm]",
-        min_value=0.0,
-        max_value=200.0,
-        value=40.0,
-        step=0.1
+        value=40.0
     )
 
     tool_wear = st.number_input(
         "Tool Wear [min]",
-        min_value=0,
-        max_value=500,
-        value=100,
-        step=1
+        value=100
     )
-
 
 st.divider()
 
-
-# Prediction Button
 if st.button("Predict Machine Failure", use_container_width=True):
 
     input_data = {
@@ -94,8 +66,9 @@ if st.button("Predict Machine Failure", use_container_width=True):
     }
 
     try:
-
         with st.spinner("Analyzing machine data..."):
+
+            from proactive_maintenance_ai.pipeline.prediction_pipeline import PredictionPipeline
 
             pipeline = PredictionPipeline()
 
@@ -106,12 +79,11 @@ if st.button("Predict Machine Failure", use_container_width=True):
         risk_level = result["risk_level"]
 
         st.divider()
+        st.subheader("Prediction Results")
 
-        # Results
         col1, col2, col3 = st.columns(3)
 
         with col1:
-
             if prediction == 1:
                 st.error("⚠️ Machine Failure Predicted")
             else:
@@ -129,32 +101,27 @@ if st.button("Predict Machine Failure", use_container_width=True):
                 risk_level
             )
 
-        # Recommendation
         st.divider()
-
         st.subheader("Maintenance Recommendation")
 
         if risk_level == "HIGH":
             st.error(
-                "Immediate inspection is recommended. "
+                "⚠️ Immediate inspection is recommended. "
                 "Schedule preventive maintenance as soon as possible."
             )
 
         elif risk_level == "MEDIUM":
             st.warning(
-                "Monitor the machine closely and schedule "
+                "⚠️ Monitor the machine closely and schedule "
                 "maintenance soon."
             )
 
         else:
             st.success(
-                "Machine condition appears normal. "
+                "✅ Machine condition appears normal. "
                 "Continue regular monitoring and preventive maintenance."
             )
 
     except Exception as e:
-
         st.error("Prediction failed.")
-
         st.exception(e)
-        
