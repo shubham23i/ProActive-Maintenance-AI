@@ -1,0 +1,24 @@
+[ 2026-08-31 10:29:19,675 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-31 10:29:19,677 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-31 10:29:19,678 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-08-31 10:29:19,678 ] 130 root - INFO - ============================================================
+[ 2026-08-31 10:29:19,678 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-08-31 10:29:19,678 ] 132 root - INFO - ============================================================
+[ 2026-08-31 10:29:19,678 ] 17 root - INFO - Loading registered model...
+[ 2026-08-31 10:29:28,187 ] 23 root - INFO - Model loaded successfully.
+[ 2026-08-31 10:29:28,214 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-08-31 10:29:28,230 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-08-31 10:29:28,232 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-08-31 10:29:28,232 ] 142 root - INFO - ============================================================
+[ 2026-08-31 10:34:38,374 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-08-31 10:34:38,390 ] 34 root - INFO - created directory at artifacts
+[ 2026-08-31 10:34:38,390 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-08-31 10:34:38,390 ] 130 root - INFO - ============================================================
+[ 2026-08-31 10:34:38,391 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-08-31 10:34:38,391 ] 132 root - INFO - ============================================================
+[ 2026-08-31 10:34:38,391 ] 17 root - INFO - Loading registered model...
+[ 2026-08-31 10:34:38,399 ] 23 root - INFO - Model loaded successfully.
+[ 2026-08-31 10:34:38,403 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-08-31 10:34:38,408 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-08-31 10:34:38,409 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-08-31 10:34:38,409 ] 142 root - INFO - ============================================================
