@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 st.set_page_config(
     page_title="ProActive Maintenance AI",
@@ -6,17 +7,18 @@ st.set_page_config(
 )
 
 
-# Custom CSS
+# ---------------------------------------------------
+# CUSTOM CSS
+# ---------------------------------------------------
+
 st.markdown("""
 <style>
 
-    /* Main Background */
     .stApp {
         background-color: #081A33;
         color: #FFFFFF;
     }
 
-    /* Main Container */
     .block-container {
         max-width: 1100px;
         padding-top: 3rem;
@@ -43,7 +45,7 @@ st.markdown("""
     /* Subtitle */
     .subtitle {
         font-size: 17px;
-        color: #B8C7D9;
+        color: #AFC1D6;
         margin-bottom: 30px;
     }
 
@@ -52,31 +54,65 @@ st.markdown("""
         font-size: 20px;
         font-weight: 600;
         color: #FFFFFF;
-        margin-bottom: 5px;
+        margin-top: 10px;
+        margin-bottom: 8px;
     }
 
     /* Caption */
     .stCaption {
-        color: #B8C7D9;
+        color: #AFC1D6;
     }
 
     /* Labels */
     label {
-        color: #EAF0F8 !important;
-        font-weight: 500 !important;
+        color: #E8EEF6 !important;
     }
 
-    /* Input Fields */
-    .stSelectbox > div > div,
-    .stNumberInput input {
-        border-radius: 6px !important;
+    /* Sensor Cards */
+    .sensor-card {
+        background-color: #0D2442;
+        border: 1px solid #1D416B;
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .sensor-label {
+        font-size: 12px;
+        color: #8FA7C2;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sensor-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-top: 5px;
+    }
+
+    /* Metric Cards */
+    [data-testid="stMetric"] {
+        background-color: #0D2442;
+        border: 1px solid #1D416B;
+        border-radius: 8px;
+        padding: 18px;
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #AFC1D6 !important;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #FFFFFF !important;
     }
 
     /* Button */
     .stButton > button {
-        background-color: #1E5AA8;
+        background-color: #1D5FA7;
         color: white;
-        border: 1px solid #2E6FC2;
+        border: none;
         border-radius: 6px;
         height: 48px;
         font-size: 16px;
@@ -84,33 +120,20 @@ st.markdown("""
     }
 
     .stButton > button:hover {
-        background-color: #2E6FC2;
-        border: 1px solid #4A8FE7;
+        background-color: #2874C4;
         color: white;
+        border: none;
     }
 
     /* Divider */
     hr {
-        border-color: #25466D !important;
-    }
-
-    /* Metrics */
-    [data-testid="stMetric"] {
-        background-color: #0D2442;
-        border: 1px solid #25466D;
-        border-radius: 8px;
-        padding: 15px;
-    }
-
-    [data-testid="stMetricLabel"],
-    [data-testid="stMetricValue"] {
-        color: #FFFFFF !important;
+        border-color: #1D416B !important;
     }
 
     /* Footer */
     .footer {
         text-align: center;
-        color: #8FA7C2;
+        color: #7792B0;
         font-size: 13px;
         padding-top: 10px;
     }
@@ -119,7 +142,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Sidebar
+# ---------------------------------------------------
+# SIDEBAR
+# ---------------------------------------------------
+
 with st.sidebar:
 
     st.markdown("## ProActive Maintenance AI")
@@ -131,24 +157,27 @@ with st.sidebar:
     st.markdown("### About")
 
     st.write(
-        "Analyze machine sensor data and estimate "
-        "the probability of machine failure."
+        "Analyze machine sensor readings and estimate "
+        "the probability of machine failure using machine learning."
     )
 
     st.divider()
 
     st.markdown("### Workflow")
 
-    st.write("01  Enter sensor data")
-    st.write("02  Analyze machine")
-    st.write("03  Review results")
+    st.write("01   Enter sensor data")
+    st.write("02   Analyze machine")
+    st.write("03   Review risk assessment")
 
     st.divider()
 
     st.caption("Machine Learning Based System")
 
 
-# Header
+# ---------------------------------------------------
+# HEADER
+# ---------------------------------------------------
+
 st.markdown(
     '<div class="main-title">ProActive Maintenance AI</div>',
     unsafe_allow_html=True
@@ -164,13 +193,19 @@ st.markdown(
 st.divider()
 
 
-# Input Section
+# ---------------------------------------------------
+# INPUT SECTION
+# ---------------------------------------------------
+
 st.markdown(
     '<div class="section-title">Machine Sensor Data</div>',
     unsafe_allow_html=True
 )
 
-
+st.caption(
+    "Enter the current machine sensor readings. "
+    "Use the information icon beside each field for details."
+)
 
 col1, col2 = st.columns(2)
 
@@ -180,15 +215,7 @@ with col1:
     machine_type = st.selectbox(
         "Machine Type",
         ["L", "M", "H"],
-        help="""
-        Machine quality category.
-
-        L = Low quality
-        M = Medium quality
-        H = High quality
-
-        Unit: No unit (categorical value)
-        """
+        help="Machine quality category. L = Low, M = Medium, H = High. Unit: None."
     )
 
     air_temperature = st.number_input(
@@ -206,7 +233,7 @@ with col1:
         max_value=450.0,
         value=310.0,
         step=0.1,
-        help="Temperature measured during the machine process or operation. Unit: Kelvin (K)."
+        help="Temperature during the manufacturing process. Unit: Kelvin (K)."
     )
 
 
@@ -218,7 +245,7 @@ with col2:
         max_value=10000,
         value=1500,
         step=1,
-        help="Speed at which the machine component rotates. Unit: Revolutions Per Minute (rpm)."
+        help="Speed at which the machine component rotates. Unit: Revolutions per minute (rpm)."
     )
 
     torque = st.number_input(
@@ -227,7 +254,7 @@ with col2:
         max_value=200.0,
         value=40.0,
         step=0.1,
-        help="Rotational force produced by the machine. Unit: Newton-metre (Nm)."
+        help="Rotational force generated by the machine. Unit: Newton metre (Nm)."
     )
 
     tool_wear = st.number_input(
@@ -236,14 +263,13 @@ with col2:
         max_value=500,
         value=100,
         step=1,
-        help="Total operating time representing the wear accumulated by the tool. Unit: Minutes (min)."
+        help="Accumulated operating time representing tool wear. Unit: Minutes (min)."
     )
 
+# ---------------------------------------------------
+# PREDICTION
+# ---------------------------------------------------
 
-st.divider()
-
-
-# Prediction
 if st.button(
     "Analyze Machine",
     use_container_width=True,
@@ -261,7 +287,21 @@ if st.button(
 
     try:
 
-        with st.spinner("Analyzing machine condition..."):
+        status = st.empty()
+
+        status.info("Initializing prediction engine...")
+        time.sleep(0.5)
+
+        status.info("Processing sensor readings...")
+        time.sleep(0.5)
+
+        status.info("Evaluating machine failure patterns...")
+        time.sleep(0.5)
+
+        status.info("Calculating failure probability...")
+        time.sleep(0.5)
+
+        with st.spinner("Generating final assessment..."):
 
             from proactive_maintenance_ai.pipeline.prediction_pipeline import (
                 PredictionPipeline
@@ -271,6 +311,12 @@ if st.button(
 
             result = pipeline.start_prediction(input_data)
 
+        status.empty()
+
+
+        # ---------------------------------------------------
+        # RESULTS
+        # ---------------------------------------------------
 
         prediction = result["prediction"]
         probability = result["failure_probability"]
@@ -284,12 +330,13 @@ if st.button(
             unsafe_allow_html=True
         )
 
+
         result_col1, result_col2, result_col3 = st.columns(3)
 
 
         with result_col1:
 
-            status = (
+            status_text = (
                 "Failure Predicted"
                 if prediction == 1
                 else "Operating Normally"
@@ -297,7 +344,7 @@ if st.button(
 
             st.metric(
                 "Machine Status",
-                status
+                status_text
             )
 
 
@@ -317,43 +364,120 @@ if st.button(
             )
 
 
-        st.divider()
+        # ---------------------------------------------------
+        # FAILURE RISK LEVEL
+        # ---------------------------------------------------
 
         st.markdown(
-            '<div class="section-title">Maintenance Recommendation</div>',
+            '<div class="section-title">Failure Risk Level</div>',
             unsafe_allow_html=True
         )
 
+        probability_percentage = float(probability) * 100
 
-        if risk_level == "HIGH":
+        # Prevent value from going below 0 or above 100
+        probability_percentage = max(0, min(probability_percentage, 100))
 
-            st.error(
-                "Immediate inspection is recommended. "
-                "Schedule preventive maintenance as soon as possible."
-            )
+        # Traffic light colors
+        if probability_percentage < 30:
+            risk_color = "#22C55E"
+            risk_text = "LOW RISK"
 
-        elif risk_level == "MEDIUM":
-
-            st.warning(
-                "Monitor the machine closely and schedule "
-                "maintenance soon."
-            )
+        elif probability_percentage < 60:
+            risk_color = "#EAB308"
+            risk_text = "MEDIUM RISK"
 
         else:
+            risk_color = "#EF4444"
+            risk_text = "HIGH RISK"
 
-            st.success(
-                "Machine condition appears normal. "
-                "Continue regular monitoring and preventive maintenance."
+
+        # Display percentage and risk
+        st.markdown(
+            f"<p style='color:{risk_color}; font-size:18px; font-weight:600;'>"
+            f"{probability_percentage:.2f}% | {risk_text}"
+            f"</p>",
+            unsafe_allow_html=True
+        )
+
+        # Traffic-light risk bar
+        st.markdown(
+            f"""
+            <div style="width:100%; height:14px; background:#061326;
+                        border-radius:10px; overflow:hidden;">
+                <div style="width:{probability_percentage}%; height:100%;
+                            background:{risk_color}; border-radius:10px;">
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.caption("Green: 0–30%     |     Yellow: 30–60%     |     Red: 60–100%")
+
+
+        # ---------------------------------------------------
+        # EXPANDABLE DETAILS
+        # ---------------------------------------------------
+
+        with st.expander("View Detailed Analysis"):
+
+            st.write("Input Sensor Readings")
+
+            st.dataframe(
+                {
+                    "Parameter": [
+                        "Machine Type",
+                        "Air Temperature",
+                        "Process Temperature",
+                        "Rotational Speed",
+                        "Torque",
+                        "Tool Wear"
+                    ],
+                    "Value": [
+                        machine_type,
+                        f"{air_temperature} K",
+                        f"{process_temperature} K",
+                        f"{rotational_speed} rpm",
+                        f"{torque} Nm",
+                        f"{tool_wear} min"
+                    ]
+                },
+                use_container_width=True,
+                hide_index=True
+            )
+
+            st.write("Prediction Summary")
+
+            st.dataframe(
+                {
+                    "Metric": [
+                        "Prediction",
+                        "Failure Probability",
+                        "Risk Level"
+                    ],
+                    "Result": [
+                        status_text,
+                        f"{probability_percentage:.2f}%",
+                        risk_level
+                    ]
+                },
+                use_container_width=True,
+                hide_index=True
             )
 
 
     except Exception as e:
 
         st.error("The prediction could not be completed.")
+
         st.exception(e)
 
 
-# Footer
+# ---------------------------------------------------
+# FOOTER
+# ---------------------------------------------------
+
 st.divider()
 
 st.markdown(

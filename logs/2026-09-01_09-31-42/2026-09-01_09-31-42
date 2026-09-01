@@ -1,0 +1,60 @@
+[ 2026-09-01 09:31:46,276 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-01 09:31:46,278 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-01 09:31:46,278 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-01 09:31:46,278 ] 130 root - INFO - ============================================================
+[ 2026-09-01 09:31:46,278 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-09-01 09:31:46,278 ] 132 root - INFO - ============================================================
+[ 2026-09-01 09:31:46,278 ] 17 root - INFO - Loading registered model...
+[ 2026-09-01 09:31:54,313 ] 23 root - INFO - Model loaded successfully.
+[ 2026-09-01 09:31:54,344 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-09-01 09:31:54,360 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-09-01 09:31:54,362 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-09-01 09:31:54,362 ] 142 root - INFO - ============================================================
+[ 2026-09-01 09:32:59,634 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-01 09:32:59,635 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-01 09:32:59,635 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-01 09:32:59,636 ] 130 root - INFO - ============================================================
+[ 2026-09-01 09:32:59,636 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-09-01 09:32:59,636 ] 132 root - INFO - ============================================================
+[ 2026-09-01 09:32:59,636 ] 17 root - INFO - Loading registered model...
+[ 2026-09-01 09:32:59,650 ] 23 root - INFO - Model loaded successfully.
+[ 2026-09-01 09:32:59,657 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-09-01 09:32:59,666 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-09-01 09:32:59,666 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-09-01 09:32:59,666 ] 142 root - INFO - ============================================================
+[ 2026-09-01 09:34:20,488 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-01 09:34:20,488 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-01 09:34:20,488 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-01 09:34:20,488 ] 130 root - INFO - ============================================================
+[ 2026-09-01 09:34:20,489 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-09-01 09:34:20,489 ] 132 root - INFO - ============================================================
+[ 2026-09-01 09:34:20,489 ] 17 root - INFO - Loading registered model...
+[ 2026-09-01 09:34:20,497 ] 23 root - INFO - Model loaded successfully.
+[ 2026-09-01 09:34:20,505 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-09-01 09:34:20,515 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-09-01 09:34:20,516 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-09-01 09:34:20,516 ] 142 root - INFO - ============================================================
+[ 2026-09-01 09:35:31,900 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-01 09:35:31,902 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-01 09:35:31,902 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-01 09:35:31,903 ] 130 root - INFO - ============================================================
+[ 2026-09-01 09:35:31,903 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-09-01 09:35:31,903 ] 132 root - INFO - ============================================================
+[ 2026-09-01 09:35:31,903 ] 17 root - INFO - Loading registered model...
+[ 2026-09-01 09:35:31,916 ] 23 root - INFO - Model loaded successfully.
+[ 2026-09-01 09:35:31,924 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-09-01 09:35:31,935 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-09-01 09:35:31,936 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-09-01 09:35:31,936 ] 142 root - INFO - ============================================================
+[ 2026-09-01 09:37:02,311 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-01 09:37:02,312 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-01 09:37:02,312 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-01 09:37:02,312 ] 130 root - INFO - ============================================================
+[ 2026-09-01 09:37:02,312 ] 131 root - INFO - PREDICTION STARTED
+[ 2026-09-01 09:37:02,312 ] 132 root - INFO - ============================================================
+[ 2026-09-01 09:37:02,313 ] 17 root - INFO - Loading registered model...
+[ 2026-09-01 09:37:02,324 ] 23 root - INFO - Model loaded successfully.
+[ 2026-09-01 09:37:02,330 ] 62 root - INFO - Input preprocessing completed: (1, 5)
+[ 2026-09-01 09:37:02,336 ] 117 root - INFO - Prediction result: {'prediction': 1, 'failure_probability': 0.7097, 'risk_level': 'HIGH'}
+[ 2026-09-01 09:37:02,337 ] 138 root - INFO - Prediction completed successfully.
+[ 2026-09-01 09:37:02,337 ] 142 root - INFO - ============================================================
