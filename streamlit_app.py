@@ -1,10 +1,16 @@
 import streamlit as st
 import time
-
+import pandas as pd
 st.set_page_config(
     page_title="ProActive Maintenance AI",
     layout="wide"
 )
+# ---------------------------------------------------
+# SESSION STATE
+# ---------------------------------------------------
+
+if "prediction_history" not in st.session_state:
+    st.session_state.prediction_history = []
 
 
 # ---------------------------------------------------
@@ -321,6 +327,17 @@ if st.button(
         prediction = result["prediction"]
         probability = result["failure_probability"]
         risk_level = result["risk_level"]
+        # Save prediction to history
+        st.session_state.prediction_history.append({
+            "Machine Type": machine_type,
+            "Failure Probability": f"{probability * 100:.2f}%",
+            "Risk Level": risk_level,
+            "Prediction": (
+                "Failure Predicted"
+                if prediction == 1
+                else "Operating Normally"
+            )
+        })
 
 
         st.divider()
@@ -473,6 +490,32 @@ if st.button(
 
         st.exception(e)
 
+# ---------------------------------------------------
+# PREDICTION HISTORY
+# ---------------------------------------------------
+
+if st.session_state.prediction_history:
+
+    st.divider()
+
+    st.markdown(
+        '<div class="section-title">Prediction History</div>',
+        unsafe_allow_html=True
+    )
+
+    history_df = pd.DataFrame(
+        st.session_state.prediction_history
+    )
+
+    st.dataframe(
+        history_df,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    if st.button("Clear History"):
+        st.session_state.prediction_history = []
+        st.rerun()
 
 # ---------------------------------------------------
 # FOOTER
