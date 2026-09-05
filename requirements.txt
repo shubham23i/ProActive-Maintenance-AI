@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+python-box
+pyyaml
+ensure
+dill

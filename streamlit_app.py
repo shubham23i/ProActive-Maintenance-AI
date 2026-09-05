@@ -490,6 +490,46 @@ if st.button(
 
         st.exception(e)
 
+
+    # ---------------------------------------------------
+    # MACHINE HEALTH SCORE
+    # ---------------------------------------------------
+
+    st.divider()
+
+    st.markdown(
+        '<div class="section-title">Machine Health Score</div>',
+        unsafe_allow_html=True
+    )
+
+    health_score = 100 - probability_percentage
+
+    if health_score >= 80:
+        health_status = "EXCELLENT"
+    elif health_score >= 60:
+        health_status = "GOOD"
+    elif health_score >= 40:
+        health_status = "MODERATE"
+    else:
+        health_status = "CRITICAL"
+
+
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        st.metric(
+            "Health Score",
+            f"{health_score:.1f} / 100"
+        )
+
+    with col2:
+        st.write(f"**Machine Condition: {health_status}**")
+
+        st.progress(
+            int(health_score),
+            text=f"Overall machine health: {health_score:.1f}%"
+        )
+
 # ---------------------------------------------------
 # PREDICTION HISTORY
 # ---------------------------------------------------
