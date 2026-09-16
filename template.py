@@ -18,6 +18,9 @@ list_of_files = [
     f"{project_name}/components/stage_06_model_evaluation.py",
     f"{project_name}/components/stage_07_model_registry.py",
     f"{project_name}/components/stage_08_prediction.py",
+    f"{project_name}/components/stage_09_anomaly_detection.py",
+    f"{project_name}/components/stage_10_maintenance_decision.py",
+    f"{project_name}/components/stage_11_explainability.py",
 
     # Configuration
     f"{project_name}/config/__init__.py",
@@ -79,6 +82,12 @@ list_of_files = [
     "tests/__init__.py",
     "tests/test_data_validation.py",
     "tests/test_model.py",
+
+
+    #testing
+    "test_maintenance_decision.py",
+    "test_explainability_config.py",
+    "test_explainability.py",
 
     # API
     "app.py",

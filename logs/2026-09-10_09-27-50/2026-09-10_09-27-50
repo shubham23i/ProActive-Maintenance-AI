@@ -1,0 +1,83 @@
+[ 2026-09-10 09:27:53,570 ] 13 root - INFO - Application Started
+[ 2026-09-10 09:27:53,570 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-10 09:27:53,570 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-10 09:27:53,570 ] 194 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,570 ] 195 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-10 09:27:53,570 ] 196 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,570 ] 28 root - INFO - Starting Data Ingestion...
+[ 2026-09-10 09:27:53,570 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-10 09:27:53,570 ] 78 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,570 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-10 09:27:53,570 ] 80 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,570 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-10 09:27:53,580 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-10 09:27:53,580 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-10 09:27:53,580 ] 86 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,580 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-10 09:27:53,580 ] 88 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,580 ] 36 root - INFO - Data Ingestion Completed.
+[ 2026-09-10 09:27:53,580 ] 45 root - INFO - Starting Data Validation...
+[ 2026-09-10 09:27:53,580 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-10 09:27:53,580 ] 195 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,580 ] 196 root - INFO - Data Validation Started
+[ 2026-09-10 09:27:53,580 ] 197 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,580 ] 36 root - INFO - Reading dataset
+[ 2026-09-10 09:27:53,611 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:27:53,611 ] 203 root - INFO - Validation Status: True
+[ 2026-09-10 09:27:53,611 ] 208 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,611 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-10 09:27:53,611 ] 212 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,611 ] 58 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:27:53,611 ] 67 root - INFO - Starting Data Preprocessing...
+[ 2026-09-10 09:27:53,611 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-10 09:27:53,611 ] 186 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,611 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-10 09:27:53,611 ] 190 root - INFO - ============================================================
+[ 2026-09-10 09:27:53,639 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-10 09:27:53,639 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-10 09:27:53,639 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-10 09:27:53,639 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-10 09:27:53,639 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-10 09:27:53,639 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-10 09:27:53,639 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-10 09:27:53,643 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-10 09:27:53,643 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-10 09:27:53,672 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-10 09:27:53,672 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-10 09:27:53,672 ] 79 root - INFO - Data Preprocessing Completed.
+[ 2026-09-10 09:27:53,672 ] 90 root - INFO - Starting Feature Engineering...
+[ 2026-09-10 09:27:53,672 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-10 09:27:53,723 ] 248 root - INFO - Train data loaded: (8500, 8)
+[ 2026-09-10 09:27:53,723 ] 252 root - INFO - Test data loaded: (1500, 8)
+[ 2026-09-10 09:27:55,823 ] 200 root - INFO - Feature engineering completed. Shape: (8380, 119)
+[ 2026-09-10 09:27:56,204 ] 200 root - INFO - Feature engineering completed. Shape: (1461, 119)
+[ 2026-09-10 09:27:57,001 ] 225 root - INFO - Feature engineered train and test datasets saved.
+[ 2026-09-10 09:27:57,013 ] 102 root - INFO - Feature Engineering Completed.
+[ 2026-09-10 09:27:57,013 ] 113 root - INFO - Starting Model Training...
+[ 2026-09-10 09:27:57,013 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-09-10 09:27:57,013 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[206] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[123] error_message ['ModelTrainer' object has no attribute 'initiate_model_training']]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 123, in start_model_training
+    model_trainer.initiate_model_training()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ModelTrainer' object has no attribute 'initiate_model_training'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 206, in run_pipeline
+    self.start_model_training()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 130, in start_model_training
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[123] error_message ['ModelTrainer' object has no attribute 'initiate_model_training']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 217, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[206] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[123] error_message ['ModelTrainer' object has no attribute 'initiate_model_training']]

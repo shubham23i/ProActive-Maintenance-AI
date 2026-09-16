@@ -1,0 +1,117 @@
+[ 2026-09-14 09:40:34,790 ] 13 root - INFO - Application Started
+[ 2026-09-14 09:40:34,794 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 09:40:34,795 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 09:40:34,795 ] 218 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,795 ] 219 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-14 09:40:34,795 ] 220 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,795 ] 29 root - INFO - Starting Data Ingestion...
+[ 2026-09-14 09:40:34,796 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-14 09:40:34,796 ] 78 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,796 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-14 09:40:34,796 ] 80 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,796 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-14 09:40:34,803 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-14 09:40:34,808 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-14 09:40:34,808 ] 86 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,808 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-14 09:40:34,808 ] 88 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,808 ] 37 root - INFO - Data Ingestion Completed.
+[ 2026-09-14 09:40:34,808 ] 46 root - INFO - Starting Data Validation...
+[ 2026-09-14 09:40:34,808 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-14 09:40:34,808 ] 195 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,808 ] 196 root - INFO - Data Validation Started
+[ 2026-09-14 09:40:34,809 ] 197 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,809 ] 36 root - INFO - Reading dataset
+[ 2026-09-14 09:40:34,880 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-14 09:40:34,880 ] 203 root - INFO - Validation Status: True
+[ 2026-09-14 09:40:34,880 ] 208 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,880 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-14 09:40:34,880 ] 212 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,880 ] 59 root - INFO - Data Validation Completed.
+[ 2026-09-14 09:40:34,880 ] 68 root - INFO - Starting Data Preprocessing...
+[ 2026-09-14 09:40:34,880 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-14 09:40:34,880 ] 186 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,880 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-14 09:40:34,880 ] 190 root - INFO - ============================================================
+[ 2026-09-14 09:40:34,899 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-14 09:40:34,907 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-14 09:40:34,907 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-14 09:40:34,908 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-14 09:40:34,908 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-14 09:40:34,908 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-14 09:40:34,908 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-14 09:40:34,911 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-14 09:40:34,911 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-14 09:40:34,945 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-14 09:40:34,945 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-14 09:40:34,945 ] 80 root - INFO - Data Preprocessing Completed.
+[ 2026-09-14 09:40:34,945 ] 91 root - INFO - Starting Feature Engineering...
+[ 2026-09-14 09:40:34,945 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-14 09:40:35,009 ] 280 root - INFO - Train data loaded: (8500, 8)
+[ 2026-09-14 09:40:35,009 ] 284 root - INFO - Test data loaded: (1500, 8)
+[ 2026-09-14 09:40:37,917 ] 237 root - INFO - Feature engineering completed. Shape: (8380, 119)
+[ 2026-09-14 09:40:38,417 ] 237 root - INFO - Feature engineering completed. Shape: (1461, 119)
+[ 2026-09-14 09:40:39,683 ] 261 root - INFO - Feature engineered train and test datasets saved.
+[ 2026-09-14 09:40:39,684 ] 103 root - INFO - Feature Engineering Completed.
+[ 2026-09-14 09:40:39,684 ] 114 root - INFO - Starting Model Training...
+[ 2026-09-14 09:40:39,685 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-09-14 09:40:39,685 ] 341 root - INFO - ============================================================
+[ 2026-09-14 09:40:39,685 ] 342 root - INFO - Model Training Started
+[ 2026-09-14 09:40:39,685 ] 345 root - INFO - ============================================================
+[ 2026-09-14 09:40:40,002 ] 36 root - INFO - Train data loaded: (8380, 119)
+[ 2026-09-14 09:40:40,003 ] 40 root - INFO - Test data loaded: (1461, 119)
+[ 2026-09-14 09:40:40,024 ] 157 root - INFO - Fit data shape: (7123, 119)
+[ 2026-09-14 09:40:40,024 ] 161 root - INFO - Validation data shape: (1257, 119)
+[ 2026-09-14 09:40:40,024 ] 165 root - INFO - Final test data shape: (1461, 119)
+[ 2026-09-14 09:40:40,024 ] 173 root - INFO - Fit UDI range: 21 - 7228
+[ 2026-09-14 09:40:40,026 ] 179 root - INFO - Validation UDI range: 7229 - 8500
+[ 2026-09-14 09:40:40,026 ] 185 root - INFO - Test UDI range: 8521 - 10000
+[ 2026-09-14 09:40:40,072 ] 238 root - INFO - Positive samples: 280
+[ 2026-09-14 09:40:40,072 ] 242 root - INFO - Negative samples: 6843
+[ 2026-09-14 09:40:40,072 ] 246 root - INFO - Scale positive weight: 24.44
+[ 2026-09-14 09:40:40,072 ] 286 root - INFO - Starting XGBoost training...
+[ 2026-09-14 09:40:41,233 ] 299 root - INFO - XGBoost training completed.
+[ 2026-09-14 09:40:41,233 ] 312 root - INFO - Best iteration: 87
+[ 2026-09-14 09:40:41,239 ] 326 root - INFO - Model saved at: artifacts\model_training\model.pkl
+[ 2026-09-14 09:40:41,242 ] 349 root - INFO - Model Training Completed
+[ 2026-09-14 09:40:41,242 ] 353 root - INFO - ============================================================
+[ 2026-09-14 09:40:41,242 ] 126 root - INFO - Model Training Completed.
+[ 2026-09-14 09:40:41,242 ] 137 root - INFO - Starting Model Evaluation...
+[ 2026-09-14 09:40:41,242 ] 34 root - INFO - created directory at artifacts/model_evaluation
+[ 2026-09-14 09:40:41,242 ] 219 root - INFO - ============================================================
+[ 2026-09-14 09:40:41,242 ] 220 root - INFO - Model Evaluation Started
+[ 2026-09-14 09:40:41,242 ] 221 root - INFO - ============================================================
+[ 2026-09-14 09:40:41,463 ] 168 root - INFO - Evaluation metrics: {'accuracy': 0.9863107460643394, 'precision': 0.6176470588235294, 'recall': 0.75, 'f1_score': 0.6774193548387096, 'roc_auc': 0.9757252517196691, 'pr_auc': 0.7914885047024184}
+[ 2026-09-14 09:40:42,685 ] 225 root - INFO - Model Evaluation Completed
+[ 2026-09-14 09:40:42,685 ] 229 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,685 ] 151 root - INFO - Model Evaluation Completed.
+[ 2026-09-14 09:40:42,685 ] 164 root - INFO - Starting Model Registry...
+[ 2026-09-14 09:40:42,685 ] 34 root - INFO - created directory at artifacts/model_registry
+[ 2026-09-14 09:40:42,686 ] 34 root - INFO - created directory at artifacts/model_registry/versions
+[ 2026-09-14 09:40:42,686 ] 173 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,686 ] 174 root - INFO - MODEL REGISTRY STARTED
+[ 2026-09-14 09:40:42,686 ] 175 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,686 ] 51 root - INFO - Starting Model Registration...
+[ 2026-09-14 09:40:42,708 ] 152 root - INFO - Model registered successfully: v7
+[ 2026-09-14 09:40:42,708 ] 156 root - INFO - Registered model path: artifacts\model_registry\versions\v7\model.pkl
+[ 2026-09-14 09:40:42,709 ] 160 root - INFO - Latest model path: artifacts\model_registry\latest_model.pkl
+[ 2026-09-14 09:40:42,709 ] 179 root - INFO - Model Registry Completed. Version: v7
+[ 2026-09-14 09:40:42,709 ] 183 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,709 ] 180 root - INFO - Model Registry Completed. Version: v7
+[ 2026-09-14 09:40:42,709 ] 194 root - INFO - Starting Anomaly Detection...
+[ 2026-09-14 09:40:42,710 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-14 09:40:42,710 ] 132 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,710 ] 133 root - INFO - ANOMALY DETECTION STARTED
+[ 2026-09-14 09:40:42,710 ] 134 root - INFO - ============================================================
+[ 2026-09-14 09:40:42,738 ] 40 root - INFO - Anomaly detection data loaded: (10000, 14)
+[ 2026-09-14 09:40:42,740 ] 61 root - INFO - Training anomaly detector on: (10000, 5)
+[ 2026-09-14 09:40:43,511 ] 72 root - INFO - Anomaly detection model saved: artifacts\anomaly_detection\anomaly_model.pkl
+[ 2026-09-14 09:40:43,511 ] 138 root - INFO - Anomaly Detection Completed
+[ 2026-09-14 09:40:43,511 ] 142 root - INFO - ============================================================
+[ 2026-09-14 09:40:43,511 ] 206 root - INFO - Anomaly Detection Completed.
+[ 2026-09-14 09:40:43,513 ] 238 root - INFO - ============================================================
+[ 2026-09-14 09:40:43,513 ] 239 root - INFO - TRAINING PIPELINE COMPLETED
+[ 2026-09-14 09:40:43,513 ] 240 root - INFO - ============================================================
+[ 2026-09-14 09:40:43,513 ] 19 root - INFO - Application Finished Successfully

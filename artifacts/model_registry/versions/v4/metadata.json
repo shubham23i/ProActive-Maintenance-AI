@@ -1,0 +1,13 @@
+{
+    "model_version": "v4",
+    "registered_at": "2026-09-11T21:28:29.671478",
+    "model_path": "artifacts\\model_registry\\versions\\v4\\model.pkl",
+    "metrics": {
+        "accuracy": 0.9876796714579056,
+        "precision": 0.65625,
+        "recall": 0.75,
+        "f1_score": 0.7,
+        "roc_auc": 0.9758747881567142,
+        "pr_auc": 0.7987289661081557
+    }
+}

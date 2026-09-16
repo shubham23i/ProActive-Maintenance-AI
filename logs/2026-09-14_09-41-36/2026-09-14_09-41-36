@@ -1,0 +1,4 @@
+[ 2026-09-14 09:41:38,403 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 09:41:38,403 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 09:41:38,403 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-14 09:41:38,511 ] 119 root - INFO - Anomaly detection result: {'anomaly_prediction': 1, 'anomaly_score': 0.1922, 'anomaly_status': 'NORMAL'}

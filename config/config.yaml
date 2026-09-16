@@ -52,3 +52,14 @@ model_registry:
 prediction:
   root_dir: artifacts/prediction
   model_path: artifacts/model_registry/latest_model.pkl
+  raw_data_file: artifacts/data_ingestion/raw_data.csv
+
+anomaly_detection:
+  root_dir: artifacts/anomaly_detection
+  data_file: artifacts/data_ingestion/raw_data.csv
+  model_path: artifacts/anomaly_detection/anomaly_model.pkl
+
+
+explainability:
+  root_dir: artifacts/explainability
+  model_path: artifacts/model_registry/latest_model.pkl

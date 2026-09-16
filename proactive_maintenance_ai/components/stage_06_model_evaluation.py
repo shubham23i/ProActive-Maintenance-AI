@@ -1,10 +1,7 @@
-import os
-import sys
+import pandas as pd
 import joblib
 import json
-import pandas as pd
-import matplotlib.pyplot as plt
-
+import sys
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -12,157 +9,150 @@ from sklearn.metrics import (
     f1_score,
     roc_auc_score,
     average_precision_score,
-    confusion_matrix,
-    classification_report,
-    ConfusionMatrixDisplay
+    confusion_matrix
 )
 
+import matplotlib.pyplot as plt
+
 from proactive_maintenance_ai.logger.log import logging
+from proactive_maintenance_ai.entity.config_entity import ModelEvaluationConfig
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
 
 class ModelEvaluation:
 
-    def __init__(self, config):
+    def __init__(self, config: ModelEvaluationConfig):
+
         self.config = config
 
-    def load_model(self):
+        self.target_column = "Machine failure"
+
+    def evaluate(self):
 
         try:
 
-            logging.info("Loading trained model...")
+            # ---------------------------------------------------------
+            # Load model
+            # ---------------------------------------------------------
 
             model = joblib.load(
                 self.config.model_path
             )
 
-            logging.info("Trained model loaded successfully.")
-
-            return model
-
-        except Exception as e:
-            raise CustomException(e, sys)
-
-    def load_test_data(self):
-
-        try:
-
-            logging.info("Loading test data...")
+            # ---------------------------------------------------------
+            # Load test data
+            # ---------------------------------------------------------
 
             test_df = pd.read_csv(
                 self.config.test_data_path
             )
 
-            target_column = self.config.target_column
+            # ---------------------------------------------------------
+            # Prepare X and y
+            # ---------------------------------------------------------
 
             X_test = test_df.drop(
-                columns=[target_column]
+                columns=[
+                    self.target_column,
+                    "UDI"
+                ],
+                errors="ignore"
             )
 
-            y_test = test_df[target_column]
+            y_test = test_df[
+                self.target_column
+            ]
 
-            # Encode Type exactly as done during training
+            # ---------------------------------------------------------
+            # Encode categorical variables
+            # ---------------------------------------------------------
+
             X_test = pd.get_dummies(
                 X_test,
                 columns=["Type"],
-                drop_first=True
+                drop_first=True,
+                dtype=int
             )
 
+            # ---------------------------------------------------------
             # Clean feature names
+            # ---------------------------------------------------------
+
             X_test.columns = (
                 X_test.columns
                 .str.replace("[", "_", regex=False)
                 .str.replace("]", "_", regex=False)
                 .str.replace("<", "_", regex=False)
                 .str.replace(">", "_", regex=False)
-                .str.replace(" ", "_")
+                .str.replace(" ", "_", regex=False)
             )
 
-            logging.info(
-                f"Test data shape: {X_test.shape}"
+            # ---------------------------------------------------------
+            # Match training feature schema
+            # ---------------------------------------------------------
+
+            if hasattr(model, "feature_names_in_"):
+
+                X_test = X_test.reindex(
+                    columns=model.feature_names_in_,
+                    fill_value=0
+                )
+
+            # ---------------------------------------------------------
+            # Predictions
+            # ---------------------------------------------------------
+
+            y_pred = model.predict(
+                X_test
             )
 
-            return X_test, y_test
+            y_prob = model.predict_proba(
+                X_test
+            )[:, 1]
 
-        except Exception as e:
-            raise CustomException(e, sys)
-
-    def evaluate_model(self, model, X_test, y_test):
-
-        try:
-
-            logging.info("Starting model evaluation...")
-
-            y_pred = model.predict(X_test)
-            y_prob = model.predict_proba(X_test)[:, 1]
-
-            accuracy = accuracy_score(
-                y_test,
-                y_pred
-            )
-
-            precision = precision_score(
-                y_test,
-                y_pred,
-                zero_division=0
-            )
-
-            recall = recall_score(
-                y_test,
-                y_pred,
-                zero_division=0
-            )
-
-            f1 = f1_score(
-                y_test,
-                y_pred,
-                zero_division=0
-            )
-
-            roc_auc = roc_auc_score(
-                y_test,
-                y_prob
-            )
-
-            pr_auc = average_precision_score(
-                y_test,
-                y_prob
-            )
+            # ---------------------------------------------------------
+            # Metrics
+            # ---------------------------------------------------------
 
             metrics = {
-                "accuracy": accuracy,
-                "precision": precision,
-                "recall": recall,
-                "f1_score": f1,
-                "roc_auc": roc_auc,
-                "pr_auc": pr_auc
+
+                "accuracy": accuracy_score(
+                    y_test,
+                    y_pred
+                ),
+
+                "precision": precision_score(
+                    y_test,
+                    y_pred,
+                    zero_division=0
+                ),
+
+                "recall": recall_score(
+                    y_test,
+                    y_pred,
+                    zero_division=0
+                ),
+
+                "f1_score": f1_score(
+                    y_test,
+                    y_pred,
+                    zero_division=0
+                ),
+
+                "roc_auc": roc_auc_score(
+                    y_test,
+                    y_prob
+                ),
+
+                "pr_auc": average_precision_score(
+                    y_test,
+                    y_prob
+                )
             }
 
-            logging.info(f"Accuracy: {accuracy:.4f}")
-            logging.info(f"Precision: {precision:.4f}")
-            logging.info(f"Recall: {recall:.4f}")
-            logging.info(f"F1 Score: {f1:.4f}")
-            logging.info(f"ROC-AUC: {roc_auc:.4f}")
-            logging.info(f"PR-AUC: {pr_auc:.4f}")
-
-            logging.info("\nClassification Report:")
-            logging.info(
-                f"\n{classification_report(y_test, y_pred)}"
-            )
-
-            return metrics, y_pred
-
-        except Exception as e:
-            raise CustomException(e, sys)
-
-    def save_metrics(self, metrics):
-
-        try:
-
-            os.makedirs(
-                self.config.root_dir,
-                exist_ok=True
-            )
+            # ---------------------------------------------------------
+            # Save metrics
+            # ---------------------------------------------------------
 
             with open(
                 self.config.metrics_file,
@@ -176,61 +166,51 @@ class ModelEvaluation:
                 )
 
             logging.info(
-                f"Metrics saved to: "
-                f"{self.config.metrics_file}"
+                f"Evaluation metrics: {metrics}"
             )
 
-        except Exception as e:
-            raise CustomException(e, sys)
-
-    def save_confusion_matrix(
-        self,
-        y_test,
-        y_pred
-    ):
-
-        try:
-
-            os.makedirs(
-                self.config.root_dir,
-                exist_ok=True
-            )
+            # ---------------------------------------------------------
+            # Confusion matrix
+            # ---------------------------------------------------------
 
             cm = confusion_matrix(
                 y_test,
                 y_pred
             )
 
-            disp = ConfusionMatrixDisplay(
-                confusion_matrix=cm,
-                display_labels=[
-                    "No Failure",
-                    "Failure"
-                ]
+            plt.figure(
+                figsize=(6, 5)
             )
 
-            disp.plot()
+            plt.imshow(cm)
 
             plt.title(
-                "Machine Failure Confusion Matrix"
+                "Confusion Matrix"
             )
 
-            plt.tight_layout()
+            plt.xlabel(
+                "Predicted"
+            )
+
+            plt.ylabel(
+                "Actual"
+            )
+
+            plt.colorbar()
 
             plt.savefig(
                 self.config.confusion_matrix_path,
-                dpi=150
+                dpi=300,
+                bbox_inches="tight"
             )
 
             plt.close()
 
-            logging.info(
-                f"Confusion matrix saved to: "
-                f"{self.config.confusion_matrix_path}"
-            )
+            return metrics
 
         except Exception as e:
-            raise CustomException(e, sys)
+
+            raise CustomException(e,sys)
 
     def initiate_model_evaluation(self):
 
@@ -240,30 +220,16 @@ class ModelEvaluation:
             logging.info("Model Evaluation Started")
             logging.info("=" * 60)
 
-            model = self.load_model()
+            metrics = self.evaluate()
 
-            X_test, y_test = self.load_test_data()
-
-            metrics, y_pred = self.evaluate_model(
-                model,
-                X_test,
-                y_test
+            logging.info(
+                "Model Evaluation Completed"
             )
 
-            self.save_metrics(
-                metrics
-            )
-
-            self.save_confusion_matrix(
-                y_test,
-                y_pred
-            )
-
-            logging.info("=" * 60)
-            logging.info("Model Evaluation Completed")
             logging.info("=" * 60)
 
             return metrics
 
         except Exception as e:
+
             raise CustomException(e, sys)

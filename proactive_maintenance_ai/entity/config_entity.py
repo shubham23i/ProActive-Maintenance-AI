@@ -66,3 +66,17 @@ class ModelRegistryConfig:
 class PredictionConfig:
     root_dir: Path
     model_path: Path
+    raw_data_file: Path
+
+
+@dataclass(frozen=True)
+class AnomalyDetectionConfig:
+    root_dir: Path
+    data_file: Path
+    model_path: Path
+
+
+@dataclass(frozen=True)
+class ModelExplainabilityConfig:
+    root_dir: Path
+    model_path: Path

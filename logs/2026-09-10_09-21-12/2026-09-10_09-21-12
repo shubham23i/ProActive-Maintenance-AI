@@ -1,0 +1,85 @@
+[ 2026-09-10 09:21:15,676 ] 13 root - INFO - Application Started
+[ 2026-09-10 09:21:15,676 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-10 09:21:15,687 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-10 09:21:15,687 ] 194 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 195 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-10 09:21:15,687 ] 196 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 28 root - INFO - Starting Data Ingestion...
+[ 2026-09-10 09:21:15,687 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-10 09:21:15,687 ] 78 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-10 09:21:15,687 ] 80 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-10 09:21:15,687 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-10 09:21:15,687 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-10 09:21:15,687 ] 86 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-10 09:21:15,687 ] 88 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 36 root - INFO - Data Ingestion Completed.
+[ 2026-09-10 09:21:15,687 ] 45 root - INFO - Starting Data Validation...
+[ 2026-09-10 09:21:15,687 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-10 09:21:15,687 ] 195 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 196 root - INFO - Data Validation Started
+[ 2026-09-10 09:21:15,687 ] 197 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,687 ] 36 root - INFO - Reading dataset
+[ 2026-09-10 09:21:15,757 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:21:15,757 ] 203 root - INFO - Validation Status: True
+[ 2026-09-10 09:21:15,757 ] 208 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,757 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-10 09:21:15,757 ] 212 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,757 ] 58 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:21:15,757 ] 67 root - INFO - Starting Data Preprocessing...
+[ 2026-09-10 09:21:15,757 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-10 09:21:15,757 ] 186 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,757 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-10 09:21:15,757 ] 190 root - INFO - ============================================================
+[ 2026-09-10 09:21:15,767 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-10 09:21:15,767 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-10 09:21:15,767 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-10 09:21:15,767 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-10 09:21:15,767 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-10 09:21:15,783 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-10 09:21:15,783 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-10 09:21:15,783 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-10 09:21:15,783 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-10 09:21:15,813 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-10 09:21:15,813 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-10 09:21:15,813 ] 79 root - INFO - Data Preprocessing Completed.
+[ 2026-09-10 09:21:15,813 ] 90 root - INFO - Starting Feature Engineering...
+[ 2026-09-10 09:21:15,813 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-10 09:21:15,859 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[204] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [CustomException.__init__() missing 1 required positional argument: 'error_details']]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 248, in initiate_feature_engineering
+    logger.info(
+    ^^^^^^^^^^^
+AttributeError: module 'proactive_maintenance_ai.logger' has no attribute 'info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 100, in start_feature_engineering
+    feature_engineering.initiate_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 274, in initiate_feature_engineering
+    raise CustomException(e)
+          ^^^^^^^^^^^^^^^^^^
+TypeError: CustomException.__init__() missing 1 required positional argument: 'error_details'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 204, in run_pipeline
+    self.start_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 107, in start_feature_engineering
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [CustomException.__init__() missing 1 required positional argument: 'error_details']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 217, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[204] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [CustomException.__init__() missing 1 required positional argument: 'error_details']]

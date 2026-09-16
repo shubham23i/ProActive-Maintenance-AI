@@ -16,7 +16,6 @@ class ModelRegistry:
     def get_next_version(self):
 
         try:
-
             os.makedirs(
                 self.config.registry_dir,
                 exist_ok=True
@@ -24,16 +23,14 @@ class ModelRegistry:
 
             versions = []
 
-            for item in os.listdir(
-                self.config.registry_dir
-            ):
+            for item in os.listdir(self.config.registry_dir):
 
-                if item.startswith("v"):
+                if item.startswith("v") and os.path.isdir(
+                    os.path.join(self.config.registry_dir, item)
+                ):
 
                     try:
-                        version = int(
-                            item.replace("v", "")
-                        )
+                        version = int(item[1:])
                         versions.append(version)
 
                     except ValueError:
@@ -51,9 +48,12 @@ class ModelRegistry:
 
         try:
 
-            logging.info(
-                "Starting Model Registration..."
-            )
+            logging.info("Starting Model Registration...")
+
+            if not os.path.exists(self.config.model_path):
+                raise FileNotFoundError(
+                    f"Trained model not found: {self.config.model_path}"
+                )
 
             version = self.get_next_version()
 
@@ -81,9 +81,7 @@ class ModelRegistry:
             # Load evaluation metrics
             metrics = {}
 
-            if os.path.exists(
-                self.config.metrics_path
-            ):
+            if os.path.exists(self.config.metrics_path):
 
                 with open(
                     self.config.metrics_path,
@@ -123,18 +121,44 @@ class ModelRegistry:
             )
 
             shutil.copy2(
-                self.config.model_path,
+                registered_model_path,
                 latest_model_path
             )
 
+            # Save latest version information
+            latest_metadata_path = os.path.join(
+                self.config.root_dir,
+                "latest_metadata.json"
+            )
+
+            latest_metadata = {
+                "latest_version": f"v{version}",
+                "model_path": latest_model_path,
+                "registered_at": metadata["registered_at"],
+                "metrics": metrics
+            }
+
+            with open(
+                latest_metadata_path,
+                "w"
+            ) as f:
+
+                json.dump(
+                    latest_metadata,
+                    f,
+                    indent=4
+                )
+
             logging.info(
-                f"Model registered successfully: "
-                f"v{version}"
+                f"Model registered successfully: v{version}"
             )
 
             logging.info(
-                f"Registered model path: "
-                f"{registered_model_path}"
+                f"Registered model path: {registered_model_path}"
+            )
+
+            logging.info(
+                f"Latest model path: {latest_model_path}"
             )
 
             return version
@@ -153,8 +177,7 @@ class ModelRegistry:
             version = self.register_model()
 
             logging.info(
-                f"Model Registry Completed. "
-                f"Version: v{version}"
+                f"Model Registry Completed. Version: v{version}"
             )
 
             logging.info("=" * 60)

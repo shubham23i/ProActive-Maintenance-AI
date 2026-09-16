@@ -1,7 +1,9 @@
 from pathlib import Path
+from proactive_maintenance_ai.exception.exception_handler import CustomException
+import sys
 
 from proactive_maintenance_ai.constant.constants import CONFIG_FILE_PATH
-from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelRegistryConfig,PredictionConfig
+from proactive_maintenance_ai.entity.config_entity import DataIngestionConfig,DataValidationConfig, DataPreprocessingConfig,FeatureEngineeringConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelRegistryConfig,PredictionConfig,AnomalyDetectionConfig,ModelExplainabilityConfig
 from proactive_maintenance_ai.utils.common import read_yaml, create_directory
 
 
@@ -165,5 +167,46 @@ class ConfigurationManager:
 
             model_path=Path(
                 config.model_path
+            ),
+
+            raw_data_file=Path(
+                config.raw_data_file
             )
         )
+
+    def get_anomaly_detection_config(self) -> AnomalyDetectionConfig:
+        try:
+            config = self.config.anomaly_detection
+
+            create_directory([
+                config.root_dir
+            ])
+
+            return AnomalyDetectionConfig(
+                root_dir=Path(config.root_dir),
+                data_file=Path(config.data_file),
+                model_path=Path(config.model_path)
+            )
+        except Exception as e:
+            raise CustomException(e, sys)
+
+    def get_explainability_config(self) -> ModelExplainabilityConfig:
+
+        try:
+
+            config = self.config.explainability
+
+            create_directory([
+                config.root_dir
+            ])
+
+            return ModelExplainabilityConfig(
+                root_dir=Path(config.root_dir),
+                model_path=Path(config.model_path)
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
+        except Exception as e:
+            raise CustomException(e, sys)

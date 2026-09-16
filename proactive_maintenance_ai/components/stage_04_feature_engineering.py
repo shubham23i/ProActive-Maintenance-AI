@@ -1,106 +1,242 @@
-import os
-import sys
 import pandas as pd
 import numpy as np
+import sys
 
 from proactive_maintenance_ai.logger.log import logging
+from proactive_maintenance_ai.entity.config_entity import FeatureEngineeringConfig
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
 
 class FeatureEngineering:
 
-    def __init__(self, config):
+    def __init__(self, config: FeatureEngineeringConfig):
         self.config = config
 
-    def load_data(self):
-        try:
-
-            logging.info("Loading preprocessed training and testing data...")
-
-            train_df = pd.read_csv(
-                self.config.input_train_data_file
-            )
-
-            test_df = pd.read_csv(
-                self.config.input_test_data_file
-            )
-
-            logging.info(
-                f"Training data shape: {train_df.shape}"
-            )
-
-            logging.info(
-                f"Testing data shape: {test_df.shape}"
-            )
-
-            return train_df, test_df
-
-        except Exception as e:
-            raise CustomException(e, sys)
+        self.sensor_columns = [
+            "Air temperature [K]",
+            "Process temperature [K]",
+            "Rotational speed [rpm]",
+            "Torque [Nm]",
+            "Tool wear [min]"
+        ]
 
     def create_features(self, df):
 
         try:
 
-            logging.info("Creating engineered features...")
-
             df = df.copy()
 
-            # ------------------------------------------------
-            # 1. Temperature Difference
-            # ------------------------------------------------
+            # ---------------------------------------------------------
+            # 1. Sort chronologically
+            # ---------------------------------------------------------
 
-            df["Temperature Difference [K]"] = (
+            df = df.sort_values("UDI").reset_index(drop=True)
+
+            features = {}
+
+            # ---------------------------------------------------------
+            # 2. Existing domain features
+            # ---------------------------------------------------------
+
+            features["Temperature Difference"] = (
                 df["Process temperature [K]"]
                 - df["Air temperature [K]"]
             )
 
-            # ------------------------------------------------
-            # 2. Mechanical Power Approximation
-            # ------------------------------------------------
-            # Power is proportional to:
-            # Torque × Angular Velocity
-            #
-            # Since RPM is used instead of angular velocity,
-            # this is used as a relative power/load indicator.
-
-            df["Mechanical Power"] = (
+            features["Mechanical Power"] = (
                 df["Torque [Nm]"]
                 * df["Rotational speed [rpm]"]
+                * (2 * np.pi / 60)
             )
 
-            # ------------------------------------------------
-            # 3. Torque-Speed Ratio
-            # ------------------------------------------------
-
-            df["Torque-Speed Ratio"] = (
+            features["Torque Speed Ratio"] = (
                 df["Torque [Nm]"]
-                / df["Rotational speed [rpm]"].replace(0, np.nan)
+                / (df["Rotational speed [rpm]"] + 1e-6)
             )
 
-            df["Torque-Speed Ratio"] = (
-                df["Torque-Speed Ratio"].fillna(0)
-            )
-
-            # ------------------------------------------------
-            # 4. Tool Wear Risk
-            # ------------------------------------------------
-
-            df["Tool Wear Risk"] = (
+            features["Tool Wear Risk"] = (
                 df["Tool wear [min]"] / 250
             )
 
-            # ------------------------------------------------
-            # 5. Temperature Stress
-            # ------------------------------------------------
+            features["Temperature Stress"] = (
+                df["Air temperature [K]"]
+                * df["Process temperature [K]"]
+            )
 
-            df["Temperature Stress"] = (
+            # ---------------------------------------------------------
+            # 3. Lag features
+            # ---------------------------------------------------------
+
+            for column in self.sensor_columns:
+
+                for lag in [1, 3, 5, 10]:
+
+                    features[f"{column}_lag_{lag}"] = (
+                        df[column].shift(lag)
+                    )
+
+            # ---------------------------------------------------------
+            # 4. Rolling statistics
+            # ---------------------------------------------------------
+
+            for column in self.sensor_columns:
+
+                historical = df[column].shift(1)
+
+                for window in [5, 10, 20]:
+
+                    rolling = historical.rolling(window)
+
+                    features[
+                        f"{column}_rolling_mean_{window}"
+                    ] = rolling.mean()
+
+                    features[
+                        f"{column}_rolling_std_{window}"
+                    ] = rolling.std()
+
+                    features[
+                        f"{column}_rolling_min_{window}"
+                    ] = rolling.min()
+
+                    features[
+                        f"{column}_rolling_max_{window}"
+                    ] = rolling.max()
+
+            # ---------------------------------------------------------
+            # 5. Delta features
+            # ---------------------------------------------------------
+
+            for column in self.sensor_columns:
+
+                features[f"{column}_delta_1"] = (
+                    df[column] - df[column].shift(1)
+                )
+
+                features[f"{column}_delta_5"] = (
+                    df[column] - df[column].shift(5)
+                )
+
+            # ---------------------------------------------------------
+            # 6. Percentage change
+            # ---------------------------------------------------------
+
+            for column in self.sensor_columns:
+
+                features[f"{column}_pct_change"] = (
+                    df[column]
+                    .pct_change()
+                    .replace([np.inf, -np.inf], np.nan)
+                )
+
+            # ---------------------------------------------------------
+            # 7. Rolling trend / degradation slope
+            # ---------------------------------------------------------
+
+            def rolling_slope(series, window):
+
+                x = np.arange(window)
+
+                return series.rolling(window).apply(
+                    lambda y: np.polyfit(x, y, 1)[0]
+                    if np.isfinite(y).all()
+                    else np.nan,
+                    raw=True
+                )
+
+            trend_columns = [
+                "Torque [Nm]",
+                "Rotational speed [rpm]",
+                "Tool wear [min]"
+            ]
+
+            # Temperature Difference is created above,
+            # so calculate it separately for trend features.
+            temperature_difference = (
                 df["Process temperature [K]"]
+                - df["Air temperature [K]"]
+            )
+
+            trend_data = {
+                "Torque [Nm]": df["Torque [Nm]"],
+                "Rotational speed [rpm]": df["Rotational speed [rpm]"],
+                "Tool wear [min]": df["Tool wear [min]"],
+                "Temperature Difference": temperature_difference
+            }
+
+            for column in trend_columns + ["Temperature Difference"]:
+
+                historical = trend_data[column].shift(1)
+
+                for window in [10, 20]:
+
+                    features[
+                        f"{column}_trend_{window}"
+                    ] = rolling_slope(
+                        historical,
+                        window
+                    )
+
+            # ---------------------------------------------------------
+            # 8. Interaction features
+            # ---------------------------------------------------------
+
+            features["Temperature_Torque_Interaction"] = (
+                (
+                    df["Process temperature [K]"]
+                    - df["Air temperature [K]"]
+                )
                 * df["Torque [Nm]"]
             )
 
+            features["Speed_Torque_Interaction"] = (
+                df["Rotational speed [rpm]"]
+                * df["Torque [Nm]"]
+            )
+
+            mechanical_power = (
+                df["Torque [Nm]"]
+                * df["Rotational speed [rpm]"]
+                * (2 * np.pi / 60)
+            )
+
+            features["Wear_Power_Interaction"] = (
+                df["Tool wear [min]"]
+                * mechanical_power
+            )
+
+            # ---------------------------------------------------------
+            # 9. Add all features at once
+            # ---------------------------------------------------------
+
+            feature_df = pd.DataFrame(
+                features,
+                index=df.index
+            )
+
+            df = pd.concat(
+                [df, feature_df],
+                axis=1
+            )
+
+            # ---------------------------------------------------------
+            # 10. Remove unavailable historical rows
+            # ---------------------------------------------------------
+
+            df = df.dropna().reset_index(drop=True)
+
+            # ---------------------------------------------------------
+            # 11. Safety check
+            # ---------------------------------------------------------
+
+            if df.empty:
+                raise ValueError(
+                    "Feature engineering produced an empty dataset."
+                )
+
             logging.info(
-                "Feature engineering completed."
+                f"Feature engineering completed. "
+                f"Shape: {df.shape}"
             )
 
             return df
@@ -112,11 +248,6 @@ class FeatureEngineering:
 
         try:
 
-            os.makedirs(
-                self.config.root_dir,
-                exist_ok=True
-            )
-
             train_df.to_csv(
                 self.config.output_train_data_file,
                 index=False
@@ -128,7 +259,7 @@ class FeatureEngineering:
             )
 
             logging.info(
-                "Feature engineered datasets saved successfully."
+                "Feature engineered train and test datasets saved."
             )
 
         except Exception as e:
@@ -138,11 +269,21 @@ class FeatureEngineering:
 
         try:
 
-            logging.info("=" * 60)
-            logging.info("Feature Engineering Started")
-            logging.info("=" * 60)
+            train_df = pd.read_csv(
+                self.config.input_train_data_file
+            )
 
-            train_df, test_df = self.load_data()
+            test_df = pd.read_csv(
+                self.config.input_test_data_file
+            )
+
+            logging.info(
+                f"Train data loaded: {train_df.shape}"
+            )
+
+            logging.info(
+                f"Test data loaded: {test_df.shape}"
+            )
 
             train_df = self.create_features(train_df)
 
@@ -153,48 +294,7 @@ class FeatureEngineering:
                 test_df
             )
 
-            logging.info("=" * 60)
-            logging.info(
-                "Feature Engineering Completed Successfully"
-            )
-            logging.info("=" * 60)
-
             return train_df, test_df
-
-        except Exception as e:
-            raise CustomException(e, sys)
-
-    def save_data(self, train_df, test_df):
-
-        try:
-
-            # Create feature engineering output directory
-            os.makedirs(
-                self.config.root_dir,
-                exist_ok=True
-            )
-
-            # Save engineered training data
-            train_df.to_csv(
-                self.config.output_train_data_file,
-                index=False
-            )
-
-            # Save engineered testing data
-            test_df.to_csv(
-                self.config.output_test_data_file,
-                index=False
-            )
-
-            logging.info(
-                f"Feature engineered training data saved to: "
-                f"{self.config.output_train_data_file}"
-            )
-
-            logging.info(
-                f"Feature engineered testing data saved to: "
-                f"{self.config.output_test_data_file}"
-            )
 
         except Exception as e:
             raise CustomException(e, sys)

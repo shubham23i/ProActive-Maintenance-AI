@@ -12,6 +12,7 @@ from proactive_maintenance_ai.components.stage_06_model_evaluation import ModelE
 from proactive_maintenance_ai.components.stage_07_model_registry import (
     ModelRegistry
 )
+from proactive_maintenance_ai.components.stage_09_anomaly_detection import AnomalyDetection
 from proactive_maintenance_ai.components.stage_08_prediction import Prediction
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 
@@ -186,6 +187,29 @@ class TrainingPipeline:
         except Exception as e:
             raise CustomException(e, sys)
 
+    def start_anomaly_detection(self):
+
+        try:
+
+            logging.info("Starting Anomaly Detection...")
+
+            config = (
+                self.config.get_anomaly_detection_config()
+            )
+
+            anomaly_detection = AnomalyDetection(
+                config
+            )
+
+            anomaly_detection.initiate_anomaly_detection()
+
+            logging.info(
+                "Anomaly Detection Completed."
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
     
     def run_pipeline(self):
 
@@ -208,6 +232,8 @@ class TrainingPipeline:
             self.start_model_evaluation()
 
             self.start_model_registry()
+
+            self.start_anomaly_detection()
 
             logging.info("=" * 60)
             logging.info("TRAINING PIPELINE COMPLETED")

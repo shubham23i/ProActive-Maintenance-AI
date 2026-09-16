@@ -1,0 +1,84 @@
+[ 2026-09-10 09:24:03,310 ] 13 root - INFO - Application Started
+[ 2026-09-10 09:24:03,316 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-10 09:24:03,316 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-10 09:24:03,316 ] 194 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,316 ] 195 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-10 09:24:03,316 ] 196 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,316 ] 28 root - INFO - Starting Data Ingestion...
+[ 2026-09-10 09:24:03,316 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-10 09:24:03,316 ] 78 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,319 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-10 09:24:03,319 ] 80 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,319 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-10 09:24:03,321 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-10 09:24:03,329 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-10 09:24:03,329 ] 86 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,329 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-10 09:24:03,329 ] 88 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,329 ] 36 root - INFO - Data Ingestion Completed.
+[ 2026-09-10 09:24:03,329 ] 45 root - INFO - Starting Data Validation...
+[ 2026-09-10 09:24:03,329 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-10 09:24:03,329 ] 195 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,329 ] 196 root - INFO - Data Validation Started
+[ 2026-09-10 09:24:03,329 ] 197 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,329 ] 36 root - INFO - Reading dataset
+[ 2026-09-10 09:24:03,370 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:24:03,370 ] 203 root - INFO - Validation Status: True
+[ 2026-09-10 09:24:03,370 ] 208 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,370 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-10 09:24:03,370 ] 212 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,370 ] 58 root - INFO - Data Validation Completed.
+[ 2026-09-10 09:24:03,370 ] 67 root - INFO - Starting Data Preprocessing...
+[ 2026-09-10 09:24:03,370 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-10 09:24:03,370 ] 186 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,370 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-10 09:24:03,370 ] 190 root - INFO - ============================================================
+[ 2026-09-10 09:24:03,388 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-10 09:24:03,391 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-10 09:24:03,391 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-10 09:24:03,391 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-10 09:24:03,391 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-10 09:24:03,391 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-10 09:24:03,391 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-10 09:24:03,391 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-10 09:24:03,391 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-10 09:24:03,422 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-10 09:24:03,422 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-10 09:24:03,422 ] 79 root - INFO - Data Preprocessing Completed.
+[ 2026-09-10 09:24:03,422 ] 90 root - INFO - Starting Feature Engineering...
+[ 2026-09-10 09:24:03,422 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-10 09:24:03,489 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[204] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[248] error_message [module 'proactive_maintenance_ai.logger' has no attribute 'info']]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 248, in initiate_feature_engineering
+    logger.info(
+    ^^^^^^^^^^^
+AttributeError: module 'proactive_maintenance_ai.logger' has no attribute 'info'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 100, in start_feature_engineering
+    feature_engineering.initiate_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py", line 274, in initiate_feature_engineering
+    raise CustomException(e,sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[248] error_message [module 'proactive_maintenance_ai.logger' has no attribute 'info']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 204, in run_pipeline
+    self.start_feature_engineering()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 107, in start_feature_engineering
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[248] error_message [module 'proactive_maintenance_ai.logger' has no attribute 'info']]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 217, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[204] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[100] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_04_feature_engineering.py] line number[248] error_message [module 'proactive_maintenance_ai.logger' has no attribute 'info']]]

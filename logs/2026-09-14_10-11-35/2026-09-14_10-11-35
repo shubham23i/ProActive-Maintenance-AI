@@ -1,0 +1,19 @@
+[ 2026-09-14 10:11:38,111 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 10:11:38,111 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 10:11:38,111 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-14 10:11:38,118 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 10:11:38,118 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 10:11:38,120 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-14 10:11:38,120 ] 298 root - INFO - ============================================================
+[ 2026-09-14 10:11:38,120 ] 299 root - INFO - PREDICTION STARTED
+[ 2026-09-14 10:11:38,120 ] 300 root - INFO - ============================================================
+[ 2026-09-14 10:11:38,120 ] 33 root - INFO - Loading registered model...
+[ 2026-09-14 10:11:38,164 ] 39 root - INFO - Model loaded successfully.
+[ 2026-09-14 10:11:38,204 ] 63 root - INFO - Historical data loaded: (10000, 14)
+[ 2026-09-14 10:11:40,774 ] 237 root - INFO - Feature engineering completed. Shape: (9861, 125)
+[ 2026-09-14 10:11:40,782 ] 193 root - INFO - Prediction preprocessing completed: (1, 121)
+[ 2026-09-14 10:11:40,961 ] 119 root - INFO - Anomaly detection result: {'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL'}
+[ 2026-09-14 10:11:40,963 ] 96 root - INFO - Maintenance decision: {'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days'}
+[ 2026-09-14 10:11:40,963 ] 285 root - INFO - Prediction result: {'prediction': 0, 'failure_probability': 0.0435, 'risk_level': 'LOW', 'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days', 'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL'}
+[ 2026-09-14 10:11:40,963 ] 306 root - INFO - Prediction completed successfully.
+[ 2026-09-14 10:11:40,963 ] 310 root - INFO - ============================================================

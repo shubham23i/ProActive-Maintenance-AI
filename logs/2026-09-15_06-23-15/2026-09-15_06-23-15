@@ -1,0 +1,25 @@
+[ 2026-09-15 06:23:24,706 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-15 06:23:24,709 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-15 06:23:24,867 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-15 06:23:24,888 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-15 06:23:24,890 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-15 06:23:24,890 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-15 06:23:24,906 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-15 06:23:24,912 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-15 06:23:24,912 ] 34 root - INFO - created directory at artifacts/explainability
+[ 2026-09-15 06:23:24,916 ] 316 root - INFO - ============================================================
+[ 2026-09-15 06:23:24,916 ] 317 root - INFO - PREDICTION STARTED
+[ 2026-09-15 06:23:24,916 ] 318 root - INFO - ============================================================
+[ 2026-09-15 06:23:24,916 ] 44 root - INFO - Loading registered model...
+[ 2026-09-15 06:23:25,029 ] 50 root - INFO - Model loaded successfully.
+[ 2026-09-15 06:23:25,159 ] 74 root - INFO - Historical data loaded: (10000, 14)
+[ 2026-09-15 06:23:25,292 ] 237 root - INFO - Feature engineering completed. Shape: (9, 125)
+[ 2026-09-15 06:23:25,328 ] 205 root - INFO - Prediction preprocessing completed: (1, 121)
+[ 2026-09-15 06:23:25,849 ] 119 root - INFO - Anomaly detection result: {'anomaly_prediction': 1, 'anomaly_score': 0.1226, 'anomaly_status': 'NORMAL'}
+[ 2026-09-15 06:23:25,853 ] 96 root - INFO - Maintenance decision: {'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days'}
+[ 2026-09-15 06:23:25,853 ] 20 root - INFO - Loading model for explainability...
+[ 2026-09-15 06:23:25,867 ] 26 root - INFO - Model loaded successfully.
+[ 2026-09-15 06:23:26,050 ] 130 root - INFO - Explainability result: {'top_features': [{'feature': 'Mechanical_Power', 'impact': 2.316, 'direction': 'INCREASES RISK'}, {'feature': 'Speed_Torque_Interaction', 'impact': 0.4329, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm_', 'impact': -0.3881, 'direction': 'DECREASES RISK'}, {'feature': 'Temperature_Difference', 'impact': 0.3079, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm__rolling_max_20', 'impact': 0.2898, 'direction': 'INCREASES RISK'}]}
+[ 2026-09-15 06:23:26,052 ] 303 root - INFO - Prediction result: {'prediction': 0, 'failure_probability': 0.0435, 'risk_level': 'LOW', 'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days', 'anomaly_prediction': 1, 'anomaly_score': 0.1226, 'anomaly_status': 'NORMAL', 'top_risk_factors': [{'feature': 'Mechanical_Power', 'impact': 2.316, 'direction': 'INCREASES RISK'}, {'feature': 'Speed_Torque_Interaction', 'impact': 0.4329, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm_', 'impact': -0.3881, 'direction': 'DECREASES RISK'}, {'feature': 'Temperature_Difference', 'impact': 0.3079, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm__rolling_max_20', 'impact': 0.2898, 'direction': 'INCREASES RISK'}]}
+[ 2026-09-15 06:23:26,052 ] 324 root - INFO - Prediction completed successfully.
+[ 2026-09-15 06:23:26,052 ] 328 root - INFO - ============================================================

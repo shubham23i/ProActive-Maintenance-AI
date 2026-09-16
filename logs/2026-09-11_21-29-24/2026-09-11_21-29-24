@@ -1,0 +1,106 @@
+[ 2026-09-11 21:29:35,785 ] 13 root - INFO - Application Started
+[ 2026-09-11 21:29:35,792 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-11 21:29:35,792 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-11 21:29:35,792 ] 194 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,792 ] 195 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-11 21:29:35,792 ] 196 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,792 ] 28 root - INFO - Starting Data Ingestion...
+[ 2026-09-11 21:29:35,792 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-11 21:29:35,792 ] 78 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,792 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-11 21:29:35,792 ] 80 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,792 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-11 21:29:35,798 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-11 21:29:35,799 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-11 21:29:35,799 ] 86 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,799 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-11 21:29:35,799 ] 88 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,799 ] 36 root - INFO - Data Ingestion Completed.
+[ 2026-09-11 21:29:35,799 ] 45 root - INFO - Starting Data Validation...
+[ 2026-09-11 21:29:35,799 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-11 21:29:35,799 ] 195 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,799 ] 196 root - INFO - Data Validation Started
+[ 2026-09-11 21:29:35,799 ] 197 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,799 ] 36 root - INFO - Reading dataset
+[ 2026-09-11 21:29:35,869 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-11 21:29:35,869 ] 203 root - INFO - Validation Status: True
+[ 2026-09-11 21:29:35,869 ] 208 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,869 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-11 21:29:35,869 ] 212 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,869 ] 58 root - INFO - Data Validation Completed.
+[ 2026-09-11 21:29:35,869 ] 67 root - INFO - Starting Data Preprocessing...
+[ 2026-09-11 21:29:35,869 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-11 21:29:35,869 ] 186 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,869 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-11 21:29:35,869 ] 190 root - INFO - ============================================================
+[ 2026-09-11 21:29:35,888 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-11 21:29:35,906 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-11 21:29:35,907 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-11 21:29:35,908 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-11 21:29:35,909 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-11 21:29:35,909 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-11 21:29:35,909 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-11 21:29:35,911 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-11 21:29:35,911 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-11 21:29:35,962 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-11 21:29:35,962 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-11 21:29:35,962 ] 79 root - INFO - Data Preprocessing Completed.
+[ 2026-09-11 21:29:35,962 ] 90 root - INFO - Starting Feature Engineering...
+[ 2026-09-11 21:29:35,963 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-11 21:29:36,007 ] 248 root - INFO - Train data loaded: (8500, 8)
+[ 2026-09-11 21:29:36,007 ] 252 root - INFO - Test data loaded: (1500, 8)
+[ 2026-09-11 21:29:39,194 ] 200 root - INFO - Feature engineering completed. Shape: (8380, 119)
+[ 2026-09-11 21:29:39,993 ] 200 root - INFO - Feature engineering completed. Shape: (1461, 119)
+[ 2026-09-11 21:29:41,543 ] 225 root - INFO - Feature engineered train and test datasets saved.
+[ 2026-09-11 21:29:41,545 ] 102 root - INFO - Feature Engineering Completed.
+[ 2026-09-11 21:29:41,545 ] 113 root - INFO - Starting Model Training...
+[ 2026-09-11 21:29:41,546 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-09-11 21:29:41,546 ] 341 root - INFO - ============================================================
+[ 2026-09-11 21:29:41,546 ] 342 root - INFO - Model Training Started
+[ 2026-09-11 21:29:41,546 ] 345 root - INFO - ============================================================
+[ 2026-09-11 21:29:41,910 ] 36 root - INFO - Train data loaded: (8380, 119)
+[ 2026-09-11 21:29:41,910 ] 40 root - INFO - Test data loaded: (1461, 119)
+[ 2026-09-11 21:29:41,928 ] 157 root - INFO - Fit data shape: (7123, 119)
+[ 2026-09-11 21:29:41,928 ] 161 root - INFO - Validation data shape: (1257, 119)
+[ 2026-09-11 21:29:41,930 ] 165 root - INFO - Final test data shape: (1461, 119)
+[ 2026-09-11 21:29:41,930 ] 173 root - INFO - Fit UDI range: 21 - 7228
+[ 2026-09-11 21:29:41,930 ] 179 root - INFO - Validation UDI range: 7229 - 8500
+[ 2026-09-11 21:29:41,930 ] 185 root - INFO - Test UDI range: 8521 - 10000
+[ 2026-09-11 21:29:41,971 ] 238 root - INFO - Positive samples: 280
+[ 2026-09-11 21:29:41,971 ] 242 root - INFO - Negative samples: 6843
+[ 2026-09-11 21:29:41,971 ] 246 root - INFO - Scale positive weight: 24.44
+[ 2026-09-11 21:29:41,971 ] 286 root - INFO - Starting XGBoost training...
+[ 2026-09-11 21:29:42,993 ] 299 root - INFO - XGBoost training completed.
+[ 2026-09-11 21:29:42,993 ] 312 root - INFO - Best iteration: 87
+[ 2026-09-11 21:29:42,998 ] 326 root - INFO - Model saved at: artifacts\model_training\model.pkl
+[ 2026-09-11 21:29:43,001 ] 349 root - INFO - Model Training Completed
+[ 2026-09-11 21:29:43,001 ] 353 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,001 ] 125 root - INFO - Model Training Completed.
+[ 2026-09-11 21:29:43,001 ] 136 root - INFO - Starting Model Evaluation...
+[ 2026-09-11 21:29:43,002 ] 34 root - INFO - created directory at artifacts/model_evaluation
+[ 2026-09-11 21:29:43,002 ] 219 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,002 ] 220 root - INFO - Model Evaluation Started
+[ 2026-09-11 21:29:43,002 ] 221 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,206 ] 168 root - INFO - Evaluation metrics: {'accuracy': 0.9863107460643394, 'precision': 0.6176470588235294, 'recall': 0.75, 'f1_score': 0.6774193548387096, 'roc_auc': 0.9757252517196691, 'pr_auc': 0.7914885047024184}
+[ 2026-09-11 21:29:43,920 ] 225 root - INFO - Model Evaluation Completed
+[ 2026-09-11 21:29:43,920 ] 229 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,920 ] 150 root - INFO - Model Evaluation Completed.
+[ 2026-09-11 21:29:43,920 ] 163 root - INFO - Starting Model Registry...
+[ 2026-09-11 21:29:43,920 ] 34 root - INFO - created directory at artifacts/model_registry
+[ 2026-09-11 21:29:43,921 ] 34 root - INFO - created directory at artifacts/model_registry/versions
+[ 2026-09-11 21:29:43,921 ] 173 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,921 ] 174 root - INFO - MODEL REGISTRY STARTED
+[ 2026-09-11 21:29:43,921 ] 175 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,921 ] 51 root - INFO - Starting Model Registration...
+[ 2026-09-11 21:29:43,936 ] 152 root - INFO - Model registered successfully: v5
+[ 2026-09-11 21:29:43,936 ] 156 root - INFO - Registered model path: artifacts\model_registry\versions\v5\model.pkl
+[ 2026-09-11 21:29:43,936 ] 160 root - INFO - Latest model path: artifacts\model_registry\latest_model.pkl
+[ 2026-09-11 21:29:43,936 ] 179 root - INFO - Model Registry Completed. Version: v5
+[ 2026-09-11 21:29:43,936 ] 183 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,936 ] 179 root - INFO - Model Registry Completed. Version: v5
+[ 2026-09-11 21:29:43,936 ] 212 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,936 ] 213 root - INFO - TRAINING PIPELINE COMPLETED
+[ 2026-09-11 21:29:43,936 ] 214 root - INFO - ============================================================
+[ 2026-09-11 21:29:43,936 ] 19 root - INFO - Application Finished Successfully

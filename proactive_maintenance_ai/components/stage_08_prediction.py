@@ -1,9 +1,17 @@
 import sys
 import joblib
 import pandas as pd
-
+from proactive_maintenance_ai.components.stage_10_maintenance_decision import (
+    MaintenanceDecisionEngine
+)
+from proactive_maintenance_ai.components.stage_11_explainability import (
+    ModelExplainability
+)
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
+from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
+from proactive_maintenance_ai.components.stage_09_anomaly_detection import AnomalyDetection
+from proactive_maintenance_ai.config.configuration import ConfigurationManager
 
 
 class Prediction:
@@ -11,9 +19,28 @@ class Prediction:
     def __init__(self, config):
         self.config = config
 
+        anomaly_config = (
+            ConfigurationManager()
+            .get_anomaly_detection_config()
+        )
+
+        self.anomaly_detector = AnomalyDetection(
+            anomaly_config
+        )
+        self.maintenance_engine = MaintenanceDecisionEngine()
+        explainability_config = (
+            ConfigurationManager()
+            .get_explainability_config()
+        )
+
+        self.explainer = ModelExplainability(
+            explainability_config
+        )
+
     def load_model(self):
 
         try:
+
             logging.info("Loading registered model...")
 
             model = joblib.load(
@@ -27,45 +54,162 @@ class Prediction:
         except Exception as e:
             raise CustomException(e, sys)
 
-    def preprocess_input(self, input_data):
+    def load_historical_data(self):
 
         try:
 
-            df = pd.DataFrame([input_data])
-
-            # Remove UDI if supplied
-            if "UDI" in df.columns:
-                df = df.drop(columns=["UDI"])
-
-            # Remove Product ID if supplied
-            if "Product ID" in df.columns:
-                df = df.drop(columns=["Product ID"])
-
-            # Encode Type
-            df = pd.get_dummies(
-                df,
-                columns=["Type"],
-                drop_first=True
+            df = pd.read_csv(
+                self.config.raw_data_file
             )
 
-            # Clean feature names
-            df.columns = (
-                df.columns
-                .astype(str)
-                .str.replace("[", "_", regex=False)
-                .str.replace("]", "_", regex=False)
-                .str.replace("<", "_", regex=False)
-                .str.replace(">", "_", regex=False)
-                .str.replace(" ", "_", regex=False)
-            )
+            if df.empty:
+                raise ValueError(
+                    "Historical dataset is empty."
+                )
+
+            df = df.sort_values(
+                "UDI"
+            ).reset_index(drop=True)
 
             logging.info(
-                f"Input preprocessing completed: {df.shape}"
+                f"Historical data loaded: {df.shape}"
             )
 
             return df
 
         except Exception as e:
+            raise CustomException(e, sys)
+
+    def create_prediction_row(self, input_data, historical_df):
+
+        try:
+
+            required_columns = [
+                "Type",
+                "Air temperature [K]",
+                "Process temperature [K]",
+                "Rotational speed [rpm]",
+                "Torque [Nm]",
+                "Tool wear [min]"
+            ]
+
+            for column in required_columns:
+
+                if column not in input_data:
+                    raise ValueError(
+                        f"Missing prediction input: {column}"
+                    )
+
+            next_udi = (
+                int(historical_df["UDI"].max()) + 1
+            )
+
+            prediction_row = {
+                "UDI": next_udi,
+                "Product ID": "PREDICTION",
+                "Type": input_data["Type"],
+                "Air temperature [K]": input_data[
+                    "Air temperature [K]"
+                ],
+                "Process temperature [K]": input_data[
+                    "Process temperature [K]"
+                ],
+                "Rotational speed [rpm]": input_data[
+                    "Rotational speed [rpm]"
+                ],
+                "Torque [Nm]": input_data[
+                    "Torque [Nm]"
+                ],
+                "Tool wear [min]": input_data[
+                    "Tool wear [min]"
+                ]
+            }
+
+            return pd.DataFrame([prediction_row])
+
+        except Exception as e:
+            raise CustomException(e, sys)
+
+    def preprocess_input(self, input_data):
+
+        try:
+
+            historical_df = self.load_historical_data()
+
+            prediction_row = self.create_prediction_row(
+                input_data,
+                historical_df
+            )
+
+            historical_context = historical_df.tail(30).copy()
+
+            combined_df = pd.concat(
+                [
+                    historical_context,
+                    prediction_row
+                ],
+                ignore_index=True
+            )
+
+            feature_engineering = FeatureEngineering(
+                config=None
+            )
+
+            engineered_df = feature_engineering.create_features(
+                combined_df
+            )
+
+            if engineered_df.empty:
+                raise ValueError(
+                    "Feature engineering produced no data."
+                )
+
+            df = engineered_df.tail(1).copy()
+
+            df = df.drop(
+                columns=["Machine failure"],
+                errors="ignore"
+            )
+
+            df = df.drop(
+                columns=["UDI", "Product ID"],
+                errors="ignore"
+            )
+
+            df = pd.get_dummies(
+                df,
+                columns=["Type"],
+                drop_first=True,
+                dtype=int
+            )
+
+            df.columns = (
+                df.columns.astype(str)
+                .str.replace(
+                    "[", "_", regex=False
+                )
+                .str.replace(
+                    "]", "_", regex=False
+                )
+                .str.replace(
+                    "<", "_", regex=False
+                )
+                .str.replace(
+                    ">", "_", regex=False
+                )
+                .str.replace(
+                    " ", "_", regex=False
+                )
+            )
+
+            logging.info(
+                f"Prediction preprocessing completed: {df.shape}"
+            )
+
+            return df
+
+        except Exception as e:
+
             raise CustomException(e, sys)
 
     def predict(self, input_data):
@@ -78,7 +222,6 @@ class Prediction:
                 input_data
             )
 
-            # Match training features
             if hasattr(model, "feature_names_in_"):
 
                 expected_features = (
@@ -90,29 +233,72 @@ class Prediction:
                     fill_value=0
                 )
 
-            prediction = model.predict(df)[0]
+            prediction = model.predict(
+                df
+            )[0]
 
             probability = model.predict_proba(
                 df
             )[0][1]
 
             if probability >= 0.70:
+
                 risk = "HIGH"
 
             elif probability >= 0.40:
+
                 risk = "MEDIUM"
 
             else:
+
                 risk = "LOW"
 
+            anomaly_result = (
+                self.anomaly_detector.predict(
+                    input_data
+                )
+            )
+
+            maintenance_result = (
+                self.maintenance_engine.generate_decision(
+                    risk_level=risk,
+                    anomaly_status=anomaly_result[
+                        "anomaly_status"
+                    ]
+                )
+            )
+            explanation = self.explainer.explain(
+                input_data
+            )
+
             result = {
-                "prediction": int(prediction),
-                "failure_probability": round(
-                    float(probability),
-                    4
-                ),
-                "risk_level": risk
-            }
+            "prediction": int(prediction),
+            "failure_probability": round(
+                float(probability),
+                4
+            ),
+            "risk_level": risk,
+            "maintenance_priority": maintenance_result[
+                "maintenance_priority"
+            ],
+            "recommended_action": maintenance_result[
+                "recommended_action"
+            ],
+            "inspection_window": maintenance_result[
+                "inspection_window"
+            ],
+            "anomaly_prediction": anomaly_result[
+                "anomaly_prediction"
+            ],
+            "anomaly_score": anomaly_result[
+                "anomaly_score"
+            ],
+            "anomaly_status": anomaly_result[
+                "anomaly_status"
+            ],
+            "top_risk_factors": explanation[
+                "top_features"
+            ]}
 
             logging.info(
                 f"Prediction result: {result}"

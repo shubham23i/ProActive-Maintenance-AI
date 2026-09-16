@@ -1,0 +1,18 @@
+[ 2026-09-14 10:06:17,005 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 10:06:17,006 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 10:06:17,006 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-14 10:06:17,009 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 10:06:17,010 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 10:06:17,010 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-14 10:06:17,010 ] 313 root - INFO - ============================================================
+[ 2026-09-14 10:06:17,016 ] 314 root - INFO - PREDICTION STARTED
+[ 2026-09-14 10:06:17,016 ] 315 root - INFO - ============================================================
+[ 2026-09-14 10:06:17,016 ] 30 root - INFO - Loading registered model...
+[ 2026-09-14 10:06:17,056 ] 36 root - INFO - Model loaded successfully.
+[ 2026-09-14 10:06:17,084 ] 60 root - INFO - Historical data loaded: (10000, 14)
+[ 2026-09-14 10:06:19,703 ] 237 root - INFO - Feature engineering completed. Shape: (9861, 125)
+[ 2026-09-14 10:06:19,703 ] 190 root - INFO - Prediction preprocessing completed: (1, 121)
+[ 2026-09-14 10:06:19,845 ] 119 root - INFO - Anomaly detection result: {'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL'}
+[ 2026-09-14 10:06:19,845 ] 300 root - INFO - Prediction result: {'prediction': 0, 'failure_probability': 0.0435, 'risk_level': 'LOW', 'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days', 'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL'}
+[ 2026-09-14 10:06:19,845 ] 321 root - INFO - Prediction completed successfully.
+[ 2026-09-14 10:06:19,845 ] 325 root - INFO - ============================================================

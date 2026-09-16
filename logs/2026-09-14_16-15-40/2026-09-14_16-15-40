@@ -1,0 +1,6 @@
+[ 2026-09-14 16:15:43,469 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-14 16:15:43,469 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-14 16:15:43,469 ] 34 root - INFO - created directory at artifacts/explainability
+[ 2026-09-14 16:15:43,469 ] 20 root - INFO - Loading model for explainability...
+[ 2026-09-14 16:15:43,509 ] 26 root - INFO - Model loaded successfully.
+[ 2026-09-14 16:15:43,638 ] 130 root - INFO - Explainability result: {'top_features': [{'feature': 'Mechanical_Power', 'impact': 2.3393, 'direction': 'INCREASES RISK'}, {'feature': 'Speed_Torque_Interaction', 'impact': 0.4329, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm_', 'impact': -0.3881, 'direction': 'DECREASES RISK'}, {'feature': 'Temperature_Difference', 'impact': 0.2991, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm__rolling_max_20', 'impact': 0.2898, 'direction': 'INCREASES RISK'}]}

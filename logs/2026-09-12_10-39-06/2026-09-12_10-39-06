@@ -1,0 +1,14 @@
+[ 2026-09-12 10:39:07,664 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-12 10:39:07,665 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-12 10:39:07,665 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-12 10:39:07,665 ] 289 root - INFO - ============================================================
+[ 2026-09-12 10:39:07,665 ] 290 root - INFO - PREDICTION STARTED
+[ 2026-09-12 10:39:07,665 ] 291 root - INFO - ============================================================
+[ 2026-09-12 10:39:07,665 ] 19 root - INFO - Loading registered model...
+[ 2026-09-12 10:39:08,889 ] 25 root - INFO - Model loaded successfully.
+[ 2026-09-12 10:39:08,925 ] 49 root - INFO - Historical data loaded: (10000, 14)
+[ 2026-09-12 10:39:11,191 ] 237 root - INFO - Feature engineering completed. Shape: (9861, 125)
+[ 2026-09-12 10:39:11,206 ] 186 root - INFO - Prediction preprocessing completed: (1, 121)
+[ 2026-09-12 10:39:11,223 ] 276 root - INFO - Prediction result: {'prediction': 0, 'failure_probability': 0.0435, 'risk_level': 'LOW', 'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days'}
+[ 2026-09-12 10:39:11,223 ] 297 root - INFO - Prediction completed successfully.
+[ 2026-09-12 10:39:11,223 ] 301 root - INFO - ============================================================
