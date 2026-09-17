@@ -232,17 +232,30 @@ class Prediction:
                     columns=expected_features,
                     fill_value=0
                 )
-                logging.info(
-                    f"MODEL EXPECTED FEATURES: {list(expected_features)}"
-                )
+                debug_values = {
+                    column: float(df.iloc[0][column])
+                    for column in df.columns
+                    if float(df.iloc[0][column]) != 0
+                }
 
-                logging.info(
-                    f"PREDICTION FEATURES: {list(df.columns)}"
-                )
-
-                logging.info(
-                    f"PREDICTION INPUT VALUES: {df.iloc[0].to_dict()}"
-                )
+                result_debug = {
+                    "input_sum": round(float(df.iloc[0].sum()), 4),
+                    "nonzero_features": int((df.iloc[0] != 0).sum()),
+                    "selected_features": {
+                        column: round(float(df.iloc[0][column]), 4)
+                        for column in [
+                            "Air_temperature__K_",
+                            "Process_temperature__K_",
+                            "Rotational_speed__rpm_",
+                            "Torque__Nm_",
+                            "Tool_wear__min_",
+                            "Temperature_Difference",
+                            "Mechanical_Power",
+                            "Speed_Torque_Interaction"
+                        ]
+                        if column in df.columns
+                    }
+                }
 
             prediction = model.predict(df)[0]
             probability = model.predict_proba(df)[0][1]
@@ -303,7 +316,21 @@ class Prediction:
                     "input_shape": list(df.shape),
                     "nonzero_features": int((df.iloc[0] != 0).sum()),
                     "input_sum": round(float(df.iloc[0].sum()), 4),
-                    "feature_count": len(df.columns)
+                    "feature_count": len(df.columns),
+                    "selected_features": {
+                        column: round(float(df.iloc[0][column]), 4)
+                        for column in [
+                            "Air_temperature__K_",
+                            "Process_temperature__K_",
+                            "Rotational_speed__rpm_",
+                            "Torque__Nm_",
+                            "Tool_wear__min_",
+                            "Temperature_Difference",
+                            "Mechanical_Power",
+                            "Speed_Torque_Interaction"
+                        ]
+                        if column in df.columns
+                    }
                 }
             }
 
