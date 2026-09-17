@@ -1,14 +1,14 @@
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
+import requests
 
-from proactive_maintenance_ai.pipeline.prediction_pipeline import PredictionPipeline
 
 
 # ============================================================
 # PAGE CONFIG
 # ============================================================
-
+API_URL = "https://proactive-maintenance-ai.onrender.com"
 st.set_page_config(
     page_title="ProActive Maintenance AI",
     page_icon="⚙",
@@ -570,7 +570,16 @@ if st.button(
     type="primary"
 ):
 
-    payload = {
+    api_payload = {
+        "Type": machine_type,
+        "Air_temperature_K": air_temperature,
+        "Process_temperature_K": process_temperature,
+        "Rotational_speed_rpm": rotational_speed,
+        "Torque_Nm": torque,
+        "Tool_wear_min": tool_wear
+    }
+
+    dashboard_payload = {
         "Type": machine_type,
         "Air temperature [K]": air_temperature,
         "Process temperature [K]": process_temperature,
@@ -585,14 +594,18 @@ if st.button(
             "Analyzing machine condition..."
         ):
 
-            pipeline = PredictionPipeline()
-
-            result = pipeline.start_prediction(
-                payload
+            response = requests.post(
+                f"{API_URL}/predict",
+                json=api_payload,
+                timeout=120
             )
 
+            response.raise_for_status()
+
+            result = response.json()
+
             st.session_state["prediction_result"] = result
-            st.session_state["machine_payload"] = payload
+            st.session_state["machine_payload"] = dashboard_payload
 
     except Exception as e:
 
