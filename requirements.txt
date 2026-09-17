@@ -9,3 +9,5 @@ shap==0.51.0
 PyYAML==6.0.3
 python-box==7.4.1
 ensure==1.0.4
+streamlit
+plotly
