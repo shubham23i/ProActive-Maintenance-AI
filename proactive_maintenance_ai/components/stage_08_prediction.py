@@ -244,13 +244,14 @@ class Prediction:
                     f"PREDICTION INPUT VALUES: {df.iloc[0].to_dict()}"
                 )
 
-            prediction = model.predict(
-                df
-            )[0]
+            prediction = model.predict(df)[0]
+            probability = model.predict_proba(df)[0][1]
 
-            probability = model.predict_proba(
-                df
-            )[0][1]
+            logging.info(f"MODEL TYPE: {type(model)}")
+            logging.info(f"INPUT SHAPE: {df.shape}")
+            logging.info(f"INPUT SUM: {df.iloc[0].sum()}")
+            logging.info(f"INPUT NONZERO: {(df.iloc[0] != 0).sum()}")
+            logging.info(f"PROBABILITY: {probability}")
 
             if probability >= 0.70:
 
@@ -283,33 +284,28 @@ class Prediction:
             )
 
             result = {
-            "prediction": int(prediction),
-            "failure_probability": round(
-                float(probability),
-                4
-            ),
-            "risk_level": risk,
-            "maintenance_priority": maintenance_result[
-                "maintenance_priority"
-            ],
-            "recommended_action": maintenance_result[
-                "recommended_action"
-            ],
-            "inspection_window": maintenance_result[
-                "inspection_window"
-            ],
-            "anomaly_prediction": anomaly_result[
-                "anomaly_prediction"
-            ],
-            "anomaly_score": anomaly_result[
-                "anomaly_score"
-            ],
-            "anomaly_status": anomaly_result[
-                "anomaly_status"
-            ],
-            "top_risk_factors": explanation[
-                "top_features"
-            ]}
+                "prediction": int(prediction),
+                "failure_probability": round(float(probability), 4),
+                "risk_level": risk,
+
+                "maintenance_priority": maintenance_result["maintenance_priority"],
+                "recommended_action": maintenance_result["recommended_action"],
+                "inspection_window": maintenance_result["inspection_window"],
+
+                "anomaly_prediction": anomaly_result["anomaly_prediction"],
+                "anomaly_score": anomaly_result["anomaly_score"],
+                "anomaly_status": anomaly_result["anomaly_status"],
+
+                "top_risk_factors": explanation["top_features"],
+
+                "debug": {
+                    "model_type": type(model).__name__,
+                    "input_shape": list(df.shape),
+                    "nonzero_features": int((df.iloc[0] != 0).sum()),
+                    "input_sum": round(float(df.iloc[0].sum()), 4),
+                    "feature_count": len(df.columns)
+                }
+            }
 
             logging.info(
                 f"Prediction result: {result}"
