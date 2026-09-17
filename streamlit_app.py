@@ -587,14 +587,14 @@ if st.button(
         "Torque [Nm]": torque,
         "Tool wear [min]": tool_wear
     }
-    st.write("DEBUG API PAYLOAD:", api_payload)
+    
 
     try:
 
         with st.spinner(
             "Analyzing machine condition..."
         ):
-
+            st.write("DEBUG API PAYLOAD:", api_payload)
             response = requests.post(
                 f"{API_URL}/predict",
                 json=api_payload,
