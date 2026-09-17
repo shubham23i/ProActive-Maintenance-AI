@@ -232,6 +232,17 @@ class Prediction:
                     columns=expected_features,
                     fill_value=0
                 )
+                logging.info(
+                    f"MODEL EXPECTED FEATURES: {list(expected_features)}"
+                )
+
+                logging.info(
+                    f"PREDICTION FEATURES: {list(df.columns)}"
+                )
+
+                logging.info(
+                    f"PREDICTION INPUT VALUES: {df.iloc[0].to_dict()}"
+                )
 
             prediction = model.predict(
                 df
