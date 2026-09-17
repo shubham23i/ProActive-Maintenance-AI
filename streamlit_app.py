@@ -587,6 +587,7 @@ if st.button(
         "Torque [Nm]": torque,
         "Tool wear [min]": tool_wear
     }
+    st.write("DEBUG API PAYLOAD:", api_payload)
 
     try:
 
