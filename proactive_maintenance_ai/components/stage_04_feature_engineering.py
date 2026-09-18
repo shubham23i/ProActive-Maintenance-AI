@@ -223,8 +223,10 @@ class FeatureEngineering:
             # 10. Remove unavailable historical rows
             # ---------------------------------------------------------
 
-            df = df.dropna().reset_index(drop=True)
-
+            if self.config is not None:
+                df = df.dropna().reset_index(drop=True)
+            else:
+                df = df.reset_index(drop=True)
             # ---------------------------------------------------------
             # 11. Safety check
             # ---------------------------------------------------------
