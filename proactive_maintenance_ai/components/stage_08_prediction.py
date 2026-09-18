@@ -121,21 +121,11 @@ class Prediction:
                 "UDI": next_udi,
                 "Product ID": "PREDICTION",
                 "Type": input_data["Type"],
-                "Air temperature [K]": input_data[
-                    "Air temperature [K]"
-                ],
-                "Process temperature [K]": input_data[
-                    "Process temperature [K]"
-                ],
-                "Rotational speed [rpm]": input_data[
-                    "Rotational speed [rpm]"
-                ],
-                "Torque [Nm]": input_data[
-                    "Torque [Nm]"
-                ],
-                "Tool wear [min]": input_data[
-                    "Tool wear [min]"
-                ]
+                "Air temperature [K]": input_data["Air temperature [K]"],
+                "Process temperature [K]": input_data["Process temperature [K]"],
+                "Rotational speed [rpm]": input_data["Rotational speed [rpm]"],
+                "Torque [Nm]": input_data["Torque [Nm]"],
+                "Tool wear [min]": input_data["Tool wear [min]"]
             }
 
             return pd.DataFrame(
