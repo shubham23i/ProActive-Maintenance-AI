@@ -1,0 +1,145 @@
+[ 2026-09-19 05:18:34,253 ] 13 root - INFO - Application Started
+[ 2026-09-19 05:18:34,257 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-19 05:18:34,257 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-19 05:18:34,257 ] 218 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,257 ] 219 root - INFO - TRAINING PIPELINE STARTED
+[ 2026-09-19 05:18:34,257 ] 220 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,257 ] 29 root - INFO - Starting Data Ingestion...
+[ 2026-09-19 05:18:34,257 ] 34 root - INFO - created directory at artifacts/data_ingestion
+[ 2026-09-19 05:18:34,263 ] 78 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,263 ] 79 root - INFO - Data Ingestion Started
+[ 2026-09-19 05:18:34,263 ] 80 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,263 ] 28 root - INFO - Extracting dataset from data\raw\ai4i+2020+predictive+maintenance+dataset.zip
+[ 2026-09-19 05:18:34,263 ] 33 root - INFO - Dataset extracted successfully to artifacts\data_ingestion
+[ 2026-09-19 05:18:34,267 ] 65 root - INFO - CSV saved at artifacts\data_ingestion\raw_data.csv
+[ 2026-09-19 05:18:34,267 ] 86 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,267 ] 87 root - INFO - Data Ingestion Completed
+[ 2026-09-19 05:18:34,267 ] 88 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,267 ] 37 root - INFO - Data Ingestion Completed.
+[ 2026-09-19 05:18:34,267 ] 46 root - INFO - Starting Data Validation...
+[ 2026-09-19 05:18:34,267 ] 34 root - INFO - created directory at artifacts/data_validation
+[ 2026-09-19 05:18:34,267 ] 195 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,267 ] 196 root - INFO - Data Validation Started
+[ 2026-09-19 05:18:34,267 ] 197 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,267 ] 36 root - INFO - Reading dataset
+[ 2026-09-19 05:18:34,333 ] 181 root - INFO - Data Validation Completed.
+[ 2026-09-19 05:18:34,333 ] 203 root - INFO - Validation Status: True
+[ 2026-09-19 05:18:34,333 ] 208 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,335 ] 209 root - INFO - Data Validation Completed
+[ 2026-09-19 05:18:34,335 ] 212 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,335 ] 59 root - INFO - Data Validation Completed.
+[ 2026-09-19 05:18:34,335 ] 68 root - INFO - Starting Data Preprocessing...
+[ 2026-09-19 05:18:34,335 ] 34 root - INFO - created directory at artifacts/data_preprocessing
+[ 2026-09-19 05:18:34,335 ] 186 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,335 ] 187 root - INFO - Data Preprocessing Started
+[ 2026-09-19 05:18:34,335 ] 190 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,346 ] 37 root - INFO - Raw dataset loaded: (10000, 14)
+[ 2026-09-19 05:18:34,346 ] 73 root - INFO - Data sorted using UDI
+[ 2026-09-19 05:18:34,346 ] 90 root - INFO - Removed 0 rows containing missing values
+[ 2026-09-19 05:18:34,346 ] 114 root - INFO - Training data shape: (8500, 8)
+[ 2026-09-19 05:18:34,346 ] 119 root - INFO - Testing data shape: (1500, 8)
+[ 2026-09-19 05:18:34,346 ] 124 root - INFO - Train UDI range: 1 - 8500
+[ 2026-09-19 05:18:34,346 ] 130 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-19 05:18:34,346 ] 140 root - INFO - Train target distribution:
+{0: 8190, 1: 310}
+[ 2026-09-19 05:18:34,346 ] 145 root - INFO - Test target distribution:
+{0: 1471, 1: 29}
+[ 2026-09-19 05:18:34,386 ] 174 root - INFO - Preprocessed train and test datasets saved successfully.
+[ 2026-09-19 05:18:34,386 ] 203 root - INFO - Data Preprocessing Completed
+[ 2026-09-19 05:18:34,386 ] 80 root - INFO - Data Preprocessing Completed.
+[ 2026-09-19 05:18:34,388 ] 91 root - INFO - Starting Feature Engineering...
+[ 2026-09-19 05:18:34,388 ] 34 root - INFO - created directory at artifacts/feature_engineering
+[ 2026-09-19 05:18:34,483 ] 172 root - INFO - Train data loaded: (8500, 8)
+[ 2026-09-19 05:18:34,483 ] 176 root - INFO - Test data loaded: (1500, 8)
+[ 2026-09-19 05:18:34,492 ] 122 root - INFO - Feature engineering completed. Shape: (8500, 16)
+[ 2026-09-19 05:18:34,492 ] 127 root - INFO - Features created: ['Temperature Difference', 'Mechanical Power', 'Torque Speed Ratio', 'Tool Wear Risk', 'Temperature Stress', 'Temperature_Torque_Interaction', 'Speed_Torque_Interaction', 'Wear_Power_Interaction']
+[ 2026-09-19 05:18:34,492 ] 122 root - INFO - Feature engineering completed. Shape: (1500, 16)
+[ 2026-09-19 05:18:34,492 ] 127 root - INFO - Features created: ['Temperature Difference', 'Mechanical Power', 'Torque Speed Ratio', 'Tool Wear Risk', 'Temperature Stress', 'Temperature_Torque_Interaction', 'Speed_Torque_Interaction', 'Wear_Power_Interaction']
+[ 2026-09-19 05:18:34,616 ] 152 root - INFO - Feature engineered train and test datasets saved.
+[ 2026-09-19 05:18:34,616 ] 103 root - INFO - Feature Engineering Completed.
+[ 2026-09-19 05:18:34,616 ] 114 root - INFO - Starting Model Training...
+[ 2026-09-19 05:18:34,616 ] 34 root - INFO - created directory at artifacts/model_training
+[ 2026-09-19 05:18:34,616 ] 341 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,616 ] 342 root - INFO - Model Training Started
+[ 2026-09-19 05:18:34,616 ] 345 root - INFO - ============================================================
+[ 2026-09-19 05:18:34,682 ] 36 root - INFO - Train data loaded: (8500, 16)
+[ 2026-09-19 05:18:34,682 ] 40 root - INFO - Test data loaded: (1500, 16)
+[ 2026-09-19 05:18:34,682 ] 157 root - INFO - Fit data shape: (7225, 16)
+[ 2026-09-19 05:18:34,682 ] 161 root - INFO - Validation data shape: (1275, 16)
+[ 2026-09-19 05:18:34,682 ] 165 root - INFO - Final test data shape: (1500, 16)
+[ 2026-09-19 05:18:34,682 ] 173 root - INFO - Fit UDI range: 1 - 7225
+[ 2026-09-19 05:18:34,682 ] 179 root - INFO - Validation UDI range: 7226 - 8500
+[ 2026-09-19 05:18:34,682 ] 185 root - INFO - Test UDI range: 8501 - 10000
+[ 2026-09-19 05:18:34,699 ] 238 root - INFO - Positive samples: 282
+[ 2026-09-19 05:18:34,699 ] 242 root - INFO - Negative samples: 6943
+[ 2026-09-19 05:18:34,699 ] 246 root - INFO - Scale positive weight: 24.62
+[ 2026-09-19 05:18:34,699 ] 286 root - INFO - Starting XGBoost training...
+[ 2026-09-19 05:18:35,018 ] 299 root - INFO - XGBoost training completed.
+[ 2026-09-19 05:18:35,018 ] 312 root - INFO - Best iteration: 156
+[ 2026-09-19 05:18:35,024 ] 326 root - INFO - Model saved at: artifacts\model_training\model.pkl
+[ 2026-09-19 05:18:35,026 ] 349 root - INFO - Model Training Completed
+[ 2026-09-19 05:18:35,026 ] 353 root - INFO - ============================================================
+[ 2026-09-19 05:18:35,026 ] 126 root - INFO - Model Training Completed.
+[ 2026-09-19 05:18:35,026 ] 137 root - INFO - Starting Model Evaluation...
+[ 2026-09-19 05:18:35,028 ] 34 root - INFO - created directory at artifacts/model_evaluation
+[ 2026-09-19 05:18:35,028 ] 294 root - INFO - ============================================================
+[ 2026-09-19 05:18:35,028 ] 295 root - INFO - Model Evaluation Started
+[ 2026-09-19 05:18:35,028 ] 296 root - INFO - ============================================================
+[ 2026-09-19 05:18:35,054 ] 51 root - INFO - Raw test data loaded: (1500, 16)
+[ 2026-09-19 05:18:35,058 ] 122 root - INFO - Feature engineering completed. Shape: (1500, 24)
+[ 2026-09-19 05:18:35,058 ] 127 root - INFO - Features created: ['Temperature Difference', 'Mechanical Power', 'Torque Speed Ratio', 'Tool Wear Risk', 'Temperature Stress', 'Temperature_Torque_Interaction', 'Speed_Torque_Interaction', 'Wear_Power_Interaction']
+[ 2026-09-19 05:18:35,058 ] 67 root - INFO - Feature engineered test data: (1500, 24)
+[ 2026-09-19 05:18:35,075 ] 22 root - ERROR - Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[232] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[148] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[298] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[118] error_message [cannot reindex on an axis with duplicate labels]]]]
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py", line 118, in evaluate
+    X_test = X_test.reindex(
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\core\frame.py", line 6092, in reindex
+    return super().reindex(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\core\generic.py", line 5464, in reindex
+    return self._reindex_axes(
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\core\generic.py", line 5486, in _reindex_axes
+    new_index, indexer = ax.reindex(
+                         ^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\venv\Lib\site-packages\pandas\core\indexes\base.py", line 4253, in reindex
+    raise ValueError("cannot reindex on an axis with duplicate labels")
+ValueError: cannot reindex on an axis with duplicate labels
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py", line 298, in initiate_model_evaluation
+    metrics = self.evaluate()
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py", line 288, in evaluate
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[118] error_message [cannot reindex on an axis with duplicate labels]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 148, in start_model_evaluation
+    model_evaluation.initiate_model_evaluation()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py", line 310, in initiate_model_evaluation
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[298] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[118] error_message [cannot reindex on an axis with duplicate labels]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 232, in run_pipeline
+    self.start_model_evaluation()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 158, in start_model_evaluation
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[148] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[298] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[118] error_message [cannot reindex on an axis with duplicate labels]]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\app.py", line 17, in <module>
+    pipeline.run_pipeline()
+  File "C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py", line 243, in run_pipeline
+    raise CustomException(e, sys)
+proactive_maintenance_ai.exception.exception_handler.CustomException: Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[232] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\pipeline\training_pipeline.py] line number[148] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[298] error_message [Error occured in python script[C:\Users\Shubham Joshi\Desktop\ProActive Maintenance AI\proactive_maintenance_ai\components\stage_06_model_evaluation.py] line number[118] error_message [cannot reindex on an axis with duplicate labels]]]]

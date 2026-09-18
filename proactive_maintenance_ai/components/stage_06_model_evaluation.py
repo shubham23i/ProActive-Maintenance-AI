@@ -2,6 +2,8 @@ import pandas as pd
 import joblib
 import json
 import sys
+import matplotlib.pyplot as plt
+
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -9,14 +11,14 @@ from sklearn.metrics import (
     f1_score,
     roc_auc_score,
     average_precision_score,
-    confusion_matrix
+    confusion_matrix,
+    brier_score_loss
 )
-
-import matplotlib.pyplot as plt
 
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.entity.config_entity import ModelEvaluationConfig
 from proactive_maintenance_ai.exception.exception_handler import CustomException
+from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
 
 
 class ModelEvaluation:
@@ -24,7 +26,6 @@ class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):
 
         self.config = config
-
         self.target_column = "Machine failure"
 
     def evaluate(self):
@@ -47,21 +48,54 @@ class ModelEvaluation:
                 self.config.test_data_path
             )
 
+            logging.info(
+                f"Raw test data loaded: {test_df.shape}"
+            )
+
+            # ---------------------------------------------------------
+            # Apply same feature engineering used during training
+            # ---------------------------------------------------------
+
+            feature_engineering = FeatureEngineering(
+                config=None
+            )
+
+            test_df = feature_engineering.create_features(
+                test_df
+            )
+
+            duplicate_columns = test_df.columns[
+                test_df.columns.duplicated()
+            ].tolist()
+
+            if duplicate_columns:
+                logging.warning(
+                    f"Duplicate columns detected: {duplicate_columns}"
+                )
+
+                test_df = test_df.loc[
+                    :, ~test_df.columns.duplicated()
+                ].copy()
+
+            logging.info(
+                f"Feature engineered test data: {test_df.shape}"
+            )
             # ---------------------------------------------------------
             # Prepare X and y
             # ---------------------------------------------------------
 
-            X_test = test_df.drop(
-                columns=[
-                    self.target_column,
-                    "UDI"
-                ],
-                errors="ignore"
-            )
-
             y_test = test_df[
                 self.target_column
             ]
+
+            X_test = test_df.drop(
+                columns=[
+                    self.target_column,
+                    "UDI",
+                    "Product ID"
+                ],
+                errors="ignore"
+            )
 
             # ---------------------------------------------------------
             # Encode categorical variables
@@ -97,6 +131,10 @@ class ModelEvaluation:
                     columns=model.feature_names_in_,
                     fill_value=0
                 )
+
+            logging.info(
+                f"Final evaluation feature shape: {X_test.shape}"
+            )
 
             # ---------------------------------------------------------
             # Predictions
@@ -147,8 +185,37 @@ class ModelEvaluation:
                 "pr_auc": average_precision_score(
                     y_test,
                     y_prob
+                ),
+
+                "brier_score": brier_score_loss(
+                    y_test,
+                    y_prob
                 )
             }
+
+            # ---------------------------------------------------------
+            # Probability statistics
+            # ---------------------------------------------------------
+
+            metrics["actual_failure_rate"] = float(
+                y_test.mean()
+            )
+
+            metrics["predicted_failure_rate"] = float(
+                y_pred.mean()
+            )
+
+            metrics["mean_predicted_probability"] = float(
+                y_prob.mean()
+            )
+
+            metrics["min_predicted_probability"] = float(
+                y_prob.min()
+            )
+
+            metrics["max_predicted_probability"] = float(
+                y_prob.max()
+            )
 
             # ---------------------------------------------------------
             # Save metrics
@@ -198,6 +265,26 @@ class ModelEvaluation:
 
             plt.colorbar()
 
+            plt.xticks(
+                [0, 1],
+                ["No Failure", "Failure"]
+            )
+
+            plt.yticks(
+                [0, 1],
+                ["No Failure", "Failure"]
+            )
+
+            for i in range(cm.shape[0]):
+                for j in range(cm.shape[1]):
+                    plt.text(
+                        j,
+                        i,
+                        cm[i, j],
+                        ha="center",
+                        va="center"
+                    )
+
             plt.savefig(
                 self.config.confusion_matrix_path,
                 dpi=300,
@@ -210,7 +297,7 @@ class ModelEvaluation:
 
         except Exception as e:
 
-            raise CustomException(e,sys)
+            raise CustomException(e, sys)
 
     def initiate_model_evaluation(self):
 

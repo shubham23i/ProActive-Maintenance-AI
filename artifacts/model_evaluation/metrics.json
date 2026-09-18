@@ -4,5 +4,11 @@
     "recall": 0.7241379310344828,
     "f1_score": 0.7241379310344828,
     "roc_auc": 0.9739562577650671,
-    "pr_auc": 0.8038536431150534
+    "pr_auc": 0.8038536431150534,
+    "brier_score": 0.009447728283703327,
+    "actual_failure_rate": 0.019333333333333334,
+    "predicted_failure_rate": 0.019333333333333334,
+    "mean_predicted_probability": 0.04325830191373825,
+    "min_predicted_probability": 0.006419668905436993,
+    "max_predicted_probability": 0.9922466278076172
 }
