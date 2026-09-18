@@ -117,15 +117,17 @@ class Prediction:
                 int(historical_df["UDI"].max()) + 1
             )
 
+            
             prediction_row = {
-                "UDI": next_udi,
-                "Product ID": "PREDICTION",
-                "Type": input_data["Type"],
-                "Air temperature [K]": input_data["Air temperature [K]"],
-                "Process temperature [K]": input_data["Process temperature [K]"],
-                "Rotational speed [rpm]": input_data["Rotational speed [rpm]"],
-                "Torque [Nm]": input_data["Torque [Nm]"],
-                "Tool wear [min]": input_data["Tool wear [min]"]
+            "UDI": next_udi,
+            "Product ID": "PREDICTION",
+            "Type": input_data["Type"],
+            "Air temperature [K]": input_data["Air temperature [K]"],
+            "Process temperature [K]": input_data["Process temperature [K]"],
+            "Rotational speed [rpm]": input_data["Rotational speed [rpm]"],
+            "Torque [Nm]": input_data["Torque [Nm]"],
+            "Tool wear [min]": input_data["Tool wear [min]"],
+            "Machine failure": 0
             }
 
             return pd.DataFrame(
