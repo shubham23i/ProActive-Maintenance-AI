@@ -35,7 +35,7 @@ class FeatureEngineering:
             features = {}
 
             # ---------------------------------------------------------
-            # 2. Existing domain features
+            # 2. Domain features
             # ---------------------------------------------------------
 
             features["Temperature Difference"] = (
@@ -64,128 +64,11 @@ class FeatureEngineering:
             )
 
             # ---------------------------------------------------------
-            # 3. Lag features
-            # ---------------------------------------------------------
-
-            for column in self.sensor_columns:
-
-                for lag in [1, 3, 5, 10]:
-
-                    features[f"{column}_lag_{lag}"] = (
-                        df[column].shift(lag)
-                    )
-
-            # ---------------------------------------------------------
-            # 4. Rolling statistics
-            # ---------------------------------------------------------
-
-            for column in self.sensor_columns:
-
-                historical = df[column].shift(1)
-
-                for window in [5, 10, 20]:
-
-                    rolling = historical.rolling(window)
-
-                    features[
-                        f"{column}_rolling_mean_{window}"
-                    ] = rolling.mean()
-
-                    features[
-                        f"{column}_rolling_std_{window}"
-                    ] = rolling.std()
-
-                    features[
-                        f"{column}_rolling_min_{window}"
-                    ] = rolling.min()
-
-                    features[
-                        f"{column}_rolling_max_{window}"
-                    ] = rolling.max()
-
-            # ---------------------------------------------------------
-            # 5. Delta features
-            # ---------------------------------------------------------
-
-            for column in self.sensor_columns:
-
-                features[f"{column}_delta_1"] = (
-                    df[column] - df[column].shift(1)
-                )
-
-                features[f"{column}_delta_5"] = (
-                    df[column] - df[column].shift(5)
-                )
-
-            # ---------------------------------------------------------
-            # 6. Percentage change
-            # ---------------------------------------------------------
-
-            for column in self.sensor_columns:
-
-                features[f"{column}_pct_change"] = (
-                    df[column]
-                    .pct_change()
-                    .replace([np.inf, -np.inf], np.nan)
-                )
-
-            # ---------------------------------------------------------
-            # 7. Rolling trend / degradation slope
-            # ---------------------------------------------------------
-
-            def rolling_slope(series, window):
-
-                x = np.arange(window)
-
-                return series.rolling(window).apply(
-                    lambda y: np.polyfit(x, y, 1)[0]
-                    if np.isfinite(y).all()
-                    else np.nan,
-                    raw=True
-                )
-
-            trend_columns = [
-                "Torque [Nm]",
-                "Rotational speed [rpm]",
-                "Tool wear [min]"
-            ]
-
-            # Temperature Difference is created above,
-            # so calculate it separately for trend features.
-            temperature_difference = (
-                df["Process temperature [K]"]
-                - df["Air temperature [K]"]
-            )
-
-            trend_data = {
-                "Torque [Nm]": df["Torque [Nm]"],
-                "Rotational speed [rpm]": df["Rotational speed [rpm]"],
-                "Tool wear [min]": df["Tool wear [min]"],
-                "Temperature Difference": temperature_difference
-            }
-
-            for column in trend_columns + ["Temperature Difference"]:
-
-                historical = trend_data[column].shift(1)
-
-                for window in [10, 20]:
-
-                    features[
-                        f"{column}_trend_{window}"
-                    ] = rolling_slope(
-                        historical,
-                        window
-                    )
-
-            # ---------------------------------------------------------
-            # 8. Interaction features
+            # 3. Interaction features
             # ---------------------------------------------------------
 
             features["Temperature_Torque_Interaction"] = (
-                (
-                    df["Process temperature [K]"]
-                    - df["Air temperature [K]"]
-                )
+                features["Temperature Difference"]
                 * df["Torque [Nm]"]
             )
 
@@ -194,19 +77,13 @@ class FeatureEngineering:
                 * df["Torque [Nm]"]
             )
 
-            mechanical_power = (
-                df["Torque [Nm]"]
-                * df["Rotational speed [rpm]"]
-                * (2 * np.pi / 60)
-            )
-
             features["Wear_Power_Interaction"] = (
                 df["Tool wear [min]"]
-                * mechanical_power
+                * features["Mechanical Power"]
             )
 
             # ---------------------------------------------------------
-            # 9. Add all features at once
+            # 4. Add all features at once
             # ---------------------------------------------------------
 
             feature_df = pd.DataFrame(
@@ -220,15 +97,21 @@ class FeatureEngineering:
             )
 
             # ---------------------------------------------------------
-            # 10. Remove unavailable historical rows
+            # 5. Remove invalid rows
             # ---------------------------------------------------------
+
+            df = df.replace(
+                [np.inf, -np.inf],
+                np.nan
+            )
 
             if self.config is not None:
                 df = df.dropna().reset_index(drop=True)
             else:
                 df = df.reset_index(drop=True)
+
             # ---------------------------------------------------------
-            # 11. Safety check
+            # 6. Safety check
             # ---------------------------------------------------------
 
             if df.empty:
@@ -241,9 +124,15 @@ class FeatureEngineering:
                 f"Shape: {df.shape}"
             )
 
+            logging.info(
+                f"Features created: "
+                f"{list(feature_df.columns)}"
+            )
+
             return df
 
         except Exception as e:
+
             raise CustomException(e, sys)
 
     def save_data(self, train_df, test_df):
@@ -265,6 +154,7 @@ class FeatureEngineering:
             )
 
         except Exception as e:
+
             raise CustomException(e, sys)
 
     def initiate_feature_engineering(self):
@@ -287,9 +177,13 @@ class FeatureEngineering:
                 f"Test data loaded: {test_df.shape}"
             )
 
-            train_df = self.create_features(train_df)
+            train_df = self.create_features(
+                train_df
+            )
 
-            test_df = self.create_features(test_df)
+            test_df = self.create_features(
+                test_df
+            )
 
             self.save_data(
                 train_df,
@@ -299,4 +193,5 @@ class FeatureEngineering:
             return train_df, test_df
 
         except Exception as e:
+
             raise CustomException(e, sys)
