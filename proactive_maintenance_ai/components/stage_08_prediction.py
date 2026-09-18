@@ -10,8 +10,12 @@ from proactive_maintenance_ai.components.stage_11_explainability import (
 )
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
-from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
-from proactive_maintenance_ai.components.stage_09_anomaly_detection import AnomalyDetection
+from proactive_maintenance_ai.components.stage_04_feature_engineering import (
+    FeatureEngineering
+)
+from proactive_maintenance_ai.components.stage_09_anomaly_detection import (
+    AnomalyDetection
+)
 from proactive_maintenance_ai.config.configuration import ConfigurationManager
 
 
@@ -45,13 +49,17 @@ class Prediction:
 
         try:
 
-            logging.info("Loading registered model...")
+            logging.info(
+                "Loading registered model..."
+            )
 
             model = joblib.load(
                 self.config.model_path
             )
 
-            logging.info("Model loaded successfully.")
+            logging.info(
+                "Model loaded successfully."
+            )
 
             return model
 
@@ -59,40 +67,7 @@ class Prediction:
 
             raise CustomException(e, sys)
 
-    def load_historical_data(self):
-
-        try:
-
-            df = pd.read_csv(
-                self.config.raw_data_file
-            )
-
-            if df.empty:
-
-                raise ValueError(
-                    "Historical dataset is empty."
-                )
-
-            df = (
-                df.sort_values("UDI")
-                .reset_index(drop=True)
-            )
-
-            logging.info(
-                f"Historical data loaded: {df.shape}"
-            )
-
-            return df
-
-        except Exception as e:
-
-            raise CustomException(e, sys)
-
-    def create_prediction_row(
-        self,
-        input_data,
-        historical_df
-    ):
+    def create_prediction_row(self, input_data):
 
         try:
 
@@ -113,21 +88,21 @@ class Prediction:
                         f"Missing prediction input: {column}"
                     )
 
-            next_udi = (
-                int(historical_df["UDI"].max()) + 1
-            )
-
-            
             prediction_row = {
-            "UDI": next_udi,
-            "Product ID": "PREDICTION",
-            "Type": input_data["Type"],
-            "Air temperature [K]": input_data["Air temperature [K]"],
-            "Process temperature [K]": input_data["Process temperature [K]"],
-            "Rotational speed [rpm]": input_data["Rotational speed [rpm]"],
-            "Torque [Nm]": input_data["Torque [Nm]"],
-            "Tool wear [min]": input_data["Tool wear [min]"],
-            "Machine failure": 0
+                "UDI": 1,
+                "Product ID": "PREDICTION",
+                "Type": input_data["Type"],
+                "Air temperature [K]":
+                    input_data["Air temperature [K]"],
+                "Process temperature [K]":
+                    input_data["Process temperature [K]"],
+                "Rotational speed [rpm]":
+                    input_data["Rotational speed [rpm]"],
+                "Torque [Nm]":
+                    input_data["Torque [Nm]"],
+                "Tool wear [min]":
+                    input_data["Tool wear [min]"],
+                "Machine failure": 0
             }
 
             return pd.DataFrame(
@@ -142,35 +117,10 @@ class Prediction:
 
         try:
 
-            historical_df = (
-                self.load_historical_data()
-            )
-
             prediction_row = (
                 self.create_prediction_row(
-                    input_data,
-                    historical_df
+                    input_data
                 )
-            )
-
-            prediction_udi = (
-                prediction_row["UDI"].iloc[0]
-            )
-
-            historical_context = (
-                historical_df.tail(30).copy()
-            )
-
-            combined_df = pd.concat(
-                [
-                    historical_context,
-                    prediction_row
-                ],
-                ignore_index=True
-            )
-
-            logging.info(
-                f"Prediction UDI: {prediction_udi}"
             )
 
             logging.info(
@@ -187,7 +137,7 @@ class Prediction:
 
             engineered_df = (
                 feature_engineering.create_features(
-                    combined_df
+                    prediction_row
                 )
             )
 
@@ -197,25 +147,15 @@ class Prediction:
                     "Feature engineering produced no data."
                 )
 
-            prediction_df = engineered_df[
-                engineered_df["UDI"] == prediction_udi
-            ].copy()
-
-            if prediction_df.empty:
-
-                raise ValueError(
-                    "Prediction row was lost during feature engineering."
-                )
-
             logging.info(
                 "Engineered prediction row:"
             )
 
             logging.info(
-                prediction_df.to_string()
+                engineered_df.to_string()
             )
 
-            prediction_df = prediction_df.drop(
+            prediction_df = engineered_df.drop(
                 columns=[
                     "Machine failure",
                     "UDI",
@@ -259,7 +199,6 @@ class Prediction:
             return (
                 prediction_df,
                 prediction_row,
-                combined_df,
                 engineered_df
             )
 
@@ -276,7 +215,6 @@ class Prediction:
             (
                 df,
                 prediction_row,
-                combined_df,
                 engineered_df
             ) = self.preprocess_input(
                 input_data
@@ -299,12 +237,16 @@ class Prediction:
             logging.info(
                 f"MODEL EXPECTED FEATURES: "
                 f"{len(model.feature_names_in_)}"
-                if hasattr(model, "feature_names_in_")
+                if hasattr(
+                    model,
+                    "feature_names_in_"
+                )
                 else "Model has no feature_names_in_"
             )
 
             logging.info(
-                f"PREDICTION FEATURES: {len(df.columns)}"
+                f"PREDICTION FEATURES: "
+                f"{len(df.columns)}"
             )
 
             logging.info(
@@ -363,7 +305,12 @@ class Prediction:
                 "Tool_wear__min_",
                 "Temperature_Difference",
                 "Mechanical_Power",
-                "Speed_Torque_Interaction"
+                "Torque_Speed_Ratio",
+                "Tool_Wear_Risk",
+                "Temperature_Stress",
+                "Temperature_Torque_Interaction",
+                "Speed_Torque_Interaction",
+                "Wear_Power_Interaction"
             ]:
 
                 if column in df.columns:
@@ -446,24 +393,28 @@ class Prediction:
                     "selected_features":
                         selected_features,
 
-                    "prediction_row_raw":
-                        prediction_row.iloc[0].to_dict(),
-
-                    "combined_last_row": {
-                        k: (None if pd.isna(v) else v)
-                        for k, v in combined_df.tail(1).to_dict(
-                            orient="records"
-                        )[0].items()
+                    "prediction_row_raw": {
+                        k: (
+                            None
+                            if pd.isna(v)
+                            else v
+                        )
+                        for k, v in
+                        prediction_row.iloc[
+                            0
+                        ].to_dict().items()
                     },
 
                     "engineered_prediction_row": {
-                        k: (None if pd.isna(v) else v)
-                        for k, v in engineered_df[
-                            engineered_df["UDI"]
-                            == prediction_row["UDI"].iloc[0]
-                        ].to_dict(
-                            orient="records"
-                        )[0].items()
+                        k: (
+                            None
+                            if pd.isna(v)
+                            else v
+                        )
+                        for k, v in
+                        engineered_df.iloc[
+                            0
+                        ].to_dict().items()
                     }
                 }
             }
