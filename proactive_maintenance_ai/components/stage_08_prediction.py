@@ -449,22 +449,22 @@ class Prediction:
                     "prediction_row_raw":
                         prediction_row.iloc[0].to_dict(),
 
-                    "combined_last_row":
-                        combined_df.tail(
-                            1
-                        ).to_dict(
+                    "combined_last_row": {
+                        k: (None if pd.isna(v) else v)
+                        for k, v in combined_df.tail(1).to_dict(
                             orient="records"
-                        )[0],
+                        )[0].items()
+                    },
 
-                    "engineered_prediction_row":
-                        engineered_df[
+                    "engineered_prediction_row": {
+                        k: (None if pd.isna(v) else v)
+                        for k, v in engineered_df[
                             engineered_df["UDI"]
-                            == prediction_row[
-                                "UDI"
-                            ].iloc[0]
+                            == prediction_row["UDI"].iloc[0]
                         ].to_dict(
                             orient="records"
-                        )[0]
+                        )[0].items()
+                    }
                 }
             }
 
