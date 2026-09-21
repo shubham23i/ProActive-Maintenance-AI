@@ -428,6 +428,117 @@ st.html(
         min-width: 0;
     }}
 
+    /* OPERATING RANGE VALIDATION */
+
+    .ood-card {{
+        background: {CLAY};
+        border: 1px solid {GOLD};
+        border-radius: 16px;
+        padding: 22px 24px;
+        margin: 14px 0 28px 0;
+        box-shadow: 0 5px 16px rgba(0,0,0,0.18);
+    }}
+
+    .ood-warning {{
+        border-left: 4px solid {GOLD};
+    }}
+
+    .ood-normal {{
+        border-left: 4px solid {RISK_LOW};
+    }}
+
+    .ood-header {{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }}
+
+    .ood-icon {{
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 900;
+        background: rgba(255,255,255,0.06);
+    }}
+
+    .ood-warning .ood-icon {{
+        color: {GOLD};
+        border: 1px solid rgba(245,196,81,0.35);
+    }}
+
+    .ood-normal .ood-icon {{
+        color: {RISK_LOW};
+        border: 1px solid rgba(76,175,125,0.35);
+    }}
+
+    .ood-title {{
+        color: {WHITE};
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 4px;
+    }}
+
+    .ood-subtitle {{
+        color: {MUTED};
+        font-size: 13px;
+        line-height: 1.5;
+    }}
+
+    .ood-reliability {{
+        margin-top: 18px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.035);
+        color: {MUTED};
+        font-size: 13px;
+        line-height: 1.5;
+    }}
+
+    .ood-table-header {{
+        display: grid;
+        grid-template-columns: 1.5fr 0.7fr 1fr;
+        gap: 12px;
+        margin-top: 20px;
+        padding: 0 12px 9px 12px;
+        color: {MUTED};
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0.65;
+    }}
+
+    .ood-row {{
+        display: grid;
+        grid-template-columns: 1.5fr 0.7fr 1fr;
+        gap: 12px;
+        align-items: center;
+        padding: 13px 12px;
+        margin-top: 5px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.025);
+        color: {WHITE};
+        font-size: 13px;
+    }}
+
+    .ood-feature {{
+        font-weight: 700;
+    }}
+
+    .ood-value {{
+        font-weight: 900;
+    }}
+
+    .ood-range {{
+        color: {MUTED};
+        opacity: 0.8;
+    }}
+
     @media (max-width: 900px) {{
 
         .block-container {{
@@ -594,7 +705,6 @@ if st.button(
         with st.spinner(
             "Analyzing machine condition..."
         ):
-            st.write("DEBUG API PAYLOAD:", api_payload)
             response = requests.post(
                 f"{API_URL}/predict",
                 json=api_payload,
@@ -604,33 +714,6 @@ if st.button(
             response.raise_for_status()
 
             result = response.json()
-            if result.get("out_of_distribution", False):
-
-                st.warning(
-                    "Input is outside the operating range seen during model training. "
-                    "Prediction reliability may be reduced."
-                )
-
-                warnings = result.get(
-                    "distribution_warnings",
-                    []
-                )
-
-                for warning in warnings:
-
-                    st.write(
-                        f"**{warning['feature']}**: "
-                        f"{warning['value']} "
-                        f"(training range: "
-                        f"{warning['training_min']} - "
-                        f"{warning['training_max']})"
-                    )
-
-            else:
-
-                st.success(
-                    "Input is within the operating range observed during model training."
-                )
 
             st.session_state["prediction_result"] = result
             st.session_state["machine_payload"] = dashboard_payload
@@ -1443,6 +1526,123 @@ if result is not None and payload is not None:
                 margin-top:-20px;
             ">
                 STATUS: {anomaly_status}
+            </div>
+            """
+        )
+
+
+    # ========================================================
+    # OPERATING RANGE VALIDATION
+    # ========================================================
+
+    ood_status = result.get(
+        "out_of_distribution",
+        False
+    )
+
+    ood_warnings = result.get(
+        "distribution_warnings",
+        []
+    )
+
+    st.html(
+        '<div class="section-title">'
+        'Operating Range Validation'
+        '</div>'
+    )
+
+    if ood_status:
+
+        warning_rows = ""
+
+        for warning in ood_warnings:
+
+            warning_rows += f"""
+            <div class="ood-row">
+                <div class="ood-feature">
+                    {warning["feature"]}
+                </div>
+
+                <div class="ood-value">
+                    {warning["value"]}
+                </div>
+
+                <div class="ood-range">
+                    {warning["training_min"]} – {warning["training_max"]}
+                </div>
+            </div>
+            """
+
+        st.html(
+            f"""
+            <div class="ood-card ood-warning">
+
+                <div class="ood-header">
+
+                    <div class="ood-icon">
+                        !
+                    </div>
+
+                    <div>
+                        <div class="ood-title">
+                            Outside Observed Training Range
+                        </div>
+
+                        <div class="ood-subtitle">
+                            One or more operating conditions fall outside
+                            the ranges observed during model training.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ood-reliability">
+                    Prediction reliability may be reduced for these
+                    operating conditions.
+                </div>
+
+                <div class="ood-table-header">
+                    <div>Parameter</div>
+                    <div>Input</div>
+                    <div>Training Range</div>
+                </div>
+
+                {warning_rows}
+
+            </div>
+            """
+        )
+
+    else:
+
+        st.html(
+            """
+            <div class="ood-card ood-normal">
+
+                <div class="ood-header">
+
+                    <div class="ood-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <div class="ood-title">
+                            Operating Conditions Within Range
+                        </div>
+
+                        <div class="ood-subtitle">
+                            All sensor inputs are within the ranges
+                            observed during model training.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ood-reliability">
+                    The model is operating within its observed
+                    training range.
+                </div>
+
             </div>
             """
         )

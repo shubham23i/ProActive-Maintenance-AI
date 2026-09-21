@@ -1,7 +1,7 @@
 {
-    "latest_version": "v15",
-    "model_path": "artifacts\\model_registry\\latest_model.pkl",
+    "model_version": "v15",
     "registered_at": "2026-09-21T15:24:45.654395",
+    "model_path": "artifacts\\model_registry\\versions\\v15\\model.pkl",
     "metrics": {
         "accuracy": 0.9893333333333333,
         "precision": 0.7241379310344828,

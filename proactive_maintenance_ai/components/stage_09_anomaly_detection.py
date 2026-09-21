@@ -52,15 +52,45 @@ class AnomalyDetection:
 
             df = self.load_data()
 
-            X = df[
+            # -------------------------------------------------
+            # Chronological training split
+            # -------------------------------------------------
+
+            if "UDI" in df.columns:
+
+                df = df.sort_values(
+                    by="UDI"
+                ).reset_index(
+                    drop=True
+                )
+
+            train_size = int(
+                len(df) * 0.85
+            )
+
+            train_df = df.iloc[
+                :train_size
+            ].copy()
+
+            logging.info(
+                f"Anomaly detector training split: "
+                f"{train_df.shape}"
+            )
+
+            X = train_df[
                 self.feature_columns
             ].copy()
 
             X = X.dropna()
 
             logging.info(
-                f"Training anomaly detector on: {X.shape}"
+                f"Training anomaly detector on: "
+                f"{X.shape}"
             )
+
+            # -------------------------------------------------
+            # Train only on training data
+            # -------------------------------------------------
 
             self.model.fit(X)
 
@@ -95,9 +125,13 @@ class AnomalyDetection:
                 self.feature_columns
             ]
 
-            prediction = model.predict(X)[0]
+            prediction = model.predict(
+                X
+            )[0]
 
-            score = model.decision_function(X)[0]
+            score = model.decision_function(
+                X
+            )[0]
 
             if prediction == -1:
 
@@ -108,7 +142,9 @@ class AnomalyDetection:
                 anomaly_status = "NORMAL"
 
             result = {
-                "anomaly_prediction": int(prediction),
+                "anomaly_prediction": int(
+                    prediction
+                ),
                 "anomaly_score": round(
                     float(score),
                     4
@@ -130,7 +166,9 @@ class AnomalyDetection:
         try:
 
             logging.info("=" * 60)
-            logging.info("ANOMALY DETECTION STARTED")
+            logging.info(
+                "ANOMALY DETECTION STARTED"
+            )
             logging.info("=" * 60)
 
             model = self.train()
