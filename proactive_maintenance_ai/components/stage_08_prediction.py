@@ -1,7 +1,7 @@
 import sys
 import joblib
 import pandas as pd
-
+import json
 from proactive_maintenance_ai.components.stage_10_maintenance_decision import (
     MaintenanceDecisionEngine
 )
@@ -65,6 +65,35 @@ class Prediction:
 
         except Exception as e:
 
+            raise CustomException(e, sys)
+
+    def check_input_distribution(self, input_data):
+        try:
+            ranges_path = "artifacts/model_training/input_ranges.json"
+
+            with open(ranges_path, "r") as f:
+                input_ranges = json.load(f)
+
+            warnings = []
+
+            for column, limits in input_ranges.items():
+                value = input_data[column]
+
+                if value < limits["min"] or value > limits["max"]:
+                    warnings.append({
+                        "feature": column,
+                        "value": value,
+                        "training_min": limits["min"],
+                        "training_max": limits["max"],
+                        "status": "OUT_OF_RANGE"
+                    })
+
+            return {
+                "out_of_distribution": len(warnings) > 0,
+                "distribution_warnings": warnings
+            }
+
+        except Exception as e:
             raise CustomException(e, sys)
 
     def create_prediction_row(self, input_data):
@@ -219,7 +248,7 @@ class Prediction:
             ) = self.preprocess_input(
                 input_data
             )
-
+            distribution_check = self.check_input_distribution(input_data)
             if hasattr(
                 model,
                 "feature_names_in_"
@@ -321,102 +350,25 @@ class Prediction:
                     )
 
             result = {
-
-                "prediction": int(
-                    prediction
-                ),
-
-                "failure_probability": round(
-                    float(probability),
+                "prediction": int(prediction),
+                "failure_probability": round(float(probability), 4),
+                "risk_level": risk,
+                "maintenance_priority": maintenance_result["maintenance_priority"],
+                "recommended_action": maintenance_result["recommended_action"],
+                "inspection_window": maintenance_result["inspection_window"],
+                "anomaly_prediction": int(anomaly_result["anomaly_prediction"]),
+                "anomaly_score": round(
+                    float(anomaly_result["anomaly_score"]),
                     4
                 ),
-
-                "risk_level": risk,
-
-                "maintenance_priority":
-                    maintenance_result[
-                        "maintenance_priority"
-                    ],
-
-                "recommended_action":
-                    maintenance_result[
-                        "recommended_action"
-                    ],
-
-                "inspection_window":
-                    maintenance_result[
-                        "inspection_window"
-                    ],
-
-                "anomaly_prediction":
-                    anomaly_result[
-                        "anomaly_prediction"
-                    ],
-
-                "anomaly_score":
-                    anomaly_result[
-                        "anomaly_score"
-                    ],
-
-                "anomaly_status":
-                    anomaly_result[
-                        "anomaly_status"
-                    ],
-
-                "top_risk_factors":
-                    explanation[
-                        "top_features"
-                    ],
-
-                "debug": {
-
-                    "model_type":
-                        type(model).__name__,
-
-                    "input_shape":
-                        list(df.shape),
-
-                    "nonzero_features":
-                        int(
-                            (df.iloc[0] != 0).sum()
-                        ),
-
-                    "input_sum":
-                        round(
-                            float(df.iloc[0].sum()),
-                            4
-                        ),
-
-                    "feature_count":
-                        len(df.columns),
-
-                    "selected_features":
-                        selected_features,
-
-                    "prediction_row_raw": {
-                        k: (
-                            None
-                            if pd.isna(v)
-                            else v
-                        )
-                        for k, v in
-                        prediction_row.iloc[
-                            0
-                        ].to_dict().items()
-                    },
-
-                    "engineered_prediction_row": {
-                        k: (
-                            None
-                            if pd.isna(v)
-                            else v
-                        )
-                        for k, v in
-                        engineered_df.iloc[
-                            0
-                        ].to_dict().items()
-                    }
-                }
+                "anomaly_status": anomaly_result["anomaly_status"],
+                "out_of_distribution": distribution_check[
+                    "out_of_distribution"
+                ],
+                "distribution_warnings": distribution_check[
+                    "distribution_warnings"
+                ],
+                "top_risk_factors": explanation["top_risk_factors"]
             }
 
             logging.info(

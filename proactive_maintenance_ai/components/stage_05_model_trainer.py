@@ -2,9 +2,9 @@
 import sys
 import pandas as pd
 import joblib
-
+import json
 from xgboost import XGBClassifier
-
+import os
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 from proactive_maintenance_ai.entity.config_entity import ModelTrainerConfig
@@ -42,6 +42,8 @@ class ModelTrainer:
             )
 
             return train_df, test_df
+
+        
 
         except Exception as e:
 
@@ -126,6 +128,41 @@ class ModelTrainer:
                 .sort_values(self.order_column)
                 .reset_index(drop=True)
             )
+            sensor_columns = [
+                "Air temperature [K]",
+                "Process temperature [K]",
+                "Rotational speed [rpm]",
+                "Torque [Nm]",
+                "Tool wear [min]"
+            ]
+
+            input_ranges = {}
+
+            for column in sensor_columns:
+                input_ranges[column] = {
+                    "min": float(train_df[column].min()),
+                    "max": float(train_df[column].max())
+                }
+
+            ranges_path = "artifacts/model_training/input_ranges.json"
+
+            os.makedirs(
+                os.path.dirname(ranges_path),
+                exist_ok=True
+            )
+
+            with open(ranges_path, "w") as f:
+                json.dump(
+                    input_ranges,
+                    f,
+                    indent=4
+                )
+
+            logging.info(
+                f"Input ranges saved at: {ranges_path}"
+            )
+
+            logging.info(f"Input ranges saved at: {ranges_path}")
 
             # ---------------------------------------------------------
             # Temporal validation split

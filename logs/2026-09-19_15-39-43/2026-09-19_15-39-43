@@ -1,0 +1,34 @@
+[ 2026-09-19 15:39:51,490 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-19 15:39:51,490 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-19 15:39:51,490 ] 34 root - INFO - created directory at artifacts/prediction
+[ 2026-09-19 15:39:51,510 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-19 15:39:51,512 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-19 15:39:51,512 ] 34 root - INFO - created directory at artifacts/anomaly_detection
+[ 2026-09-19 15:39:51,523 ] 22 root - INFO - file config\config.yaml loaded successfully
+[ 2026-09-19 15:39:51,523 ] 34 root - INFO - created directory at artifacts
+[ 2026-09-19 15:39:51,523 ] 34 root - INFO - created directory at artifacts/explainability
+[ 2026-09-19 15:39:51,526 ] 391 root - INFO - ============================================================
+[ 2026-09-19 15:39:51,526 ] 395 root - INFO - PREDICTION STARTED
+[ 2026-09-19 15:39:51,526 ] 399 root - INFO - ============================================================
+[ 2026-09-19 15:39:51,526 ] 52 root - INFO - Loading registered model...
+[ 2026-09-19 15:39:51,624 ] 60 root - INFO - Model loaded successfully.
+[ 2026-09-19 15:39:51,636 ] 155 root - INFO - Prediction raw row:
+[ 2026-09-19 15:39:51,649 ] 159 root - INFO -    UDI  Product ID Type  Air temperature [K]  Process temperature [K]  Rotational speed [rpm]  Torque [Nm]  Tool wear [min]  Machine failure
+0    1  PREDICTION    M                298.1                    308.6                    1550         42.5              180                0
+[ 2026-09-19 15:39:51,662 ] 122 root - INFO - Feature engineering completed. Shape: (1, 17)
+[ 2026-09-19 15:39:51,662 ] 127 root - INFO - Features created: ['Temperature Difference', 'Mechanical Power', 'Torque Speed Ratio', 'Tool Wear Risk', 'Temperature Stress', 'Temperature_Torque_Interaction', 'Speed_Torque_Interaction', 'Wear_Power_Interaction']
+[ 2026-09-19 15:39:51,662 ] 179 root - INFO - Engineered prediction row:
+[ 2026-09-19 15:39:51,680 ] 183 root - INFO -    UDI  Product ID Type  Air temperature [K]  Process temperature [K]  Rotational speed [rpm]  Torque [Nm]  Tool wear [min]  Machine failure  Temperature Difference  Mechanical Power  Torque Speed Ratio  Tool Wear Risk  Temperature Stress  Temperature_Torque_Interaction  Speed_Torque_Interaction  Wear_Power_Interaction
+0    1  PREDICTION    M                298.1                    308.6                    1550         42.5              180                0                    10.5       6898.413869            0.027419            0.72            91993.66                          446.25                   65875.0            1.241714e+06
+[ 2026-09-19 15:39:51,692 ] 223 root - INFO - Prediction preprocessing completed: (1, 13)
+[ 2026-09-19 15:39:51,694 ] 266 root - INFO - MODEL EXPECTED FEATURES: 15
+[ 2026-09-19 15:39:51,694 ] 276 root - INFO - PREDICTION FEATURES: 15
+[ 2026-09-19 15:39:51,696 ] 281 root - INFO - PREDICTION INPUT VALUES: {'Air_temperature__K_': 298.1, 'Process_temperature__K_': 308.6, 'Rotational_speed__rpm_': 1550.0, 'Torque__Nm_': 42.5, 'Tool_wear__min_': 180.0, 'Temperature_Difference': 10.5, 'Mechanical_Power': 6898.413868507587, 'Torque_Speed_Ratio': 0.02741935482101977, 'Tool_Wear_Risk': 0.72, 'Temperature_Stress': 91993.66000000002, 'Temperature_Torque_Interaction': 446.25, 'Speed_Torque_Interaction': 65875.0, 'Wear_Power_Interaction': 1241714.4963313655, 'Type_L': 0.0, 'Type_M': 0.0}
+[ 2026-09-19 15:39:52,157 ] 119 root - INFO - Anomaly detection result: {'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL'}
+[ 2026-09-19 15:39:52,157 ] 96 root - INFO - Maintenance decision: {'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days'}
+[ 2026-09-19 15:39:52,157 ] 20 root - INFO - Loading model for explainability...
+[ 2026-09-19 15:39:52,171 ] 26 root - INFO - Model loaded successfully.
+[ 2026-09-19 15:39:52,468 ] 130 root - INFO - Explainability result: {'top_features': [{'feature': 'Mechanical_Power', 'impact': 3.3701, 'direction': 'INCREASES RISK'}, {'feature': 'Speed_Torque_Interaction', 'impact': 0.8447, 'direction': 'INCREASES RISK'}, {'feature': 'Rotational_speed__rpm_', 'impact': -0.6363, 'direction': 'DECREASES RISK'}, {'feature': 'Temperature_Difference', 'impact': 0.44, 'direction': 'INCREASES RISK'}, {'feature': 'Tool_wear__min_', 'impact': -0.2794, 'direction': 'DECREASES RISK'}]}
+[ 2026-09-19 15:39:52,473 ] 377 root - INFO - Prediction result: {'prediction': 0, 'failure_probability': 0.0108, 'risk_level': 'LOW', 'maintenance_priority': 'ROUTINE', 'recommended_action': 'Continue normal operation and monitor sensor trends.', 'inspection_window': '30+ days', 'anomaly_prediction': 1, 'anomaly_score': 0.1631, 'anomaly_status': 'NORMAL', 'out_of_distribution': False, 'distribution_warnings': [], 'top_risk_factors': []}
+[ 2026-09-19 15:39:52,474 ] 407 root - INFO - Prediction completed successfully.
+[ 2026-09-19 15:39:52,474 ] 411 root - INFO - ============================================================

@@ -604,6 +604,33 @@ if st.button(
             response.raise_for_status()
 
             result = response.json()
+            if result.get("out_of_distribution", False):
+
+                st.warning(
+                    "Input is outside the operating range seen during model training. "
+                    "Prediction reliability may be reduced."
+                )
+
+                warnings = result.get(
+                    "distribution_warnings",
+                    []
+                )
+
+                for warning in warnings:
+
+                    st.write(
+                        f"**{warning['feature']}**: "
+                        f"{warning['value']} "
+                        f"(training range: "
+                        f"{warning['training_min']} - "
+                        f"{warning['training_max']})"
+                    )
+
+            else:
+
+                st.success(
+                    "Input is within the operating range observed during model training."
+                )
 
             st.session_state["prediction_result"] = result
             st.session_state["machine_payload"] = dashboard_payload
@@ -612,7 +639,7 @@ if st.button(
 
         st.error(
             f"Prediction failed: {str(e)}"
-        )
+                )
 
 
 # ============================================================

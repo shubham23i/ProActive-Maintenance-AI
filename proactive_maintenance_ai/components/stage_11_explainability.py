@@ -124,7 +124,7 @@ class ModelExplainability:
             )
 
             result = {
-                "top_features": feature_importance[:5]
+                "top_risk_factors": feature_importance[:5]
             }
 
             logging.info(

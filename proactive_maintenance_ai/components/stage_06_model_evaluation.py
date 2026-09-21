@@ -51,35 +51,28 @@ class ModelEvaluation:
             logging.info(
                 f"Raw test data loaded: {test_df.shape}"
             )
+            #temporary
+            sensor_columns = [
+                "Air temperature [K]",
+                "Process temperature [K]",
+                "Rotational speed [rpm]",
+                "Torque [Nm]",
+                "Tool wear [min]"
+            ]
 
+            logging.info("Test sensor ranges:")
+
+            for column in sensor_columns:
+                logging.info(
+                    f"{column}: "
+                    f"min={test_df[column].min():.2f}, "
+                    f"max={test_df[column].max():.2f}, "
+                    f"mean={test_df[column].mean():.2f}"
+                )
             # ---------------------------------------------------------
             # Apply same feature engineering used during training
             # ---------------------------------------------------------
 
-            feature_engineering = FeatureEngineering(
-                config=None
-            )
-
-            test_df = feature_engineering.create_features(
-                test_df
-            )
-
-            duplicate_columns = test_df.columns[
-                test_df.columns.duplicated()
-            ].tolist()
-
-            if duplicate_columns:
-                logging.warning(
-                    f"Duplicate columns detected: {duplicate_columns}"
-                )
-
-                test_df = test_df.loc[
-                    :, ~test_df.columns.duplicated()
-                ].copy()
-
-            logging.info(
-                f"Feature engineered test data: {test_df.shape}"
-            )
             # ---------------------------------------------------------
             # Prepare X and y
             # ---------------------------------------------------------
