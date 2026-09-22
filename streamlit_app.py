@@ -4,7 +4,6 @@ import pandas as pd
 import requests
 
 
-
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -39,7 +38,6 @@ ORANGE = "#18C3B1"
 GOLD = "#F5C451"
 
 WHITE = "#F4FAFA"
-TEXT_DARK = "#102027"
 MUTED = "#CFE2E2"
 BORDER = "#F5C451"
 
@@ -698,7 +696,7 @@ if st.button(
         "Torque [Nm]": torque,
         "Tool wear [min]": tool_wear
     }
-    
+
 
     try:
 
@@ -1058,7 +1056,7 @@ if result is not None and payload is not None:
                 else GRAPH_RED
                 for x in risk_df["impact"]
             ]
-            
+
             factor_fig = go.Figure()
 
             factor_fig.add_trace(

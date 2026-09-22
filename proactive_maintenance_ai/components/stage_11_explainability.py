@@ -10,7 +10,6 @@ from proactive_maintenance_ai.exception.exception_handler import CustomException
 class ModelExplainability:
 
     def __init__(self, config):
-
         self.config = config
 
     def load_model(self):
@@ -23,9 +22,7 @@ class ModelExplainability:
                 self.config.model_path
             )
 
-            logging.info(
-                "Model loaded successfully."
-            )
+            logging.info("Model loaded successfully.")
 
             return model
 
@@ -52,28 +49,16 @@ class ModelExplainability:
             X.columns = (
                 X.columns
                 .astype(str)
-                .str.replace(
-                    "[", "_", regex=False
-                )
-                .str.replace(
-                    "]", "_", regex=False
-                )
-                .str.replace(
-                    "<", "_", regex=False
-                )
-                .str.replace(
-                    ">", "_", regex=False
-                )
-                .str.replace(
-                    " ", "_", regex=False
-                )
+                .str.replace("[", "_", regex=False)
+                .str.replace("]", "_", regex=False)
+                .str.replace("<", "_", regex=False)
+                .str.replace(">", "_", regex=False)
+                .str.replace(" ", "_", regex=False)
             )
 
             if hasattr(model, "feature_names_in_"):
 
-                expected_features = (
-                    model.feature_names_in_
-                )
+                expected_features = model.feature_names_in_
 
                 X = X.reindex(
                     columns=expected_features,
@@ -123,15 +108,9 @@ class ModelExplainability:
                 reverse=True
             )
 
-            result = {
+            return {
                 "top_risk_factors": feature_importance[:5]
             }
-
-            logging.info(
-                f"Explainability result: {result}"
-            )
-
-            return result
 
         except Exception as e:
             raise CustomException(e, sys)

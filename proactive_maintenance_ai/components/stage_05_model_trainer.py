@@ -1,10 +1,10 @@
-
 import sys
 import pandas as pd
 import joblib
 import json
 from xgboost import XGBClassifier
 import os
+
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.exception.exception_handler import CustomException
 from proactive_maintenance_ai.entity.config_entity import ModelTrainerConfig
@@ -15,10 +15,7 @@ class ModelTrainer:
     def __init__(self, config: ModelTrainerConfig):
 
         self.config = config
-
         self.target_column = self.config.target_column
-
-        # Used only for chronological ordering
         self.order_column = "UDI"
 
     def load_data(self):
@@ -43,8 +40,6 @@ class ModelTrainer:
 
             return train_df, test_df
 
-        
-
         except Exception as e:
 
             raise CustomException(e, sys)
@@ -55,15 +50,11 @@ class ModelTrainer:
 
             df = df.copy()
 
-            # ---------------------------------------------------------
             # Separate target
-            # ---------------------------------------------------------
 
             y = df[self.target_column]
 
-            # ---------------------------------------------------------
             # Remove target and UDI
-            # ---------------------------------------------------------
 
             X = df.drop(
                 columns=[
@@ -73,9 +64,7 @@ class ModelTrainer:
                 errors="ignore"
             )
 
-            # ---------------------------------------------------------
             # Encode categorical column
-            # ---------------------------------------------------------
 
             X = pd.get_dummies(
                 X,
@@ -84,9 +73,7 @@ class ModelTrainer:
                 dtype=int
             )
 
-            # ---------------------------------------------------------
             # Clean XGBoost feature names
-            # ---------------------------------------------------------
 
             X.columns = (
                 X.columns
@@ -107,15 +94,11 @@ class ModelTrainer:
 
         try:
 
-            # ---------------------------------------------------------
             # Load data
-            # ---------------------------------------------------------
 
             train_df, test_df = self.load_data()
 
-            # ---------------------------------------------------------
             # Sort chronologically
-            # ---------------------------------------------------------
 
             train_df = (
                 train_df
@@ -128,6 +111,7 @@ class ModelTrainer:
                 .sort_values(self.order_column)
                 .reset_index(drop=True)
             )
+
             sensor_columns = [
                 "Air temperature [K]",
                 "Process temperature [K]",
@@ -139,19 +123,30 @@ class ModelTrainer:
             input_ranges = {}
 
             for column in sensor_columns:
+
                 input_ranges[column] = {
-                    "min": float(train_df[column].min()),
-                    "max": float(train_df[column].max())
+                    "min": float(
+                        train_df[column].min()
+                    ),
+                    "max": float(
+                        train_df[column].max()
+                    )
                 }
 
-            ranges_path = "artifacts/model_training/input_ranges.json"
+            ranges_path = (
+                "artifacts/model_training/input_ranges.json"
+            )
 
             os.makedirs(
                 os.path.dirname(ranges_path),
                 exist_ok=True
             )
 
-            with open(ranges_path, "w") as f:
+            with open(
+                ranges_path,
+                "w"
+            ) as f:
+
                 json.dump(
                     input_ranges,
                     f,
@@ -162,16 +157,7 @@ class ModelTrainer:
                 f"Input ranges saved at: {ranges_path}"
             )
 
-            logging.info(f"Input ranges saved at: {ranges_path}")
-
-            # ---------------------------------------------------------
             # Temporal validation split
-            #
-            # 85% -> model fitting
-            # 15% -> validation
-            #
-            # Final test remains completely untouched.
-            # ---------------------------------------------------------
 
             validation_size = int(
                 len(train_df) * 0.15
@@ -203,9 +189,7 @@ class ModelTrainer:
                 f"Final test data shape: {test_df.shape}"
             )
 
-            # ---------------------------------------------------------
             # Log temporal ranges
-            # ---------------------------------------------------------
 
             logging.info(
                 f"Fit UDI range: "
@@ -225,9 +209,7 @@ class ModelTrainer:
                 f"{test_df[self.order_column].max()}"
             )
 
-            # ---------------------------------------------------------
             # Prepare features
-            # ---------------------------------------------------------
 
             X_fit, y_fit = self.prepare_features(
                 fit_df
@@ -241,9 +223,7 @@ class ModelTrainer:
                 test_df
             )
 
-            # ---------------------------------------------------------
             # Align validation/test features with training features
-            # ---------------------------------------------------------
 
             X_val = X_val.reindex(
                 columns=X_fit.columns,
@@ -255,9 +235,7 @@ class ModelTrainer:
                 fill_value=0
             )
 
-            # ---------------------------------------------------------
             # Check target classes
-            # ---------------------------------------------------------
 
             positive = (y_fit == 1).sum()
             negative = (y_fit == 0).sum()
@@ -285,9 +263,7 @@ class ModelTrainer:
                 f"{scale_pos_weight:.2f}"
             )
 
-            # ---------------------------------------------------------
             # XGBoost
-            # ---------------------------------------------------------
 
             model = XGBClassifier(
 
@@ -316,9 +292,7 @@ class ModelTrainer:
                 early_stopping_rounds=50
             )
 
-            # ---------------------------------------------------------
             # Train
-            # ---------------------------------------------------------
 
             logging.info(
                 "Starting XGBoost training..."
@@ -337,9 +311,7 @@ class ModelTrainer:
                 "XGBoost training completed."
             )
 
-            # ---------------------------------------------------------
             # Log best iteration
-            # ---------------------------------------------------------
 
             if hasattr(
                 model,
@@ -351,9 +323,7 @@ class ModelTrainer:
                     f"{model.best_iteration}"
                 )
 
-            # ---------------------------------------------------------
             # Save model
-            # ---------------------------------------------------------
 
             joblib.dump(
                 model,
@@ -375,11 +345,9 @@ class ModelTrainer:
 
         try:
 
-            logging.info("=" * 60)
             logging.info(
                 "Model Training Started"
             )
-            logging.info("=" * 60)
 
             model = self.train_model()
 
@@ -387,11 +355,8 @@ class ModelTrainer:
                 "Model Training Completed"
             )
 
-            logging.info("=" * 60)
-
             return model
 
         except Exception as e:
 
             raise CustomException(e, sys)
-

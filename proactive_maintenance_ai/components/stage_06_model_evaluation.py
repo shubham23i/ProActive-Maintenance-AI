@@ -18,7 +18,6 @@ from sklearn.metrics import (
 from proactive_maintenance_ai.logger.log import logging
 from proactive_maintenance_ai.entity.config_entity import ModelEvaluationConfig
 from proactive_maintenance_ai.exception.exception_handler import CustomException
-from proactive_maintenance_ai.components.stage_04_feature_engineering import FeatureEngineering
 
 
 class ModelEvaluation:
@@ -32,17 +31,9 @@ class ModelEvaluation:
 
         try:
 
-            # ---------------------------------------------------------
-            # Load model
-            # ---------------------------------------------------------
-
             model = joblib.load(
                 self.config.model_path
             )
-
-            # ---------------------------------------------------------
-            # Load test data
-            # ---------------------------------------------------------
 
             test_df = pd.read_csv(
                 self.config.test_data_path
@@ -51,31 +42,6 @@ class ModelEvaluation:
             logging.info(
                 f"Raw test data loaded: {test_df.shape}"
             )
-            #temporary
-            sensor_columns = [
-                "Air temperature [K]",
-                "Process temperature [K]",
-                "Rotational speed [rpm]",
-                "Torque [Nm]",
-                "Tool wear [min]"
-            ]
-
-            logging.info("Test sensor ranges:")
-
-            for column in sensor_columns:
-                logging.info(
-                    f"{column}: "
-                    f"min={test_df[column].min():.2f}, "
-                    f"max={test_df[column].max():.2f}, "
-                    f"mean={test_df[column].mean():.2f}"
-                )
-            # ---------------------------------------------------------
-            # Apply same feature engineering used during training
-            # ---------------------------------------------------------
-
-            # ---------------------------------------------------------
-            # Prepare X and y
-            # ---------------------------------------------------------
 
             y_test = test_df[
                 self.target_column
@@ -90,20 +56,12 @@ class ModelEvaluation:
                 errors="ignore"
             )
 
-            # ---------------------------------------------------------
-            # Encode categorical variables
-            # ---------------------------------------------------------
-
             X_test = pd.get_dummies(
                 X_test,
                 columns=["Type"],
                 drop_first=True,
                 dtype=int
             )
-
-            # ---------------------------------------------------------
-            # Clean feature names
-            # ---------------------------------------------------------
 
             X_test.columns = (
                 X_test.columns
@@ -113,10 +71,6 @@ class ModelEvaluation:
                 .str.replace(">", "_", regex=False)
                 .str.replace(" ", "_", regex=False)
             )
-
-            # ---------------------------------------------------------
-            # Match training feature schema
-            # ---------------------------------------------------------
 
             if hasattr(model, "feature_names_in_"):
 
@@ -129,10 +83,6 @@ class ModelEvaluation:
                 f"Final evaluation feature shape: {X_test.shape}"
             )
 
-            # ---------------------------------------------------------
-            # Predictions
-            # ---------------------------------------------------------
-
             y_pred = model.predict(
                 X_test
             )
@@ -140,10 +90,6 @@ class ModelEvaluation:
             y_prob = model.predict_proba(
                 X_test
             )[:, 1]
-
-            # ---------------------------------------------------------
-            # Metrics
-            # ---------------------------------------------------------
 
             metrics = {
 
@@ -186,10 +132,6 @@ class ModelEvaluation:
                 )
             }
 
-            # ---------------------------------------------------------
-            # Probability statistics
-            # ---------------------------------------------------------
-
             metrics["actual_failure_rate"] = float(
                 y_test.mean()
             )
@@ -210,10 +152,6 @@ class ModelEvaluation:
                 y_prob.max()
             )
 
-            # ---------------------------------------------------------
-            # Save metrics
-            # ---------------------------------------------------------
-
             with open(
                 self.config.metrics_file,
                 "w"
@@ -224,14 +162,6 @@ class ModelEvaluation:
                     f,
                     indent=4
                 )
-
-            logging.info(
-                f"Evaluation metrics: {metrics}"
-            )
-
-            # ---------------------------------------------------------
-            # Confusion matrix
-            # ---------------------------------------------------------
 
             cm = confusion_matrix(
                 y_test,
@@ -296,17 +226,15 @@ class ModelEvaluation:
 
         try:
 
-            logging.info("=" * 60)
-            logging.info("Model Evaluation Started")
-            logging.info("=" * 60)
+            logging.info(
+                "Model Evaluation Started"
+            )
 
             metrics = self.evaluate()
 
             logging.info(
                 "Model Evaluation Completed"
             )
-
-            logging.info("=" * 60)
 
             return metrics
 

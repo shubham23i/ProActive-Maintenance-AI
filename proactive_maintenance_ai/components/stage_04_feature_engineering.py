@@ -10,6 +10,7 @@ from proactive_maintenance_ai.exception.exception_handler import CustomException
 class FeatureEngineering:
 
     def __init__(self, config: FeatureEngineeringConfig):
+
         self.config = config
 
         self.sensor_columns = [
@@ -26,17 +27,15 @@ class FeatureEngineering:
 
             df = df.copy()
 
-            # ---------------------------------------------------------
             # 1. Sort chronologically
-            # ---------------------------------------------------------
 
-            df = df.sort_values("UDI").reset_index(drop=True)
+            df = df.sort_values(
+                "UDI"
+            ).reset_index(drop=True)
 
             features = {}
 
-            # ---------------------------------------------------------
             # 2. Domain features
-            # ---------------------------------------------------------
 
             features["Temperature Difference"] = (
                 df["Process temperature [K]"]
@@ -51,7 +50,10 @@ class FeatureEngineering:
 
             features["Torque Speed Ratio"] = (
                 df["Torque [Nm]"]
-                / (df["Rotational speed [rpm]"] + 1e-6)
+                / (
+                    df["Rotational speed [rpm]"]
+                    + 1e-6
+                )
             )
 
             features["Tool Wear Risk"] = (
@@ -63,9 +65,7 @@ class FeatureEngineering:
                 * df["Process temperature [K]"]
             )
 
-            # ---------------------------------------------------------
             # 3. Interaction features
-            # ---------------------------------------------------------
 
             features["Temperature_Torque_Interaction"] = (
                 features["Temperature Difference"]
@@ -82,9 +82,7 @@ class FeatureEngineering:
                 * features["Mechanical Power"]
             )
 
-            # ---------------------------------------------------------
             # 4. Add all features at once
-            # ---------------------------------------------------------
 
             feature_df = pd.DataFrame(
                 features,
@@ -96,9 +94,7 @@ class FeatureEngineering:
                 axis=1
             )
 
-            # ---------------------------------------------------------
             # 5. Remove invalid rows
-            # ---------------------------------------------------------
 
             df = df.replace(
                 [np.inf, -np.inf],
@@ -106,15 +102,21 @@ class FeatureEngineering:
             )
 
             if self.config is not None:
-                df = df.dropna().reset_index(drop=True)
-            else:
-                df = df.reset_index(drop=True)
 
-            # ---------------------------------------------------------
+                df = df.dropna().reset_index(
+                    drop=True
+                )
+
+            else:
+
+                df = df.reset_index(
+                    drop=True
+                )
+
             # 6. Safety check
-            # ---------------------------------------------------------
 
             if df.empty:
+
                 raise ValueError(
                     "Feature engineering produced an empty dataset."
                 )
@@ -195,3 +197,4 @@ class FeatureEngineering:
         except Exception as e:
 
             raise CustomException(e, sys)
+        
