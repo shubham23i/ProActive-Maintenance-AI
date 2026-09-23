@@ -52,9 +52,7 @@ class AnomalyDetection:
 
             df = self.load_data()
 
-            # -------------------------------------------------
             # Chronological training split
-            # -------------------------------------------------
 
             if "UDI" in df.columns:
 
@@ -88,9 +86,7 @@ class AnomalyDetection:
                 f"{X.shape}"
             )
 
-            # -------------------------------------------------
             # Train only on training data
-            # -------------------------------------------------
 
             self.model.fit(X)
 
@@ -134,14 +130,11 @@ class AnomalyDetection:
             )[0]
 
             if prediction == -1:
-
                 anomaly_status = "ANOMALY"
-
             else:
-
                 anomaly_status = "NORMAL"
 
-            result = {
+            return {
                 "anomaly_prediction": int(
                     prediction
                 ),
@@ -152,12 +145,6 @@ class AnomalyDetection:
                 "anomaly_status": anomaly_status
             }
 
-            logging.info(
-                f"Anomaly detection result: {result}"
-            )
-
-            return result
-
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -165,19 +152,15 @@ class AnomalyDetection:
 
         try:
 
-            logging.info("=" * 60)
             logging.info(
                 "ANOMALY DETECTION STARTED"
             )
-            logging.info("=" * 60)
 
             model = self.train()
 
             logging.info(
                 "Anomaly Detection Completed"
             )
-
-            logging.info("=" * 60)
 
             return model
 
